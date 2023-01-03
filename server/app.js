@@ -6,6 +6,8 @@ import compression from 'compression';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import createError from 'http-errors';
+import passport from 'passport';
+import cookieParser from 'cookie-parser';
 
 import usersRouter from './routes/users.js';
 
@@ -28,8 +30,9 @@ const app = express();
 app.listen(PORT, () => console.log(`Express server running on port ${PORT}`));
 
 // Middleware
-app.use([express.json(), helmet(), cors(), compression()]);
+app.use([express.json(), cookieParser(), cors(), passport.initialize()]);
 NODE_ENV === 'development' && app.use(morgan('dev'));
+NODE_ENV !== 'development' && app.use([helmet(), compression()]);
 
 // Routes
 app.use('/api/v1/users', usersRouter);
@@ -41,7 +44,7 @@ app.use((_req, _res, next) => next(createError(404, 'Resource not found')));
 app.use((err, _req, res, _next) => {
     const error = {
         status: err.status || 500,
-        title: err.status === 404 ? err.message : 'Server error',
+        title: err.status ? err.message : 'Server error',
         detail: []
     };
 
