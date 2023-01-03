@@ -1,0 +1,20 @@
+{
+    "name": "sweetleaf",
+    "version": "1.0.0",
+    "description": "A prototype of a tea subscription service",
+    "main": "index.js",
+    "scripts": {
+        "start": "npm start --prefix server",
+        "watch": "npm run watch --prefix server & npm start --prefix client"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/panypticon/sweetleaf.git"
+    },
+    "author": "Alex Menger",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/panypticon/sweetleaf/issues"
+    },
+    "homepage": "https://github.com/panypticon/sweetleaf#readme"
+}
