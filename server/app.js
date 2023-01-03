@@ -41,7 +41,7 @@ app.use((_req, _res, next) => next(createError(404, 'Resource not found')));
 app.use((err, _req, res, _next) => {
     const error = {
         status: err.status || 500,
-        title: err.message,
+        title: err.status === 404 ? err.message : 'Server error',
         detail: []
     };
 
