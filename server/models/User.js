@@ -1,6 +1,11 @@
 import mongoose from 'mongoose';
 import isEmail from 'validator/lib/isEmail.js';
-import { hash } from 'bcrypt';
+import { hash, compare } from 'bcrypt';
+import { promisify } from 'util';
+import jwt from 'jsonwebtoken';
+
+const sign = promisify(jwt.sign);
+const verify = promisify(jwt.verify);
 
 const userSchema = new mongoose.Schema(
     {
@@ -46,6 +51,16 @@ const userSchema = new mongoose.Schema(
 userSchema.pre('save', async function (next) {
     this.password = await hash(this.password, 12);
     next();
+});
+
+//// Authenticate password
+userSchema.method('authenticate', async function (enteredPassword) {
+    return await compare(enteredPassword, this.password);
+});
+
+// Generate JWT
+userSchema.method('generateToken', async function () {
+    return await sign({ id: this._id, type: 'auth' }, process.env.JWT_SECRET, { expiresIn: '7d' });
 });
 
 //// Limit sent values
