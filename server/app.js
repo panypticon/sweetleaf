@@ -5,6 +5,7 @@ import cors from 'cors';
 import compression from 'compression';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
+import createError from 'http-errors';
 
 import usersRouter from './routes/users.js';
 
@@ -33,7 +34,34 @@ NODE_ENV === 'development' && app.use(morgan('dev'));
 // Routes
 app.use('/api/v1/users', usersRouter);
 
+// 404 for non-existent routes
+app.use((_req, _res, next) => next(createError(404, 'Resource not found')));
+
 // Error handler
-app.use((err, req, res, next) => {
-    res.status(err.status || 500).send(err);
+app.use((err, _req, res, _next) => {
+    const error = {
+        status: err.status || 500,
+        title: err.message,
+        detail: []
+    };
+
+    switch (err.constructor.name) {
+        case 'SyntaxError':
+            error.title = 'Invalid JSON';
+            break;
+        case 'MongoServerError':
+            if (err.code === 11000) {
+                error.title = 'Validation errors';
+                error.detail = ['email', 'Email is already registered'];
+            }
+            break;
+        case 'ValidationError':
+            error.title = 'Validation errors';
+            error.detail = Object.entries(err.errors).reduce(
+                (errors, [key, error]) => [...errors, [key, error.message]],
+                []
+            );
+            break;
+    }
+    res.status(err.status || 500).send(error);
 });
