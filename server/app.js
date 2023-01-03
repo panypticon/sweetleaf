@@ -27,8 +27,13 @@ const app = express();
 app.listen(PORT, () => console.log(`Express server running on port ${PORT}`));
 
 // Middleware
-app.use([helmet(), cors(), compression()]);
+app.use([express.json(), helmet(), cors(), compression()]);
 NODE_ENV === 'development' && app.use(morgan('dev'));
 
 // Routes
 app.use('/api/v1/users', usersRouter);
+
+// Error handler
+app.use((err, req, res, next) => {
+    res.status(err.status || 500).send(err);
+});
