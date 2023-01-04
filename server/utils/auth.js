@@ -6,6 +6,8 @@ import 'dotenv/config';
 
 import User from '../models/User.js';
 
+console.log('JWT_SECRET', process.env.JWT_SECRET);
+
 passport.use(
     new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, async (email, password, done) => {
         try {
