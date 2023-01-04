@@ -1,6 +1,6 @@
 {
     "name": "sweetleaf",
-    "version": "1.0.0",
+    "version": "0.0.1",
     "description": "A prototype of a tea subscription service",
     "main": "index.js",
     "scripts": {
