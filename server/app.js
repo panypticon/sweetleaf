@@ -66,6 +66,7 @@ app.use((err, _req, res, _next) => {
             }
             break;
         case 'ValidationError':
+            error.status = 400;
             error.title = 'Validation errors';
             error.detail = Object.entries(err.errors).reduce(
                 (errors, [key, error]) => [...errors, [key, error.message]],
