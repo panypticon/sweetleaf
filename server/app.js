@@ -35,6 +35,7 @@ NODE_ENV === 'development' && app.use(morgan('dev'));
 NODE_ENV !== 'development' && app.use([helmet(), compression()]);
 
 // Routes
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/v1/users', usersRouter);
 
 // 404 for non-existent routes
