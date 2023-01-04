@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import userController from '../controllers/user.js';
-import { authLocal, authJWT } from '../utils/auth.js';
+import { authLocal } from '../utils/auth.js';
 
 const usersRouter = Router();
 
