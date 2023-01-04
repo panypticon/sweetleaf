@@ -1,3 +1,5 @@
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
 import express from 'express';
 import helmet from 'helmet';
@@ -10,6 +12,10 @@ import passport from 'passport';
 import cookieParser from 'cookie-parser';
 
 import usersRouter from './routes/users.js';
+
+//// Fix __dirname for ES6 modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 //// Environment config
 dotenv.config();
