@@ -5,7 +5,6 @@ import { promisify } from 'util';
 import jwt from 'jsonwebtoken';
 
 const sign = promisify(jwt.sign);
-const verify = promisify(jwt.verify);
 
 const userSchema = new mongoose.Schema(
     {
@@ -72,6 +71,6 @@ userSchema.set('toJSON', {
     }
 });
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', userSchema, 'users');
 
 export default User;
