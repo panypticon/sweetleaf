@@ -5,7 +5,8 @@
     "main": "index.js",
     "scripts": {
         "start": "npm start --prefix server",
-        "watch": "npm run watch --prefix server & npm start --prefix client"
+        "watch": "npm run watch --prefix server & npm start --prefix client",
+        "build": "npm run build --prefix client"
     },
     "repository": {
         "type": "git",
