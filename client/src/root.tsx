@@ -9,7 +9,7 @@ import GlobalStyle from './root.styled';
 const Root = (): JSX.Element => (
     <>
         <GlobalStyle />
-        <Layout className="Root">
+        <Layout className="Root" hasSider={false}>
             <Header />
             <Layout.Content>
                 <Outlet />

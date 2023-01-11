@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { ConfigProvider } from 'antd';
+import { App, ConfigProvider } from 'antd';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import reportWebVitals from './reportWebVitals';
@@ -45,7 +45,9 @@ root.render(
                 }
             }}
         >
-            <RouterProvider router={router} />
+            <App>
+                <RouterProvider router={router} />
+            </App>
         </ConfigProvider>
     </React.StrictMode>
 );
