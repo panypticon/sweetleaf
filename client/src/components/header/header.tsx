@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import { ShoppingOutlined, UserOutlined, SearchOutlined } from '@ant-design/icons';
+import { ShoppingOutlined, UserOutlined, SearchOutlined, MenuOutlined } from '@ant-design/icons';
 
 import Input from '../input/input';
+import Button from '../button/button';
 
 import { StyledNavLink, StyledHeader } from './header.styled';
 
@@ -33,8 +34,11 @@ const Header = (): JSX.Element => (
                 <Input type="search" placeholder="Search" prefix={<SearchOutlined />} />
             </div>
             <div className="Header__actions">
+                <Button>Discover your taste</Button>
+                <SearchOutlined className="Header__actions-search" />
                 <UserOutlined />
                 <ShoppingOutlined />
+                <MenuOutlined className="Header__actions-menu" />
             </div>
         </div>
     </StyledHeader>

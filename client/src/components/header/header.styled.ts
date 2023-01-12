@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { rgba } from 'polished';
 import { NavLink } from 'react-router-dom';
 
-import { colors, defaults } from '../../root.styled';
+import { colors, defaults, breakpoints } from '../../root.styled';
 
 export const StyledHeader = styled(Layout.Header)`
     && {
@@ -42,6 +42,10 @@ export const StyledHeader = styled(Layout.Header)`
                 li {
                     list-style: none;
                 }
+
+                @media (max-width: ${breakpoints.md}) {
+                    display: none;
+                }
             }
 
             &__search {
@@ -50,7 +54,7 @@ export const StyledHeader = styled(Layout.Header)`
                 border-left: 0.1rem solid ${colors.contrast['shade-6']};
                 display: flex;
                 align-items: center;
-                padding-left: 2.4rem;
+                padding-left: ${defaults.layoutPadding};
 
                 .ant-input {
                     &-affix-wrapper {
@@ -69,11 +73,18 @@ export const StyledHeader = styled(Layout.Header)`
                         margin-right: 1.2rem;
                     }
                 }
+
+                @media (max-width: ${breakpoints.md}) {
+                    display: none;
+                }
             }
 
             &__actions {
                 display: flex;
                 gap: 2.4rem;
+                margin-left: auto;
+                align-self: stretch;
+                align-items: center;
 
                 .anticon svg {
                     color: ${colors.contrast.dark};
@@ -82,6 +93,30 @@ export const StyledHeader = styled(Layout.Header)`
 
                     &:hover {
                         color: ${colors.steamed.standard};
+                    }
+                }
+
+                &-search,
+                &-menu {
+                    display: none;
+                }
+
+                @media (max-width: ${breakpoints.md}) {
+                    padding-left: ${defaults.layoutPadding};
+
+                    &-search,
+                    &-menu {
+                        display: inline-flex;
+                    }
+
+                    &-menu {
+                        margin-left: ${defaults.layoutPadding};
+                    }
+                }
+
+                @media (max-width: ${breakpoints.lg}) {
+                    .Button {
+                        display: none;
                     }
                 }
             }
