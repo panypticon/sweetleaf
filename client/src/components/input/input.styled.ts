@@ -1,9 +1,9 @@
-import { Input as InputAnt } from 'antd';
+import { Input } from 'antd';
 import styled from 'styled-components';
 
 import { colors } from '../../root.styled';
 
-const StyledInput = styled(InputAnt)`
+const StyledInput = styled(Input)`
     &,
     input {
         caret-color: ${colors.steamed.standard};
