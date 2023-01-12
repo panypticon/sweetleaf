@@ -11,6 +11,17 @@ export const colors = {
         'shade-6': '#dadcda',
         light: '#f8faf8'
     },
+    oolong: {
+        'darker-1': '#d5a024',
+        'darker-2': '#af841d',
+        'darker-3': '#8a6717',
+        'darker-4': '#644b11',
+        standard: '#fabc2a',
+        'lighter-1': '#fbc64a',
+        'lighter-2': '#fcd06a',
+        'lighter-3': '#fcda8a',
+        'lighter-4': '#fde4aa'
+    },
     steamed: {
         'darker-1': '#487b6c',
         'darker-2': '#3b6659',
@@ -25,6 +36,15 @@ export const colors = {
 };
 
 export const defaults = { layoutMaxWidth: '144rem', layoutPadding: '2.4rem' };
+
+export const breakpoints = {
+    xs: '30em', // '480px'
+    sm: '36em', // '576px'
+    md: '48em', // '768px'
+    lg: '62em', // '992px'
+    xl: '75em', // '1200px'
+    xxl: '100em' // '1600px'
+};
 
 const GlobalStyle = createGlobalStyle`
     .ant-layout {
