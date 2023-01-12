@@ -1,7 +1,6 @@
 import { Layout } from 'antd';
 import styled from 'styled-components';
 import { rgba } from 'polished';
-import { NavLink } from 'react-router-dom';
 
 import { colors, defaults, breakpoints } from '../../root.styled';
 
@@ -121,25 +120,5 @@ export const StyledHeader = styled(Layout.Header)`
                 }
             }
         }
-    }
-`;
-
-export const StyledNavLink = styled(NavLink)`
-    &:link,
-    &:visited,
-    &:hover,
-    &:active {
-        text-decoration: none;
-        color: ${colors.contrast.dark};
-        font-weight: 600;
-    }
-
-    &:hover {
-        border-bottom: 0.2rem solid ${colors.steamed.standard};
-        padding-bottom: 0.2rem;
-    }
-
-    &.active {
-        color: ${colors.steamed.standard};
     }
 `;
