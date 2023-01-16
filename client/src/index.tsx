@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { App, ConfigProvider } from 'antd';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Provider as ReduxProvider } from 'react-redux';
 
 import reportWebVitals from './reportWebVitals';
 import Root from './root';
@@ -9,6 +10,7 @@ import Home from './routes/home';
 import Teas from './routes/teas';
 import Tea from './routes/tea';
 import { colors } from './root.styled';
+import { store } from './store/store';
 
 import './index.scss';
 
@@ -46,9 +48,11 @@ root.render(
                 }
             }}
         >
-            <App>
-                <RouterProvider router={router} />
-            </App>
+            <ReduxProvider store={store}>
+                <App>
+                    <RouterProvider router={router} />
+                </App>
+            </ReduxProvider>
         </ConfigProvider>
     </React.StrictMode>
 );

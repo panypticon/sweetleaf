@@ -1,17 +1,20 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingOutlined, UserOutlined, SearchOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
 
 import Input from '../input/input';
 import Button from '../button/button';
 import Menu from './menu';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { selectappState } from '../../store/slices/appState';
+import { toggleMobileNav } from '../../store/slices/appState';
 
 import { StyledHeader } from './header.styled';
 
 import leafletLogo from '../../assets/leaflet-icon.svg';
 
 const Header = (): JSX.Element => {
-    const [mobileNavOpen, setMobileNavOpen] = useState(false);
+    const { mobileNavOpen } = useAppSelector(selectappState);
+    const dispatch = useAppDispatch();
 
     const MenuIcon = mobileNavOpen ? CloseOutlined : MenuOutlined;
 
@@ -36,7 +39,7 @@ const Header = (): JSX.Element => {
                             <ShoppingOutlined />
                         </>
                     )}
-                    <MenuIcon className="Header__actions-menu" onClick={() => setMobileNavOpen(prev => !prev)} />
+                    <MenuIcon className="Header__actions-menu" onClick={() => dispatch(toggleMobileNav())} />
                 </div>
             </div>
         </StyledHeader>
