@@ -1,7 +1,6 @@
-import { useState, useRef } from 'react';
-import { useEffect } from 'react';
+import React, { useState } from 'react';
 
-import { StyledNavLink, StyledMenuBlade } from './menu.styled';
+import { StyledNavLink, StyledMenuBlade, StyledMenu } from './menu.styled';
 
 const menuItems = [
     { label: 'Tea', link: '/tea', content: () => <div>Tea</div> },
@@ -10,36 +9,54 @@ const menuItems = [
     { label: 'About', link: '/about', content: () => <div>About</div> }
 ];
 
-const MenuBlade = ({ content }: { content: JSX.Element }): JSX.Element => (
-    <StyledMenuBlade className="MenuBlade">{content}</StyledMenuBlade>
+const MenuBlade = ({
+    content,
+    onMouseLeave
+}: {
+    content: JSX.Element;
+    onMouseLeave: (evt: React.MouseEvent) => void;
+}): JSX.Element => (
+    <StyledMenuBlade className="MenuBlade" onMouseLeave={onMouseLeave}>
+        {content}
+    </StyledMenuBlade>
 );
 
 const Menu = (): JSX.Element => {
     const [menuBladeContent, setMenuBladeContent] = useState<JSX.Element | null>(null);
 
-    const menuRef = useRef<HTMLUListElement>(null);
-
-    useEffect(() => {
-        const hideBlade = () => setMenuBladeContent(null);
-
-        const menu = menuRef.current;
-
-        if (menu) {
-            menu.addEventListener('mouseleave', hideBlade);
-            return () => menu.removeEventListener('mouseleave', hideBlade);
+    const hideBladefromMenu = (evt: React.MouseEvent): void => {
+        const node = evt.target as HTMLElement;
+        const container = node.closest('ul.Menu');
+        if (container) {
+            const { left: leftBoundary, right: rightBoundary } = container.getBoundingClientRect();
+            if (evt.pageX < leftBoundary || evt.pageX > rightBoundary) setMenuBladeContent(null);
         }
-    }, [menuRef]);
+    };
+
+    const hideBladefromBlade = (evt: React.MouseEvent): void => {
+        const node = evt.target as HTMLElement;
+        const container = node.closest('div.MenuBlade');
+        if (container) {
+            const {
+                left: leftBoundary,
+                right: rightBoundary,
+                bottom: bottomBoundary
+            } = container.getBoundingClientRect();
+            if (evt.pageX < leftBoundary || evt.pageX > rightBoundary || evt.pageY >= bottomBoundary)
+                setMenuBladeContent(null);
+        }
+    };
 
     return (
         <>
-            <ul className="Menu" ref={menuRef}>
+            <StyledMenu className="Menu" onMouseLeave={hideBladefromMenu}>
                 {menuItems.map(({ label, link, content }, i) => (
                     <li key={i} onMouseEnter={() => setMenuBladeContent(content)}>
                         <StyledNavLink to={link}>{label}</StyledNavLink>
                     </li>
                 ))}
-            </ul>
-            {menuBladeContent && <MenuBlade content={menuBladeContent} />}
+            </StyledMenu>
+            {menuBladeContent && <MenuBlade content={menuBladeContent} onMouseLeave={hideBladefromBlade} />}
         </>
     );
 };

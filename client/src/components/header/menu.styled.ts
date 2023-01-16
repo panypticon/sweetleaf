@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
-import { colors } from '../../root.styled';
+import { colors, defaults } from '../../root.styled';
+import { rgba } from 'polished';
 
 export const StyledNavLink = styled(NavLink)`
     &:link,
@@ -22,10 +23,21 @@ export const StyledNavLink = styled(NavLink)`
     }
 `;
 
+export const StyledMenu = styled.ul`
+    padding: 0 ${defaults.layoutPadding};
+    margin: 0 -2.4rem;
+`;
+
 export const StyledMenuBlade = styled.div`
     position: absolute;
     top: 6rem;
     left: 0;
     right: 0;
-    background-color: ${colors.contrast.light};
+    backdrop-filter: blur(5rem);
+    background: ${rgba(colors.steamed['lighter-4'], 0.8)};
+    max-width: ${defaults.layoutMaxWidth};
+    padding: ${defaults.layoutPadding};
+    border-bottom-left-radius: ${defaults.radiusDefault};
+    border-bottom-right-radius: ${defaults.radiusDefault};
+    margin: 0 auto;
 `;

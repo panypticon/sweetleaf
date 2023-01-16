@@ -6,16 +6,18 @@ import { colors, defaults, breakpoints } from '../../root.styled';
 
 export const StyledHeader = styled(Layout.Header)`
     && {
-        backdrop-filter: blur(5rem);
-        background: ${rgba(colors.contrast.light, 0.8)};
-        height: 6rem;
         position: fixed;
+        height: 6rem;
+        backdrop-filter: blur(5rem);
         top: 0;
         left: 0;
         right: 0;
         padding: 0;
         line-height: unset;
+        background: ${rgba(colors.contrast.light, 0.8)};
         border-bottom: 0.1rem solid ${colors.contrast['shade-6']};
+        box-shadow: 0 0 1.2rem ${rgba(colors.contrast.dark, 0.075)};
+        z-index: 100;
 
         .Header {
             &__logo {
@@ -30,6 +32,10 @@ export const StyledHeader = styled(Layout.Header)`
                 align-items: center;
                 gap: 4.8rem;
                 margin: 0 auto;
+
+                @media (max-width: ${breakpoints.md}) {
+                    gap: 2.4rem;
+                }
             }
 
             &__nav {
@@ -43,7 +49,31 @@ export const StyledHeader = styled(Layout.Header)`
                 }
 
                 @media (max-width: ${breakpoints.md}) {
+                    position: absolute;
+                    top: 6rem;
+                    left: 0;
+                    right: 0;
+                    height: calc(100vh - 6rem);
+                    background-color: ${colors.steamed['lighter-4']};
                     display: none;
+
+                    &--mobile-open {
+                        display: unset;
+                        align-items: center;
+                    }
+
+                    ul.Menu {
+                        flex-direction: column;
+                        margin: 0;
+                        padding: 4.8rem 2.4rem;
+                        text-align: center;
+                        font-size: 1.25em;
+                        gap: 4.8rem;
+                    }
+
+                    div.MenuBlade {
+                        display: none;
+                    }
                 }
             }
 
@@ -85,13 +115,17 @@ export const StyledHeader = styled(Layout.Header)`
                 align-self: stretch;
                 align-items: center;
 
-                .anticon svg {
-                    color: ${colors.contrast.dark};
-                    width: 2.4rem;
-                    height: 2.4rem;
+                .anticon {
+                    cursor: pointer;
 
-                    &:hover {
-                        color: ${colors.steamed.standard};
+                    svg {
+                        color: ${colors.contrast.dark};
+                        width: 2.4rem;
+                        height: 2.4rem;
+
+                        &:hover {
+                            color: ${colors.steamed.standard};
+                        }
                     }
                 }
 
@@ -101,7 +135,7 @@ export const StyledHeader = styled(Layout.Header)`
                 }
 
                 @media (max-width: ${breakpoints.md}) {
-                    padding-left: ${defaults.layoutPadding};
+                    /* padding-left: ${defaults.layoutPadding}; */
 
                     &-search,
                     &-menu {
