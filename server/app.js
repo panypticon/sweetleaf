@@ -42,6 +42,7 @@ NODE_ENV !== 'development' && app.use([helmet(), compression()]);
 
 // Routes
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use('/api/v1/users', usersRouter);
 
 // 404 for non-existent routes
