@@ -1,9 +1,14 @@
+import { InputRef } from 'antd';
+import { forwardRef } from 'react';
+
 import StyledInput from './input.styled';
 
 interface Props {
     [x: string]: any;
 }
 
-const Input = (props: Props): JSX.Element => <StyledInput className="Input" {...props} />;
+const Input = forwardRef<InputRef, Props>(
+    (props: Props, ref): JSX.Element => <StyledInput className="Input" ref={ref} {...props} />
+);
 
 export default Input;

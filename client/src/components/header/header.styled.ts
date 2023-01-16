@@ -104,7 +104,24 @@ export const StyledHeader = styled(Layout.Header)`
                 }
 
                 @media (max-width: ${breakpoints.md}) {
+                    position: absolute;
+                    top: 6rem;
+                    left: 0;
+                    right: 0;
+                    border-left-width: 0;
+                    background: ${rgba(colors.contrast.light, 0.8)};
+                    border-bottom: 0.1rem solid ${colors.contrast['shade-6']};
+                    backdrop-filter: blur(5rem);
+                    height: 6rem;
                     display: none;
+
+                    &--mobile-open {
+                        display: flex;
+                    }
+
+                    .anticon svg {
+                        display: none;
+                    }
                 }
             }
 
@@ -135,8 +152,6 @@ export const StyledHeader = styled(Layout.Header)`
                 }
 
                 @media (max-width: ${breakpoints.md}) {
-                    /* padding-left: ${defaults.layoutPadding}; */
-
                     &-search,
                     &-menu {
                         display: inline-flex;
