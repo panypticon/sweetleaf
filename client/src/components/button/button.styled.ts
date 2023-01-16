@@ -16,6 +16,7 @@ const StyledButton = styled(Button)`
         &-default {
             border: 0.2rem solid ${colors.oolong.standard};
             padding: 0 1.4rem;
+            background-color: transparent;
         }
     }
 `;
