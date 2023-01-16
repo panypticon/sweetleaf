@@ -11,6 +11,17 @@ export const colors = {
         'shade-6': '#dadcda',
         light: '#f8faf8'
     },
+    fermented: {
+        'darker-1': '#764a4e',
+        'darker-2': '#613d40',
+        'darker-3': '#4c3033',
+        'darker-4': '#382325',
+        standard: '#8b575c',
+        'lighter-1': '#9c7074',
+        'lighter-2': '#ae898d',
+        'lighter-3': '#bfa3a5',
+        'lighter-4': '#d1bcbe'
+    },
     oolong: {
         'darker-1': '#d5a024',
         'darker-2': '#af841d',
@@ -35,7 +46,7 @@ export const colors = {
     }
 };
 
-export const defaults = { layoutMaxWidth: '144rem', layoutPadding: '2.4rem' };
+export const defaults = { layoutMaxWidth: '144rem', layoutPadding: '2.4rem', radiusDefault: '0.8rem' };
 
 export const breakpoints = {
     xs: '30em', // '480px'
