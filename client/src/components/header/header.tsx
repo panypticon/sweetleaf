@@ -6,7 +6,7 @@ import Button from '../button/button';
 import Menu from './menu';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { selectappState } from '../../store/slices/appState';
-import { toggleMobileNav } from '../../store/slices/appState';
+import { setMobileNavState } from '../../store/slices/appState';
 
 import { StyledHeader } from './header.styled';
 
@@ -39,7 +39,10 @@ const Header = (): JSX.Element => {
                             <ShoppingOutlined />
                         </>
                     )}
-                    <MenuIcon className="Header__actions-menu" onClick={() => dispatch(toggleMobileNav())} />
+                    <MenuIcon
+                        className="Header__actions-menu"
+                        onClick={() => dispatch(setMobileNavState(!mobileNavOpen))}
+                    />
                 </div>
             </div>
         </StyledHeader>

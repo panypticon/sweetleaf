@@ -13,13 +13,13 @@ export const appStateSlice = createSlice({
     name: 'appState',
     initialState,
     reducers: {
-        toggleMobileNav: state => {
-            state.mobileNavOpen = !state.mobileNavOpen;
+        setMobileNavState: (state, action: PayloadAction<boolean>) => {
+            state.mobileNavOpen = action.payload;
         }
     }
 });
 
-export const { toggleMobileNav } = appStateSlice.actions;
+export const { setMobileNavState } = appStateSlice.actions;
 
 export const selectappState = (state: RootState) => state.appState;
 
