@@ -6,7 +6,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 
 import reportWebVitals from './reportWebVitals';
 import Root from './root';
-import Home from './routes/home';
+import Home from './routes/home/home';
 import Teas from './routes/teas';
 import Tea from './routes/tea';
 import { colors } from './root.styled';
