@@ -18,6 +18,10 @@ const StyledButton = styled(Button)`
             padding: 0 1.4rem;
             background-color: transparent;
         }
+
+        &-primary {
+            color: currentColor;
+        }
     }
 `;
 
