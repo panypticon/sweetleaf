@@ -58,12 +58,29 @@ export const breakpoints = {
 };
 
 const GlobalStyle = createGlobalStyle`
+    h1, h2, h3, h4, h5, h6 {
+        font-weight: 900;
+        color: ${colors.steamed.standard}
+    }
+
+    h1 {
+        font-size: 4rem;
+        line-height: 1.2;
+        margin-bottom: ${defaults.layoutPadding}
+    }
+
+    h2 {
+        font-size: 3.2rem;
+    }
+
     .ant-layout {
         min-height: 100vh;
         position: relative;
 
         &-content {
-            margin-top: 6rem;
+            margin: 6rem auto 0 auto;
+            max-width: ${defaults.layoutMaxWidth};
+            width: 100%;
         }
     }
 `;
