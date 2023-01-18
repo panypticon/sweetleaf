@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 import isEmail from 'validator/lib/isEmail.js';
 import { hash, compare } from 'bcrypt';
 import { promisify } from 'util';
@@ -6,7 +6,7 @@ import jwt from 'jsonwebtoken';
 
 const sign = promisify(jwt.sign);
 
-const userSchema = new mongoose.Schema(
+const userSchema = new Schema(
     {
         firstName: {
             type: String,
@@ -71,6 +71,6 @@ userSchema.set('toJSON', {
     }
 });
 
-const User = mongoose.model('User', userSchema, 'users');
+const User = model('User', userSchema, 'users');
 
 export default User;
