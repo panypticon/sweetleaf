@@ -3,9 +3,11 @@ import { Schema, model } from 'mongoose';
 const productSchema = new Schema({
     type: {
         type: String,
-        enum: [['tea', 'gear'], 'Type is invalid'],
-        required: [true, 'Type is required'],
-        trim: true
+        enum: {
+            values: ['tea', 'gear'],
+            message: 'Invalid type'
+        },
+        required: [true, 'Type is required']
     },
     category: {
         type: String,
