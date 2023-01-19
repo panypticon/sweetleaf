@@ -40,15 +40,30 @@ const userSchema = new Schema(
                 'Password must be 8+ characters long and must include upper- and lower-case letters, numbers, and special characters'
             ],
             maxlength: [256, 'Password is too long']
+        },
+        role: {
+            type: String,
+            enum: {
+                values: ['admin', 'user'],
+                message: 'Invalid role'
+            },
+            default: 'user'
         }
     },
     { timestamps: true }
 );
 
 //// Hooks
-// Encrypt password
+// Save: Encrypt password and set default role to 'user'
 userSchema.pre('save', async function (next) {
     this.password = await hash(this.password, 12);
+    if (this.isNew) this.role = 'user';
+    next();
+});
+// Update: Encrypt password, if a new one is set, and make sure user roles can't be escalated
+userSchema.pre('findOneAndUpdate', async function (next) {
+    if (this._update.password) this._update.password = await hash(this._update.password, 12);
+    delete this._update.role;
     next();
 });
 
