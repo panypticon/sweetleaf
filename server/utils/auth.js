@@ -83,12 +83,18 @@ export const authLocal = passport.authenticate('local', { session: false });
 export const isLoggedIn = passport.authenticate('jwt', { session: false });
 export const authGoogle = passport.authenticate('google', { session: false });
 
-export const isAdmin = (req, _, next) => {
-    if (req.user.role === 'admin') next();
-    else next(createError.Unauthorized());
-};
+export const isAdmin = [
+    isLoggedIn,
+    (req, _, next) => {
+        if (req.user.role === 'admin') next();
+        else next(createError.Unauthorized());
+    }
+];
 
-export const isUserOrAdmin = (req, _, next) => {
-    if (req.user.role === 'admin' || req.params.id === req.user.id) next();
-    else next(createError.Unauthorized());
-};
+export const isUserOrAdmin = [
+    isLoggedIn,
+    (req, _, next) => {
+        if (req.user.role === 'admin' || req.params.id === req.user.id) next();
+        else next(createError.Unauthorized());
+    }
+];
