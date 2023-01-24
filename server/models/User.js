@@ -4,21 +4,16 @@ import { hash, compare } from 'bcrypt';
 import { promisify } from 'util';
 import jwt from 'jsonwebtoken';
 
+import addressSchema from './Address.js';
+
 const sign = promisify(jwt.sign);
 
 const userSchema = new Schema(
     {
-        firstName: {
-            type: String,
-            required: [true, 'First name is required'],
-            trim: true,
-            maxlength: [128, 'First name is too long']
-        },
-        lastName: {
-            type: String,
-            required: [true, 'Last name is required'],
-            trim: true,
-            maxlength: [128, 'Last name is too long']
+        address: {
+            type: addressSchema,
+            default: undefined,
+            required: true
         },
         email: {
             type: String,
@@ -81,8 +76,8 @@ userSchema.method('generateToken', async function () {
 userSchema.set('toJSON', {
     virtuals: true,
     transform: (_, vals) => {
-        const { firstName, lastName, email, id } = vals;
-        return { firstName, lastName, email, id };
+        const { address, email, id } = vals;
+        return { address, email, id };
     }
 });
 
