@@ -72,7 +72,6 @@ const productSchema = new Schema(
             validate: {
                 validator: async function (attrs) {
                     let _this = this;
-                    console.log(this.constructor.name);
                     if (this.constructor.name === 'Query') {
                         const id = this.getQuery()._id.toString();
                         _this = await Product.findById(id);
