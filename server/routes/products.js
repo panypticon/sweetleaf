@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import productController from '../controllers/products.js';
+import productController from '../controllers/product.js';
 import { isAdmin } from '../utils/auth.js';
 
 const productsRouter = Router();
