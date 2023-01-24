@@ -1,10 +1,12 @@
 import createError from 'http-errors';
+import { Types } from 'mongoose';
 
 import User from '../models/User.js';
 
 const userController = {
     delete: async ({ params: { id }, res, next }) => {
         try {
+            if (!Types.ObjectId.isValid(id)) throw new createError.NotFound();
             const user = await User.findByIdAndDelete(id);
             if (!user) throw new createError.NotFound();
             res.status(204).send();
@@ -22,6 +24,7 @@ const userController = {
     },
     getOne: async ({ params: { id } }, res, next) => {
         try {
+            if (!Types.ObjectId.isValid(id)) throw new createError.NotFound();
             const user = await User.findById(id);
             if (!user) throw new createError.NotFound();
             res.status(200).json(user);
@@ -60,6 +63,7 @@ const userController = {
     },
     update: async ({ params: { id }, body }, res, next) => {
         try {
+            if (!Types.ObjectId.isValid(id)) throw new createError.NotFound();
             const user = await User.findByIdAndUpdate(id, body, { new: true, runValidators: true });
             if (!user) throw new createError.NotFound();
             res.status(200).json(user);
