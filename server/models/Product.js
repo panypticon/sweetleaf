@@ -39,7 +39,7 @@ const productSchema = new Schema(
     {
         name: {
             type: String,
-            required: [true, 'Label is required'],
+            required: [true, 'Name is required'],
             trim: true
         },
         description: {
@@ -102,11 +102,15 @@ productSchema.virtual('image').get(function () {
     return `assets/${this.id}.jpeg`;
 });
 
+productSchema.virtual('new').get(function () {
+    return Date.now() - Date.parse(this.createdAt) < 28 * 24 * 60 * 60 * 1000;
+});
+
 productSchema.set('toJSON', {
     virtuals: true,
     transform: (_, vals) => {
-        const { id, name, type, category, attributes, inventory, image } = vals;
-        return { id, name, type, category, attributes, inventory, image };
+        const { id, name, type, category, attributes, inventory, image, new: isNew } = vals;
+        return { id, name, type, category, attributes, inventory, image, new: isNew };
     }
 });
 
