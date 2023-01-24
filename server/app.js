@@ -13,6 +13,7 @@ import cookieParser from 'cookie-parser';
 
 import usersRouter from './routes/users.js';
 import productsRouter from './routes/products.js';
+import ordersRouter from './routes/orders.js';
 
 //// Fix __dirname for ES6 modules
 const __filename = fileURLToPath(import.meta.url);
@@ -45,6 +46,7 @@ NODE_ENV !== 'development' && app.use([helmet(), compression()]);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/products', productsRouter);
+app.use('/api/v1/orders', ordersRouter);
 
 // 404 for non-existent routes
 app.use((_req, _res, next) => next(createError(404, 'Resource not found')));
