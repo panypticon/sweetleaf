@@ -98,3 +98,11 @@ export const isUserOrAdmin = [
         else next(createError.Unauthorized());
     }
 ];
+
+export const isEmbeddedUserOrAdmin = [
+    isLoggedIn,
+    (req, _, next) => {
+        if (req.user.role === 'admin' || req.body.user === req.user.id) next();
+        else next(createError.Unauthorized());
+    }
+];
