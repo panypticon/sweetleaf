@@ -57,7 +57,7 @@ const productController = {
     },
     getAll: async (_, res, next) => {
         try {
-            const products = await Product.find();
+            const products = await Product.find().populate('purchases');
             res.status(200).json(products);
         } catch (err) {
             next(err);

@@ -102,6 +102,8 @@ productSchema.virtual('image').get(function () {
     return `assets/${this.id}.jpeg`;
 });
 
+productSchema.virtual('purchases', { ref: 'Order', localField: '_id', foreignField: 'items.product', count: true });
+
 productSchema.virtual('new').get(function () {
     return Date.now() - Date.parse(this.createdAt) < 28 * 24 * 60 * 60 * 1000;
 });
@@ -109,8 +111,8 @@ productSchema.virtual('new').get(function () {
 productSchema.set('toJSON', {
     virtuals: true,
     transform: (_, vals) => {
-        const { id, name, type, category, attributes, inventory, image, new: isNew } = vals;
-        return { id, name, type, category, attributes, inventory, image, new: isNew };
+        const { id, name, type, category, attributes, inventory, image, new: isNew, purchases } = vals;
+        return { id, name, type, category, attributes, inventory, image, new: isNew, purchases };
     }
 });
 
