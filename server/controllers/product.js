@@ -11,8 +11,8 @@ class ProductController extends GenericController {
 
     getAll = async (_, res, next) => {
         try {
-            const products = await Product.find().populate('purchases');
-            res.status(200).json(products);
+            const docs = await Product.find().populate('purchases');
+            res.status(200).json(docs);
         } catch (err) {
             next(err);
         }
@@ -21,9 +21,9 @@ class ProductController extends GenericController {
     getOne = async ({ params: { id } }, res, next) => {
         try {
             if (!Types.ObjectId.isValid(id)) throw new createError.NotFound();
-            const product = await Product.findById(id).populate('purchases');
-            if (!product) throw new createError.NotFound();
-            res.status(200).json(product);
+            const doc = await this.Model.findById(id).populate('purchases');
+            if (!doc) throw new createError.NotFound();
+            res.status(200).json(doc);
         } catch (err) {
             next(err);
         }
@@ -56,8 +56,8 @@ class ProductController extends GenericController {
                         return acc;
                 }
             }, {});
-            const products = await Product.find(search);
-            res.status(200).json(products);
+            const docs = await Product.find(search);
+            res.status(200).json(docs);
         } catch (err) {
             next(err);
         }
