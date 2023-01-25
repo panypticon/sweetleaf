@@ -1,6 +1,3 @@
-import createError from 'http-errors';
-import { Types } from 'mongoose';
-
 import User from '../models/User.js';
 import GenericController from './generic.js';
 
