@@ -2,27 +2,34 @@ import createError from 'http-errors';
 import Product from '../models/Product.js';
 import { Types } from 'mongoose';
 
-const productController = {
-    add: async (req, res, next) => {
+import GenericController from './generic.js';
+
+class ProductController extends GenericController {
+    constructor(Model) {
+        super(Model);
+    }
+
+    getAll = async (_, res, next) => {
         try {
-            const newProduct = new Product(req.body);
-            await newProduct.save();
-            res.status(201).json(newProduct);
+            const products = await Product.find().populate('purchases');
+            res.status(200).json(products);
         } catch (err) {
             next(err);
         }
-    },
-    delete: async ({ params: { id }, res, next }) => {
+    };
+
+    getOne = async ({ params: { id } }, res, next) => {
         try {
             if (!Types.ObjectId.isValid(id)) throw new createError.NotFound();
-            const product = await Product.findByIdAndDelete(id);
+            const product = await Product.findById(id).populate('purchases');
             if (!product) throw new createError.NotFound();
-            res.status(204).send();
+            res.status(200).json(product);
         } catch (err) {
             next(err);
         }
-    },
-    query: async ({ query }, res, next) => {
+    };
+
+    query = async ({ query }, res, next) => {
         try {
             const search = Object.entries(query).reduce((acc, [key, value]) => {
                 switch (key) {
@@ -54,38 +61,7 @@ const productController = {
         } catch (err) {
             next(err);
         }
-    },
-    getAll: async (_, res, next) => {
-        try {
-            const products = await Product.find().populate('purchases');
-            res.status(200).json(products);
-        } catch (err) {
-            next(err);
-        }
-    },
-    getOne: async ({ params: { id } }, res, next) => {
-        try {
-            if (!Types.ObjectId.isValid(id)) throw new createError.NotFound();
-            const product = await Product.findById(id);
-            if (!product) throw new createError.NotFound();
-            res.status(200).json(product);
-        } catch (err) {
-            next(err);
-        }
-    },
-    update: async ({ params: { id }, body }, res, next) => {
-        try {
-            if (!Types.ObjectId.isValid(id)) throw new createError.NotFound();
-            const product = await Product.findByIdAndUpdate(id, body, {
-                new: true,
-                runValidators: true
-            });
-            if (!product) throw new createError.NotFound();
-            res.status(200).json(product);
-        } catch (err) {
-            next(err);
-        }
-    }
-};
+    };
+}
 
-export default productController;
+export default new ProductController(Product);
