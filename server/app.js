@@ -59,6 +59,8 @@ app.use((err, _req, res, _next) => {
         detail: []
     };
 
+    NODE_ENV === 'development' && console.log(err);
+
     switch (err.constructor.name) {
         case 'SyntaxError':
             error.title = 'Invalid JSON';
