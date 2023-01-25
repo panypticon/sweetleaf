@@ -10,10 +10,10 @@ class OrderController extends GenericController {
 
     getAll = async (_, res, next) => {
         try {
-            const orders = await this.Model.find()
+            const docs = await this.Model.find()
                 .populate({ path: 'user', options: { lean: true, select: 'address email' } })
                 .populate({ path: 'items.product', options: { lean: true, select: 'name' } });
-            res.status(200).json(orders);
+            res.status(200).json(docs);
         } catch (err) {
             next(err);
         }
