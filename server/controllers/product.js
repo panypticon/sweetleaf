@@ -1,8 +1,42 @@
 import createError from 'http-errors';
-import Product from '../models/Product.js';
 import { Types } from 'mongoose';
 
+import Product from '../models/Product.js';
 import GenericController from './generic.js';
+
+const pipeline = [
+    {
+        $lookup: {
+            from: 'ratings',
+            localField: '_id',
+            foreignField: 'product',
+            as: 'ratings.ratings'
+        }
+    },
+    {
+        $lookup: {
+            from: 'orders',
+            localField: '_id',
+            foreignField: 'items.product',
+            as: 'purchases.purchases'
+        }
+    },
+    {
+        $addFields: {
+            'purchases.count': { $size: '$purchases.purchases' },
+            'ratings.count': { $size: '$ratings.ratings' },
+            'ratings.average': {
+                $function: {
+                    args: ['$ratings.ratings'],
+                    lang: 'js',
+                    body: function (ratings) {
+                        return ratings.reduce((acc, rating) => acc + rating.rating, 0) / ratings.length || 0;
+                    }
+                }
+            }
+        }
+    }
+];
 
 class ProductController extends GenericController {
     constructor(Model) {
@@ -11,7 +45,7 @@ class ProductController extends GenericController {
 
     getAll = async (_, res, next) => {
         try {
-            const docs = await Product.find().populate('purchases');
+            const docs = await this.Model.aggregate(pipeline).then(docs => docs.map(doc => this.Model.hydrate(doc)));
             res.status(200).json(docs);
         } catch (err) {
             next(err);
@@ -21,9 +55,11 @@ class ProductController extends GenericController {
     getOne = async ({ params: { id } }, res, next) => {
         try {
             if (!Types.ObjectId.isValid(id)) throw new createError.NotFound();
-            const doc = await this.Model.findById(id).populate('purchases');
-            if (!doc) throw new createError.NotFound();
-            res.status(200).json(doc);
+            const doc = await this.Model.aggregate([{ $match: { _id: Types.ObjectId(id) } }, ...pipeline]).then(docs =>
+                docs.map(doc => this.Model.hydrate(doc))
+            );
+            if (doc.length < 1) throw new createError.NotFound();
+            res.status(200).json(doc[0]);
         } catch (err) {
             next(err);
         }
@@ -56,7 +92,9 @@ class ProductController extends GenericController {
                         return acc;
                 }
             }, {});
-            const docs = await Product.find(search);
+            const docs = await this.Model.aggregate([{ $match: search }, ...pipeline]).then(docs =>
+                docs.map(doc => this.Model.hydrate(doc))
+            );
             res.status(200).json(docs);
         } catch (err) {
             next(err);
