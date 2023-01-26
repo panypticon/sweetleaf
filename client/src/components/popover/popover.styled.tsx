@@ -20,6 +20,9 @@ const PopoverWrapper = ({
 );
 
 const StyledPopover = styled(PopoverWrapper)`
+    max-width: 28rem;
+    width: 100%;
+
     .ant-popover {
         &-inner {
             border-radius: unset;
