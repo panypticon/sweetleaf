@@ -1,7 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-const initialState = {};
+interface GlobalDataState {
+    user: Object | null;
+}
+
+const initialState: GlobalDataState = {
+    user: null
+};
 
 export const globalDataSlice = createSlice({
     name: 'globalData',
