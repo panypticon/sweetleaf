@@ -136,6 +136,9 @@ export const StyledHeader = styled(Layout.Header)`
                 align-items: center;
 
                 .anticon {
+                    padding: 0.8rem;
+                    margin-left: -0.8rem;
+                    margin-right: -0.8rem;
                     cursor: pointer;
 
                     svg {
