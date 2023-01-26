@@ -73,6 +73,10 @@ const GlobalStyle = createGlobalStyle`
         font-size: 3.2rem;
     }
 
+    h5 {
+        font-size: 1.8rem;
+    }
+
     .ant-layout {
         min-height: 100vh;
         position: relative;
