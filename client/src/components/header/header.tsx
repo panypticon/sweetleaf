@@ -9,6 +9,7 @@ import Menu from './menu';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { selectappState } from '../../store/slices/appState';
 import { setMobileNavState } from '../../store/slices/appState';
+import AccountPopover from './accountpopover';
 
 import { StyledHeader } from './header.styled';
 
@@ -60,7 +61,9 @@ const Header = (): JSX.Element => {
                                     setMobileSearchOpen(!mobileSearchOpen);
                                 }}
                             />
-                            <UserOutlined />
+                            <AccountPopover>
+                                <UserOutlined />
+                            </AccountPopover>
                             <ShoppingOutlined />
                         </>
                     )}
