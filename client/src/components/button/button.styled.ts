@@ -4,6 +4,12 @@ import styled from 'styled-components';
 import { colors } from '../../root.styled';
 
 const StyledButton = styled(Button)`
+    &.Button {
+        &--wide {
+            width: 100%;
+        }
+    }
+
     &.ant-btn {
         font-weight: 600;
         box-shadow: unset;
