@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { rgba } from 'polished';
 
 export const colors = {
     contrast: {
@@ -73,6 +74,10 @@ const GlobalStyle = createGlobalStyle`
         font-size: 3.2rem;
     }
 
+    h3 {
+        font-size: 2.8rem;
+    }
+
     h5 {
         font-size: 1.8rem;
     }
@@ -85,6 +90,16 @@ const GlobalStyle = createGlobalStyle`
             margin: 6rem auto 0 auto;
             max-width: ${defaults.layoutMaxWidth};
             width: 100%;
+        }
+    }
+
+    .ant-modal-root {
+        position: fixed;
+        top: 6rem;
+
+        .ant-modal-mask {
+            background-color: ${rgba(colors.contrast.light, 0.4)};
+            backdrop-filter: blur(2.5rem);
         }
     }
 `;

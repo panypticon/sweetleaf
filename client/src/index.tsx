@@ -11,6 +11,7 @@ import Teas from './routes/teas';
 import Tea from './routes/tea';
 import { colors } from './root.styled';
 import { store } from './store/store';
+import { ModalProvider } from './context/modalcontext';
 
 import './index.scss';
 
@@ -49,9 +50,11 @@ root.render(
             }}
         >
             <ReduxProvider store={store}>
-                <App>
-                    <RouterProvider router={router} />
-                </App>
+                <ModalProvider>
+                    <App>
+                        <RouterProvider router={router} />
+                    </App>
+                </ModalProvider>
             </ReduxProvider>
         </ConfigProvider>
     </React.StrictMode>

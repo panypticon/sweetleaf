@@ -169,9 +169,42 @@ export const StyledHeader = styled(Layout.Header)`
                 }
 
                 @media (max-width: ${breakpoints.lg}) {
-                    .Button {
+                    .Header__button-discover {
                         display: none;
                     }
+                }
+            }
+        }
+
+        &.Header--modalopen {
+            .ant-popover {
+                display: none;
+            }
+
+            .anticon {
+                cursor: default;
+
+                svg {
+                    &,
+                    &:hover {
+                        color: ${colors.contrast['shade-4']};
+                    }
+                }
+            }
+
+            .Header__nav {
+                .MenuBlade {
+                    display: none;
+                }
+            }
+        }
+
+        @media (max-width: ${breakpoints.sm}) {
+            .ant-popover {
+                max-width: 100% !important;
+
+                &-arrow {
+                    display: none;
                 }
             }
         }
