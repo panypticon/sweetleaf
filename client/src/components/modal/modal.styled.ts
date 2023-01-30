@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import { defaults } from '../../root.styled';
 
 const StyledModal = styled(Modal)`
+    max-width: 64rem;
+    padding: 2.4rem;
+
     .ant-modal {
         &-content {
             box-shadow: none;

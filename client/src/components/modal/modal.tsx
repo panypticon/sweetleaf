@@ -19,6 +19,7 @@ const Modal = ({ title, ...props }: Props) => {
             open={true}
             centered={true}
             onCancel={() => modalData?.setModal(null)}
+            width="100%"
             {...props}
         />
     );

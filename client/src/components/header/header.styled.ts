@@ -181,19 +181,8 @@ export const StyledHeader = styled(Layout.Header)`
                 display: none;
             }
 
-            .anticon {
-                cursor: default;
-
-                svg {
-                    &,
-                    &:hover {
-                        color: ${colors.contrast['shade-4']};
-                    }
-                }
-            }
-
-            .Header__nav {
-                .MenuBlade {
+            .Header__content {
+                *:not(:first-child) {
                     display: none;
                 }
             }
