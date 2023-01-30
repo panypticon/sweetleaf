@@ -1,8 +1,12 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { useResponsive } from 'ahooks';
 
 import { selectGlobalData } from '../../store/slices/globalData';
 import { useAppSelector } from '../../store/hooks';
 import Button from '../button/button';
+import { modalContext } from '../../context/modalcontext';
+import LoginModal from '../loginmodal/loginmodal';
 
 import StyledAccountPopover from './accountpopover.styled';
 
@@ -10,17 +14,21 @@ interface Props {
     [x: string]: any;
 }
 
-const AccountPopoverLogin = (): JSX.Element => (
-    <>
-        <Button type="primary" wide>
-            Log in
-        </Button>
-        <div className="AccountPopover__signup">
-            <p>New around here?</p>
-            <Button wide>Sign up </Button>
-        </div>
-    </>
-);
+const AccountPopoverLogin = (): JSX.Element => {
+    const modalData = useContext(modalContext);
+
+    return (
+        <>
+            <Button type="primary" wide onClick={() => modalData?.setModal(<LoginModal />)}>
+                Log in
+            </Button>
+            <div className="AccountPopover__signup">
+                <p>New around here?</p>
+                <Button wide>Sign up </Button>
+            </div>
+        </>
+    );
+};
 
 const AccountPopoverActions = (): JSX.Element => (
     <ul className="AccountPopover__items">
@@ -45,11 +53,13 @@ const AccountPopoverActions = (): JSX.Element => (
 const AccountPopover = (props: Props): JSX.Element => {
     const { user } = useAppSelector(selectGlobalData);
 
+    const { sm } = useResponsive();
+
     return (
         <StyledAccountPopover
             overlayClassName="AccountPopover"
             title={<h5>My Account</h5>}
-            placement="bottomRight"
+            placement={sm ? 'bottomRight' : 'bottom'}
             content={user ? <AccountPopoverActions /> : <AccountPopoverLogin />}
             getPopupContainer={() => document.querySelector('.Header .Header__actions')}
             align={{ offset: [4, -2] }}
