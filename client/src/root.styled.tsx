@@ -128,11 +128,10 @@ const GlobalStyle = createGlobalStyle`
 
             &-explain {
                 font-size: 1.4rem;
-                padding: 0.8rem 0 0 0.8rem;
+                padding: 0.8rem 0 2.4rem 0.8rem;
             }
 
             &-has-error {
-                margin-bottom: 4.8rem;
                 
                 input {
                     caret-color: ${colors.herbal.standard};
