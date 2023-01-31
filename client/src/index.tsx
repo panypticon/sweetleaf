@@ -42,6 +42,8 @@ root.render(
                     colorText: colors.contrast.dark,
                     colorTextBase: colors.contrast.dark,
                     colorTextPlaceholder: colors.contrast['shade-3'],
+                    colorError: colors.herbal.standard,
+                    colorErrorBorderHover: colors.herbal.standard,
                     controlHeight: 36,
                     fontFamily:
                         'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif',

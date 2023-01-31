@@ -20,6 +20,7 @@ const Modal = ({ title, ...props }: Props) => {
             centered={true}
             onCancel={() => modalData?.setModal(null)}
             width="100%"
+            destroyOnClose={true}
             {...props}
         />
     );

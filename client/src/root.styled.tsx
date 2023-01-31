@@ -44,6 +44,17 @@ export const colors = {
         'lighter-2': '#88b2a5',
         'lighter-3': '#a2c3b9',
         'lighter-4': '#bbd3cc'
+    },
+    herbal: {
+        'darker-1': '#b80e4c',
+        'darker-2': '#970c3e',
+        'darker-3': '#770931',
+        'darker-4': '#560724',
+        standard: '#d81159',
+        'lighter-1': '#de3572',
+        'lighter-2': '#e4588b',
+        'lighter-3': '#ea7ca4',
+        'lighter-4': '#efa0bd'
     }
 };
 
@@ -100,6 +111,66 @@ const GlobalStyle = createGlobalStyle`
         .ant-modal-mask {
             background-color: ${rgba(colors.contrast.light, 0.4)};
             backdrop-filter: blur(2.5rem);
+        }
+    }
+
+    .ant-form {
+        .ant-form-item {
+            &-label {
+                padding-left: 0.8rem;
+
+                > label {
+                    font-size: 1.4rem;
+                    font-weight: 600;
+                    color: ${colors.contrast['shade-3']};
+                }
+            }
+
+            &-explain {
+                font-size: 1.4rem;
+                padding: 0.8rem 0 0 0.8rem;
+            }
+
+            &-has-error {
+                margin-bottom: 4.8rem;
+                
+                input {
+                    caret-color: ${colors.herbal.standard};
+                }
+            }
+        }
+    }
+
+    .ant-input {
+        &,
+        &-affix-wrapper {
+            border-color: ${colors.contrast['shade-6']};
+            padding-left: 1.2rem;
+            caret-color: ${colors.steamed.standard};
+
+            &&:hover {
+                border-color: ${colors.steamed['lighter-3']};
+            }
+
+            &:focus {
+                &,
+                &:hover {
+                    border-color: ${colors.steamed.standard};
+                }
+            }
+
+            &-affix-wrapper-focused {
+                &,
+                &&:hover {
+                    border-color: ${colors.steamed.standard};
+                }
+            }
+        }
+
+        &::-webkit-search-cancel-button,
+        input::-webkit-search-cancel-button {
+            -webkit-appearance: none;
+            display: none;
         }
     }
 `;
