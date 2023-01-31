@@ -1,5 +1,6 @@
 import { Modal } from 'antd';
 import styled from 'styled-components';
+import { rgba } from 'polished';
 
 import { defaults, colors } from '../../root.styled';
 
@@ -13,7 +14,7 @@ const StyledModal = styled(Modal)`
         }
 
         &-content {
-            box-shadow: none;
+            box-shadow: 0 0 1.2rem ${rgba(colors.contrast.dark, 0.075)};
             border-radius: unset;
             padding: calc(${defaults.layoutPadding} * 2);
         }
