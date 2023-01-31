@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Form, Input } from 'antd';
 
 import Button from '../button/button';
+import Tag from '../tag/tag';
 
 import StyledLoginModal from './loginmodal.styled';
 
@@ -38,7 +39,7 @@ const LoginModal = (props: Props) => {
 
     return (
         <StyledLoginModal title="My Account" footer={null} {...props}>
-            {loginError && <p>{loginError}</p>}
+            {loginError && <Tag color="error">{loginError}</Tag>}
             <Form
                 form={form}
                 name="login"
