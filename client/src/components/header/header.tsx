@@ -56,6 +56,7 @@ const Header = (): JSX.Element => {
                         prefix={<SearchOutlined />}
                         onFocus={() => modalData?.setModal(false)}
                         ref={searchInputRef}
+                        bordered={false}
                     />
                 </div>
                 <div className="Header__actions">

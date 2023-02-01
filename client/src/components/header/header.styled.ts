@@ -86,13 +86,10 @@ export const StyledHeader = styled(Layout.Header)`
                 padding-left: ${defaults.layoutPadding};
 
                 .ant-input {
-                    background-color: transparent;
+                    caret-color: ${colors.contrast.dark};
 
                     &-affix-wrapper {
-                        border: unset;
-                        box-shadow: unset;
                         padding: 0;
-                        background-color: transparent;
 
                         .anticon svg {
                             color: ${colors.contrast.dark};
