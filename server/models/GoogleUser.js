@@ -2,19 +2,16 @@ import mongoose from 'mongoose';
 import { promisify } from 'util';
 import jwt from 'jsonwebtoken';
 
+import addressSchema from './Address.js';
+
 const sign = promisify(jwt.sign);
 
 const googleUserSchema = new mongoose.Schema(
     {
-        firstName: {
-            type: String,
-            required: [true, 'First name is required'],
-            trim: true
-        },
-        lastName: {
-            type: String,
-            required: [true, 'Last name is required'],
-            trim: true
+        address: {
+            type: addressSchema,
+            default: undefined,
+            required: true
         },
         email: {
             type: String,
@@ -39,8 +36,8 @@ googleUserSchema.method('generateToken', async function () {
 googleUserSchema.set('toJSON', {
     virtuals: true,
     transform: (_, vals) => {
-        const { firstName, lastName, email, id } = vals;
-        return { firstName, lastName, email, id };
+        const { address, email, id } = vals;
+        return { address, email, id };
     }
 });
 

@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Schema } from 'mongoose';
 
 const addressSchema = new Schema(
     {
@@ -16,19 +16,19 @@ const addressSchema = new Schema(
         },
         street: {
             type: String,
-            required: [true, 'Street address is required'],
+            // required: [true, 'Street address is required'],
             trim: true,
             maxlength: [256, 'Street address is too long']
         },
         city: {
             type: String,
-            required: [true, 'City is required'],
+            // required: [true, 'City is required'],
             trim: true,
             maxlength: [128, 'City is too long']
         },
         zip: {
             type: String,
-            required: [true, 'Zip code is required'],
+            // required: [true, 'Zip code is required'],
             trim: true,
             maxlength: [32, 'Zip code is too long']
         },

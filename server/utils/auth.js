@@ -64,8 +64,10 @@ passport.use(
                 if (user) return done(null, user);
                 else {
                     const newUser = new GoogleUser({
-                        firstName: name.givenName || 'J.',
-                        lastName: name.familyName || 'Doe',
+                        address: {
+                            firstName: name.givenName || 'J.',
+                            lastName: name.familyName || 'Doe'
+                        },
                         email: emails[0].value,
                         googleID: id
                     });
