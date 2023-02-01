@@ -21,14 +21,16 @@ const StyledAccountPopover = styled(Popover)`
             cursor: pointer;
 
             a {
-                display: block;
-
                 &:link,
-                &:hover,
                 &:visited,
                 &:active {
                     color: inherit;
                 }
+            }
+
+            a,
+            span {
+                display: block;
 
                 &:hover {
                     color: ${colors.fermented.standard};

@@ -16,9 +16,9 @@ interface Props {
 }
 
 const LoginModal = (props: Props) => {
-    const [form] = Form.useForm();
-
     const [loginError, setLoginError] = useState<String | null>(null);
+
+    const [form] = Form.useForm();
 
     const dispatch = useAppDispatch();
 

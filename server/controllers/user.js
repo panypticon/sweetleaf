@@ -36,6 +36,8 @@ class UserController extends GenericController {
                     })
                     .redirect('/');
         };
+
+    logOut = (_, res) => res.status(200).clearCookie('auth').clearCookie('login').send();
 }
 
 export default new UserController(User);

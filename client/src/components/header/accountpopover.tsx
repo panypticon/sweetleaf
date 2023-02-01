@@ -1,12 +1,15 @@
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useResponsive } from 'ahooks';
+import { useNavigate } from 'react-router-dom';
+import { message } from 'antd';
 
 import { selectGlobalData } from '../../store/slices/globalData';
-import { useAppSelector } from '../../store/hooks';
+import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import Button from '../button/button';
 import { modalContext } from '../../context/modalcontext';
 import LoginModal from '../loginmodal/loginmodal';
+import { removeUser } from '../../store/slices/globalData';
 
 import StyledAccountPopover from './accountpopover.styled';
 
@@ -30,28 +33,48 @@ const AccountPopoverLogin = (): JSX.Element => {
     );
 };
 
-const AccountPopoverActions = (): JSX.Element => (
-    <ul className="AccountPopover__items">
-        <li>
-            <Link to="/account">My account</Link>
-        </li>
-        <li>
-            <Link to="/account/orders">Orders</Link>
-        </li>
-        <li>
-            <Link to="/account/favorites">Favorites</Link>
-        </li>
-        <li>
-            <Link to="/account/recommendations">Recommendations</Link>
-        </li>
-        <li>
-            <Link to="/account/subscription">MyBox</Link>
-        </li>
-        <li>
-            <Link to="/">Log out</Link>
-        </li>
-    </ul>
-);
+const AccountPopoverActions = (): JSX.Element => {
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+    const [messageAPI, contextHolder] = message.useMessage();
+
+    return (
+        <ul className="AccountPopover__items">
+            <li>
+                <Link to="/account">My account</Link>
+            </li>
+            <li>
+                <Link to="/account/orders">Orders</Link>
+            </li>
+            <li>
+                <Link to="/account/favorites">Favorites</Link>
+            </li>
+            <li>
+                <Link to="/account/recommendations">Recommendations</Link>
+            </li>
+            <li>
+                <Link to="/account/subscription">MyBox</Link>
+            </li>
+            <li>
+                {contextHolder}
+                <span
+                    onClick={async () => {
+                        try {
+                            const res = await fetch('/api/v1/users/logouts');
+                            if (!res.ok) throw new Error();
+                            dispatch(removeUser());
+                            navigate('/');
+                        } catch (err) {
+                            messageAPI.error('Something went wrong, please try again later', 0);
+                        }
+                    }}
+                >
+                    Log out
+                </span>
+            </li>
+        </ul>
+    );
+};
 
 const AccountPopover = (props: Props): JSX.Element => {
     const { user } = useAppSelector(selectGlobalData);

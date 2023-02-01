@@ -26,13 +26,16 @@ export const globalDataSlice = createSlice({
     name: 'globalData',
     initialState,
     reducers: {
+        removeUser: state => {
+            state.user = null;
+        },
         setUser: (state, action: PayloadAction<User>) => {
             state.user = action.payload;
         }
     }
 });
 
-export const { setUser } = globalDataSlice.actions;
+export const { setUser, removeUser } = globalDataSlice.actions;
 
 export const selectGlobalData = (state: RootState) => state.globalData;
 

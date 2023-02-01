@@ -172,6 +172,11 @@ const GlobalStyle = createGlobalStyle`
             display: none;
         }
     }
+
+    .ant-message {
+        top: auto !important;
+        bottom: ${defaults.layoutPadding};
+    }
 `;
 
 export default GlobalStyle;
