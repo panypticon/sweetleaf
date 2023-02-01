@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Form, Input } from 'antd';
+import { GoogleOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useRequest } from 'ahooks';
 
@@ -70,6 +71,23 @@ const LoginModal = (props: Props) => {
                     Log in
                 </Button>
             </Form>
+            <span className="LoginModal__separator">
+                <div>
+                    <span>or</span>
+                </div>
+                <hr />
+            </span>
+            <Button
+                wide
+                onClick={() => {
+                    window.location.href = `${
+                        process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : ''
+                    }/api/v1/users/login/google`;
+                }}
+            >
+                <GoogleOutlined />
+                <span>Log in with Google</span>
+            </Button>
         </StyledLoginModal>
     );
 };

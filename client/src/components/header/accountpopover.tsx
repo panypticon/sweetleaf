@@ -84,7 +84,7 @@ const AccountPopover = (props: Props): JSX.Element => {
     return (
         <StyledAccountPopover
             overlayClassName="AccountPopover"
-            title={<h5>{user ? `Hi ${user.address.firstName}!` : 'My Account'}</h5>}
+            title={<h5>{user ? `Hi ${user.address?.firstName}!` : 'My Account'}</h5>}
             placement={sm ? 'bottomRight' : 'bottom'}
             content={user ? <AccountPopoverActions /> : <AccountPopoverLogin />}
             getPopupContainer={() => document.querySelector('.Header .Header__actions')}
