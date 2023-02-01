@@ -60,7 +60,7 @@ const AccountPopoverActions = (): JSX.Element => {
                 <span
                     onClick={async () => {
                         try {
-                            const res = await fetch('/api/v1/users/logouts');
+                            const res = await fetch('/api/v1/users/logout');
                             if (!res.ok) throw new Error();
                             dispatch(removeUser());
                             navigate('/');
