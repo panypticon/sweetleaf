@@ -33,7 +33,7 @@ const AccountPopoverLogin = (): JSX.Element => {
 const AccountPopoverActions = (): JSX.Element => (
     <ul className="AccountPopover__items">
         <li>
-            <Link to="/account">Account data</Link>
+            <Link to="/account">My account</Link>
         </li>
         <li>
             <Link to="/account/orders">Orders</Link>
@@ -47,6 +47,9 @@ const AccountPopoverActions = (): JSX.Element => (
         <li>
             <Link to="/account/subscription">MyBox</Link>
         </li>
+        <li>
+            <Link to="/">Log out</Link>
+        </li>
     </ul>
 );
 
@@ -58,7 +61,7 @@ const AccountPopover = (props: Props): JSX.Element => {
     return (
         <StyledAccountPopover
             overlayClassName="AccountPopover"
-            title={<h5>My Account</h5>}
+            title={<h5>{user ? `Hi ${user.address.firstName}!` : 'My Account'}</h5>}
             placement={sm ? 'bottomRight' : 'bottom'}
             content={user ? <AccountPopoverActions /> : <AccountPopoverLogin />}
             getPopupContainer={() => document.querySelector('.Header .Header__actions')}

@@ -1,8 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form, Input } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { useRequest } from 'ahooks';
 
 import Button from '../button/button';
 import Tag from '../tag/tag';
+import { useAppDispatch } from '../../store/hooks';
+import { setUser } from '../../store/slices/globalData';
+import { postJSONData } from '../../api/fetch';
 
 import StyledLoginModal from './loginmodal.styled';
 
@@ -15,27 +20,23 @@ const LoginModal = (props: Props) => {
 
     const [loginError, setLoginError] = useState<String | null>(null);
 
-    const handleFinish = async (values: object) => {
-        try {
-            console.log(JSON.stringify(values));
-            const res = await fetch('/api/v1/users/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(values)
-            });
-            if (!res.ok) {
-                const error = new Error(String(res.status));
-                throw error;
-            }
-            const data = await res.json();
-            console.log(data);
-        } catch (err: any) {
-            if (err.message === '401') setLoginError('Email and password do not match');
+    const dispatch = useAppDispatch();
+
+    const navigate = useNavigate();
+
+    const { data, error, run } = useRequest((url, payload) => postJSONData(url, payload), { manual: true });
+
+    useEffect(() => {
+        if (error) {
+            if (error.message === '401') setLoginError('Email and password do not match');
             else setLoginError('Something went wrong, please try again later');
+        } else if (data) {
+            dispatch(setUser(data));
+            navigate('/account');
         }
-    };
+    }, [data, error, dispatch, navigate]);
+
+    const handleFinish = (values: object) => run('/api/v1/users/login', values);
 
     return (
         <StyledLoginModal title="My Account" footer={null} {...props}>

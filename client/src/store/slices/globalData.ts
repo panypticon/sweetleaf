@@ -1,8 +1,21 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
+interface User {
+    address: {
+        city: String;
+        country: String;
+        firstName: String;
+        lastName: String;
+        street: String;
+        zip: String;
+    };
+    email: String;
+    id: String;
+}
+
 interface GlobalDataState {
-    user: Object | null;
+    user: User | null;
 }
 
 const initialState: GlobalDataState = {
@@ -12,10 +25,14 @@ const initialState: GlobalDataState = {
 export const globalDataSlice = createSlice({
     name: 'globalData',
     initialState,
-    reducers: {}
+    reducers: {
+        setUser: (state, action: PayloadAction<User>) => {
+            state.user = action.payload;
+        }
+    }
 });
 
-// export const {} = globalDataSlice.actions;
+export const { setUser } = globalDataSlice.actions;
 
 export const selectGlobalData = (state: RootState) => state.globalData;
 
