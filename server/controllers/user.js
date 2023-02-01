@@ -18,13 +18,23 @@ class UserController extends GenericController {
                         expires: loginDuration,
                         secure: process.env.NODE_ENV !== 'development'
                     })
+                    .cookie('login', req.user.id, {
+                        expires: loginDuration,
+                        secure: process.env.NODE_ENV !== 'development'
+                    })
                     .json(req.user);
             else
-                res.cookie('auth', token, {
-                    httpOnly: true,
-                    expires: loginDuration,
-                    secure: process.env.NODE_ENV !== 'development'
-                }).redirect('/');
+                res.status(200)
+                    .cookie('auth', token, {
+                        httpOnly: true,
+                        expires: loginDuration,
+                        secure: process.env.NODE_ENV !== 'development'
+                    })
+                    .cookie('login', req.user.id, {
+                        expires: loginDuration,
+                        secure: process.env.NODE_ENV !== 'development'
+                    })
+                    .redirect('/');
         };
 }
 
