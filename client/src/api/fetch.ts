@@ -1,3 +1,7 @@
+export interface DetailedError extends Error {
+    details: object;
+}
+
 export const postJSONData = async (url: string, payload: any) => {
     const res = await fetch(url, {
         method: 'POST',
@@ -7,7 +11,8 @@ export const postJSONData = async (url: string, payload: any) => {
         body: JSON.stringify(payload)
     });
     if (!res.ok) {
-        const error = new Error(String(res.status));
+        const error = new Error(String(res.status)) as DetailedError;
+        error.details = await res.json();
         throw error;
     }
     return await res.json();
