@@ -2,14 +2,14 @@ import mongoose from 'mongoose';
 import { promisify } from 'util';
 import jwt from 'jsonwebtoken';
 
-import { googleAddressSchema } from './Address.js';
+import addressSchema from './Address.js';
 
 const sign = promisify(jwt.sign);
 
 const googleUserSchema = new mongoose.Schema(
     {
         address: {
-            type: googleAddressSchema,
+            type: addressSchema,
             default: undefined,
             required: true
         },
