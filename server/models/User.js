@@ -18,7 +18,7 @@ const userSchema = new Schema(
         email: {
             type: String,
             required: [true, 'Email address is required'],
-            unique: [true, 'Email address already taken'],
+            unique: [true, 'Email address already registered'],
             trim: true,
             validate: {
                 validator: val => isEmail(val),
