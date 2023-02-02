@@ -65,7 +65,7 @@ const AccountPopoverActions = (): JSX.Element => {
                             dispatch(removeUser());
                             navigate('/');
                         } catch (err) {
-                            messageAPI.error('Something went wrong, please try again later', 0);
+                            messageAPI.error('Something went wrong, please try again later');
                         }
                     }}
                 >
