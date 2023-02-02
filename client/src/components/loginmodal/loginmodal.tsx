@@ -52,6 +52,7 @@ const LoginModal = (props: Props) => {
                 onFinish={handleFinish}
                 layout="vertical"
                 requiredMark={false}
+                validateTrigger="onBlur"
                 onValuesChange={() => setLoginError(null)}
             >
                 <Form.Item
