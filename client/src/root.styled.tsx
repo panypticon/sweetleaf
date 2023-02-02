@@ -126,7 +126,8 @@ const GlobalStyle = createGlobalStyle`
                 }
             }
 
-            &-explain {
+            &-explain,
+            &-extra {
                 font-size: 1.4rem;
                 padding: 0.8rem 0 2.4rem 0.8rem;
             }
@@ -135,6 +136,14 @@ const GlobalStyle = createGlobalStyle`
                 
                 input {
                     caret-color: ${colors.herbal.standard};
+                }
+            }
+
+            &-control {
+                > div[style]:not(:last-child) {
+                    .ant-form-item-explain {
+                        padding-bottom: 0;
+                    }
                 }
             }
         }
