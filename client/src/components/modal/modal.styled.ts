@@ -40,6 +40,54 @@ const StyledModal = styled(Modal)`
             }
         }
     }
+
+    .Modal {
+        &__switch {
+            font-size: 1.4rem;
+            margin-top: calc(${defaults.layoutPadding} / 2);
+
+            span {
+                color: ${colors.fermented.standard};
+
+                &:hover {
+                    border-bottom: 0.1rem solid ${colors.fermented['lighter-4']};
+                    padding-bottom: 0.1rem;
+                    cursor: pointer;
+                }
+            }
+        }
+
+        &__separator {
+            margin: ${defaults.layoutPadding} 0;
+            position: relative;
+            height: 2.4rem;
+            display: block;
+
+            > * {
+                position: absolute;
+                width: 100%;
+            }
+
+            hr {
+                top: 1.2rem;
+                border: 0;
+                height: 0.1rem;
+                background-color: ${colors.contrast['shade-6']};
+            }
+
+            div {
+                z-index: 10;
+                display: flex;
+                justify-content: center;
+
+                span {
+                    background-color: ${colors.contrast.light};
+                    display: inline-block;
+                    padding: 0 0.8rem;
+                }
+            }
+        }
+    }
 `;
 
 export default StyledModal;
