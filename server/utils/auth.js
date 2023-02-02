@@ -8,7 +8,7 @@ import 'dotenv/config';
 import User from '../models/User.js';
 import GoogleUser from '../models/GoogleUser.js';
 
-const { JWT_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, NODE_ENV } = process.env;
+const { JWT_SECRET, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, NODE_ENV, VERCEL_URL } = process.env;
 
 passport.use(
     new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, async (email, password, done) => {
@@ -53,7 +53,7 @@ passport.use(
             clientID: GOOGLE_CLIENT_ID,
             clientSecret: GOOGLE_CLIENT_SECRET,
             callbackURL: `${
-                NODE_ENV === 'development' ? 'http://localhost:3000' : `https://${node.env.VERCEL_URL}`
+                NODE_ENV === 'development' ? 'http://localhost:3000' : `https://${VERCEL_URL}`
             }/api/v1/users/login/google/redirect`,
             scope: ['profile', 'email'],
             state: false
