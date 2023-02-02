@@ -10,6 +10,7 @@ import Button from '../button/button';
 import { modalContext } from '../../context/modalcontext';
 import LoginModal from '../loginmodal/loginmodal';
 import { removeUser } from '../../store/slices/globalData';
+import SignupModal from '../signupmodal/signupmodal';
 
 import StyledAccountPopover from './accountpopover.styled';
 
@@ -27,7 +28,9 @@ const AccountPopoverLogin = (): JSX.Element => {
             </Button>
             <div className="AccountPopover__signup">
                 <p>New around here?</p>
-                <Button wide>Sign up </Button>
+                <Button wide onClick={() => modalData?.setModal(<SignupModal />)}>
+                    Sign up
+                </Button>
             </div>
         </>
     );

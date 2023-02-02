@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { Form, Input } from 'antd';
 import { GoogleOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +9,8 @@ import Tag from '../tag/tag';
 import { useAppDispatch } from '../../store/hooks';
 import { setUser } from '../../store/slices/globalData';
 import { postJSONData } from '../../api/fetch';
+import SignupModal from '../signupmodal/signupmodal';
+import { modalContext } from '../../context/modalcontext';
 
 import StyledLoginModal from './loginmodal.styled';
 
@@ -18,6 +20,8 @@ interface Props {
 
 const LoginModal = (props: Props) => {
     const [loginError, setLoginError] = useState<String | null>(null);
+
+    const modalData = useContext(modalContext);
 
     const [form] = Form.useForm();
 
@@ -40,7 +44,7 @@ const LoginModal = (props: Props) => {
     const handleFinish = (values: object) => run('/api/v1/users/login', values);
 
     return (
-        <StyledLoginModal title="My Account" footer={null} {...props}>
+        <StyledLoginModal title="Leaflet Account" footer={null} {...props}>
             {loginError && <Tag color="error">{loginError}</Tag>}
             <Form
                 form={form}
@@ -71,7 +75,10 @@ const LoginModal = (props: Props) => {
                     Log in
                 </Button>
             </Form>
-            <span className="LoginModal__separator">
+            <p className="Modal__switch">
+                Not registered? <span onClick={() => modalData?.setModal(<SignupModal />)}>Sign up</span>
+            </p>
+            <span className="Modal__separator">
                 <div>
                     <span>or</span>
                 </div>
@@ -80,10 +87,7 @@ const LoginModal = (props: Props) => {
             <Button
                 wide
                 onClick={() => {
-                    window.location.href = `${
-                        // MAKE SHORTER VIA ANOTHER ENV VAR
-                        process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : ''
-                    }/api/v1/users/login/google`;
+                    window.location.href = `${process.env.REACT_APP_SERVER || ''}/api/v1/users/login/google`;
                 }}
             >
                 <GoogleOutlined />
