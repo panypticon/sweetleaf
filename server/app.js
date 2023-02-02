@@ -69,6 +69,7 @@ app.use((err, _req, res, _next) => {
             break;
         case 'MongoServerError':
             if (err.code === 11000) {
+                err.status = error.status = 400;
                 error.title = 'Validation errors';
                 error.detail = ['email', 'Email is already registered'];
             }
