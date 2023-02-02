@@ -7,12 +7,10 @@ import { useRequest } from 'ahooks';
 import Button from '../button/button';
 import Tag from '../tag/tag';
 import { useAppDispatch } from '../../store/hooks';
-import { setUser } from '../../store/slices/globalData';
 import { postJSONData } from '../../api/fetch';
 import LoginModal from '../loginmodal/loginmodal';
 import { modalContext } from '../../context/modalcontext';
-
-import StyledSignupModal from './signupmodal.styled';
+import Modal from '../modal/modal';
 
 interface Props {
     [x: string]: any;
@@ -29,25 +27,33 @@ const SignupModal = (props: Props) => {
 
     const navigate = useNavigate();
 
-    const { data, error, run } = useRequest((url, payload) => postJSONData(url, payload), { manual: true });
+    const { data, error, run }: { data?: object; error?: any; run?: any } = useRequest(
+        (url, payload) => postJSONData(url, payload),
+        { manual: true }
+    );
 
     useEffect(() => {
-        if (error) {
-            // if (error.message === '401') setSignupError('Email and password do not match');
-            // else setSignupError('Something went wrong, please try again later');
+        if (error && !error?.details?.detail && !error.details.detail.includes('email')) {
+            setSignupError('Something went wrong, please try again later');
         } else if (data) {
-            // dispatch(setUser(data));
-            // navigate('/account');
+            console.log(data);
+            // Open modal success, notice email confirmation, set fields in non-Google user vor valdidated and validationToken
+            // Login middleware check if validated or Google ID
+            // redirect to root
         }
     }, [data, error, dispatch, navigate]);
 
-    const handleFinish = (values: object) => {
-        console.log(values);
-        // run('/api/v1/users/signup', values);
+    const handleFinish = ({ firstName, lastName, email, password }: { [x: string]: String }) => {
+        const values = {
+            address: { firstName, lastName },
+            email,
+            password
+        };
+        run('/api/v1/users/signup', values);
     };
 
     return (
-        <StyledSignupModal title="Welcome to Leaflet" footer={null} {...props}>
+        <Modal className="SignupModal" title="Welcome to Leaflet" footer={null} {...props}>
             {signupError && <Tag color="error">{signupError}</Tag>}
             <Form
                 form={form}
@@ -85,6 +91,14 @@ const SignupModal = (props: Props) => {
                         { required: true, message: 'Email address is required' },
                         { type: 'email', message: 'Not a valid email adddress' }
                     ]}
+                    validateStatus={
+                        error?.details?.detail && error.details.detail.includes('email') ? 'error' : undefined
+                    }
+                    help={
+                        error?.details?.detail && error.details.detail.includes('email')
+                            ? error.details.detail[1]
+                            : null
+                    }
                 >
                     <Input />
                 </Form.Item>
@@ -124,7 +138,7 @@ const SignupModal = (props: Props) => {
                 <GoogleOutlined />
                 <span>Sign up with Google</span>
             </Button>
-        </StyledSignupModal>
+        </Modal>
     );
 };
 
