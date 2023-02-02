@@ -53,7 +53,7 @@ passport.use(
             clientID: GOOGLE_CLIENT_ID,
             clientSecret: GOOGLE_CLIENT_SECRET,
             callbackURL: `${
-                NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://sweetleaf.vercel.app'
+                NODE_ENV === 'development' ? 'http://localhost:3000' : `https://${node.env.VERCEL_URL}`
             }/api/v1/users/login/google/redirect`,
             scope: ['profile', 'email'],
             state: false

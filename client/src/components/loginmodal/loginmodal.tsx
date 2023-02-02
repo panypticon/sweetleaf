@@ -81,6 +81,7 @@ const LoginModal = (props: Props) => {
                 wide
                 onClick={() => {
                     window.location.href = `${
+                        // MAKE SHORTER VIA ANOTHER ENV VAR
                         process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : ''
                     }/api/v1/users/login/google`;
                 }}
