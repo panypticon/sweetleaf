@@ -15,6 +15,7 @@ import usersRouter from './routes/users.js';
 import productsRouter from './routes/products.js';
 import ordersRouter from './routes/orders.js';
 import ratingsRouter from './routes/rating.js';
+import userController from './controllers/user.js';
 
 //// Fix __dirname for ES6 modules
 const __filename = fileURLToPath(import.meta.url);
@@ -49,9 +50,10 @@ app.use('/api/v1/users', usersRouter);
 app.use('/api/v1/products', productsRouter);
 app.use('/api/v1/orders', ordersRouter);
 app.use('/api/v1/ratings', ratingsRouter);
+app.get('/verifyemail', userController.verifyemail);
 
-// 404 for non-existent routes
-app.use((_req, _res, next) => next(createError(404, 'Resource not found')));
+// Redirect all other requests to frontend router
+app.get('/*', (_, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
 
 // Error handler
 app.use((err, _req, res, _next) => {
