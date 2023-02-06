@@ -40,6 +40,8 @@ class UserController extends GenericController {
                     NODE_ENV === 'development' ? 'http://localhost:3000' : `https://sweetleaf.vercel.app`
                 }/verifyemail?emailToken=${emailToken}
                 
+                Best,
+                
                 Team Leaflet`,
                 html: `<p>Hi ${req.body.address.firstName},</p>
                 
@@ -49,6 +51,7 @@ class UserController extends GenericController {
                     NODE_ENV === 'development' ? 'http://localhost:3000' : `https://sweetleaf.vercel.app`
                 }/verifyemail?emailToken=${emailToken}">Verify email</a>
                 
+                <p>Best,</p>
                 <p>Team Leaflet</p>`
             });
             res.status(201).json(newDoc);
