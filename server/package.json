@@ -1,5 +1,5 @@
 {
-    "name": "sweetleaf-server",
+    "name": "leaflet-server",
     "main": "app.js",
     "scripts": {
         "start": "node app.js",
@@ -12,6 +12,7 @@
         "nodemon": "^2.0.20"
     },
     "dependencies": {
+        "@sendgrid/mail": "^7.7.0",
         "bcrypt": "^5.1.0",
         "compression": "^1.7.4",
         "cookie-parser": "^1.4.6",
@@ -20,12 +21,13 @@
         "helmet": "^6.0.1",
         "http-errors": "^2.0.0",
         "jsonwebtoken": "^9.0.0",
-        "mongoose": "^6.8.2",
+        "mongoose": "^6.9.0",
         "morgan": "^1.10.0",
         "passport": "^0.6.0",
+        "passport-google-oauth20": "^2.0.0",
         "passport-jwt": "^4.0.1",
         "passport-local": "^1.0.0",
-        "validator": "^13.7.0"
+        "validator": "^13.9.0"
     },
     "type": "module"
 }

@@ -12,6 +12,10 @@ import passport from 'passport';
 import cookieParser from 'cookie-parser';
 
 import usersRouter from './routes/users.js';
+import productsRouter from './routes/products.js';
+import ordersRouter from './routes/orders.js';
+import ratingsRouter from './routes/rating.js';
+import userController from './controllers/user.js';
 
 //// Fix __dirname for ES6 modules
 const __filename = fileURLToPath(import.meta.url);
@@ -43,9 +47,13 @@ NODE_ENV !== 'development' && app.use([helmet(), compression()]);
 // Routes
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api/v1/users', usersRouter);
+app.use('/api/v1/products', productsRouter);
+app.use('/api/v1/orders', ordersRouter);
+app.use('/api/v1/ratings', ratingsRouter);
+app.get('/verifyemail', userController.verifyemail);
 
-// 404 for non-existent routes
-app.use((_req, _res, next) => next(createError(404, 'Resource not found')));
+// Redirect all other requests to frontend router
+app.get('/*', (_, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
 
 // Error handler
 app.use((err, _req, res, _next) => {
@@ -55,17 +63,21 @@ app.use((err, _req, res, _next) => {
         detail: []
     };
 
+    NODE_ENV === 'development' && console.log(err);
+
     switch (err.constructor.name) {
         case 'SyntaxError':
             error.title = 'Invalid JSON';
             break;
         case 'MongoServerError':
             if (err.code === 11000) {
+                err.status = error.status = 400;
                 error.title = 'Validation errors';
                 error.detail = ['email', 'Email is already registered'];
             }
             break;
         case 'ValidationError':
+            err.status = error.status = 400;
             error.title = 'Validation errors';
             error.detail = Object.entries(err.errors).reduce(
                 (errors, [key, error]) => [...errors, [key, error.message]],

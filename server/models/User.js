@@ -1,30 +1,25 @@
-import mongoose from 'mongoose';
+import { Schema, model } from 'mongoose';
 import isEmail from 'validator/lib/isEmail.js';
+import isUUID from 'validator/lib/isUUID.js';
 import { hash, compare } from 'bcrypt';
 import { promisify } from 'util';
 import jwt from 'jsonwebtoken';
 
-const sign = promisify(jwt.sign);
-const verify = promisify(jwt.verify);
+import addressSchema from './Address.js';
 
-const userSchema = new mongoose.Schema(
+const sign = promisify(jwt.sign);
+
+const userSchema = new Schema(
     {
-        firstName: {
-            type: String,
-            required: [true, 'First name is required'],
-            trim: true,
-            maxlength: [128, 'First name is too long']
-        },
-        lastName: {
-            type: String,
-            required: [true, 'Last name is required'],
-            trim: true,
-            maxlength: [128, 'Last name is too long']
+        address: {
+            type: addressSchema,
+            default: undefined,
+            required: true
         },
         email: {
             type: String,
             required: [true, 'Email address is required'],
-            unique: [true, 'Email address already taken'],
+            unique: [true, 'Email address already registered'],
             trim: true,
             validate: {
                 validator: val => isEmail(val),
@@ -41,15 +36,42 @@ const userSchema = new mongoose.Schema(
                 'Password must be 8+ characters long and must include upper- and lower-case letters, numbers, and special characters'
             ],
             maxlength: [256, 'Password is too long']
+        },
+        role: {
+            type: String,
+            enum: {
+                values: ['admin', 'user'],
+                message: 'Invalid role'
+            },
+            default: 'user'
+        },
+        emailToken: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        emailVerified: {
+            type: Boolean,
+            default: false
         }
     },
     { timestamps: true }
 );
 
 //// Hooks
-// Encrypt password
+// Save: Encrypt password and set default role to 'user'
 userSchema.pre('save', async function (next) {
-    this.password = await hash(this.password, 12);
+    if (this.isNew) {
+        this.password = await hash(this.password, 12);
+        this.role = 'user';
+    }
+    next();
+});
+// Update: Encrypt password, if a new one is set, and make sure user roles can't be escalated or emailTokens changed
+userSchema.pre('findOneAndUpdate', async function (next) {
+    if (this._update.password) this._update.password = await hash(this._update.password, 12);
+    delete this._update.role;
+    delete this._update.emailToken;
     next();
 });
 
@@ -67,11 +89,11 @@ userSchema.method('generateToken', async function () {
 userSchema.set('toJSON', {
     virtuals: true,
     transform: (_, vals) => {
-        const { firstName, lastName, email, id } = vals;
-        return { firstName, lastName, email, id };
+        const { address, email, id } = vals;
+        return { address, email, id };
     }
 });
 
-const User = mongoose.model('User', userSchema);
+const User = model('User', userSchema, 'users');
 
 export default User;
