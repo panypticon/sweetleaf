@@ -34,6 +34,7 @@ const LoginModal = (props: Props) => {
     useEffect(() => {
         if (error) {
             if (error.message === '401') setLoginError('Email and password do not match');
+            else if (error.message === '409') setLoginError('Email address must be verified (check your inbox)');
             else setLoginError('Something went wrong, please try again later');
         } else if (data) {
             dispatch(setUser(data));

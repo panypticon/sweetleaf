@@ -61,8 +61,10 @@ const userSchema = new Schema(
 //// Hooks
 // Save: Encrypt password and set default role to 'user'
 userSchema.pre('save', async function (next) {
-    this.password = await hash(this.password, 12);
-    if (this.isNew) this.role = 'user';
+    if (this.isNew) {
+        this.password = await hash(this.password, 12);
+        this.role = 'user';
+    }
     next();
 });
 // Update: Encrypt password, if a new one is set, and make sure user roles can't be escalated or emailTokens changed

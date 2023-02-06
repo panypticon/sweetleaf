@@ -14,9 +14,10 @@ passport.use(
     new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, async (email, password, done) => {
         try {
             const user = await User.findOne({ email, password: { $exists: true } });
-            if (!user) throw createError.Unauthorized();
+            if (!user) throw new createError.Unauthorized();
             const passwordsMatch = await user.authenticate(password);
-            if (!passwordsMatch) throw createError.Unauthorized();
+            if (!passwordsMatch) throw new createError.Unauthorized();
+            if (!user.emailVerified) throw new createError.Conflict();
             return done(null, user);
         } catch (err) {
             return done(err);
@@ -30,7 +31,7 @@ passport.use(
             secretOrKey: JWT_SECRET,
             jwtFromRequest: ExtractJwt.fromExtractors([
                 req => {
-                    if (!req.cookies.auth) throw createError.Unauthorized();
+                    if (!req.cookies.auth) throw new createError.Unauthorized();
                     return req.cookies.auth;
                 }
             ])
@@ -38,7 +39,7 @@ passport.use(
         async (payload, done) => {
             try {
                 const user = await User.findById(payload.id);
-                if (!user) throw createError.Unauthorized();
+                if (!user) throw new createError.Unauthorized();
                 return done(null, user);
             } catch (err) {
                 return done(err);
