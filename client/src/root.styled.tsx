@@ -93,6 +93,10 @@ const GlobalStyle = createGlobalStyle`
         font-size: 1.8rem;
     }
 
+    .modal-lock {
+        overflow: hidden;
+    }
+
     .ant-layout {
         min-height: 100vh;
         position: relative;

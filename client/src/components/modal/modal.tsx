@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Modal as ModalAnt } from 'antd';
 
 import { modalContext } from '../../context/modalcontext';
@@ -12,6 +12,11 @@ interface Props {
 
 const Modal = ({ title, ...props }: Props) => {
     const modalData = useContext(modalContext);
+
+    useEffect(() => {
+        document.body.classList.add('modal-lock');
+        return () => document.body.classList.remove('modal-lock');
+    }, []);
 
     return (
         <StyledModal
