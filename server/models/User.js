@@ -1,5 +1,6 @@
 import { Schema, model } from 'mongoose';
 import isEmail from 'validator/lib/isEmail.js';
+import isUUID from 'validator/lib/isUUID.js';
 import { hash, compare } from 'bcrypt';
 import { promisify } from 'util';
 import jwt from 'jsonwebtoken';
@@ -43,6 +44,15 @@ const userSchema = new Schema(
                 message: 'Invalid role'
             },
             default: 'user'
+        },
+        emailToken: {
+            type: String,
+            required: true,
+            trim: true
+        },
+        emailVerified: {
+            type: Boolean,
+            default: false
         }
     },
     { timestamps: true }
@@ -55,10 +65,11 @@ userSchema.pre('save', async function (next) {
     if (this.isNew) this.role = 'user';
     next();
 });
-// Update: Encrypt password, if a new one is set, and make sure user roles can't be escalated
+// Update: Encrypt password, if a new one is set, and make sure user roles can't be escalated or emailTokens changed
 userSchema.pre('findOneAndUpdate', async function (next) {
     if (this._update.password) this._update.password = await hash(this._update.password, 12);
     delete this._update.role;
+    delete this._update.emailToken;
     next();
 });
 
