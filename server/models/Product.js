@@ -109,10 +109,10 @@ productSchema.virtual('new').get(function () {
 productSchema.set('toJSON', {
     virtuals: true,
     transform: (_, vals) => {
-        const { id, name, type, category, attributes, inventory, image, new: isNew, purchases, ratings } = vals;
+        let { id, name, type, category, attributes, inventory, image, new: isNew, recentPurchases, ratings } = vals;
         delete ratings.ratings;
-        delete purchases.purchases;
-        return { id, name, type, category, attributes, inventory, image, new: isNew, purchases, ratings };
+        recentPurchases = recentPurchases.count;
+        return { id, name, type, category, attributes, inventory, image, new: isNew, recentPurchases, ratings };
     }
 });
 

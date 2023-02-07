@@ -18,12 +18,13 @@ const pipeline = [
             from: 'orders',
             localField: '_id',
             foreignField: 'items.product',
-            as: 'purchases.purchases'
+            pipeline: [{ $match: { createdAt: { $gte: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000) } } }],
+            as: 'recentPurchases.purchases'
         }
     },
     {
         $addFields: {
-            'purchases.count': { $size: '$purchases.purchases' },
+            'recentPurchases.count': { $size: '$recentPurchases.purchases' },
             'ratings.count': { $size: '$ratings.ratings' },
             'ratings.average': {
                 $function: {
@@ -46,6 +47,19 @@ class ProductController extends GenericController {
     getAll = async (_, res, next) => {
         try {
             const docs = await this.Model.aggregate(pipeline).then(docs => docs.map(doc => this.Model.hydrate(doc)));
+            res.status(200).json(docs);
+        } catch (err) {
+            next(err);
+        }
+    };
+
+    getAllstars = async (_, res, next) => {
+        try {
+            const docs = await this.Model.aggregate(pipeline).then(docs =>
+                docs
+                    .map(doc => this.Model.hydrate(doc))
+                    .filter(doc => doc.new || doc.ratings.average >= 4.5 || doc.recentPurchases > 50)
+            );
             res.status(200).json(docs);
         } catch (err) {
             next(err);
