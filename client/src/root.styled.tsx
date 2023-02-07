@@ -89,6 +89,10 @@ const GlobalStyle = createGlobalStyle`
         font-size: 2.8rem;
     }
 
+    h4 {
+        font-size: 2.2rem;
+    }
+
     h5 {
         font-size: 1.8rem;
     }
