@@ -57,7 +57,6 @@ app.get('/*', (_, res) => res.sendFile(path.join(__dirname, 'public/index.html')
 
 // Error handler
 app.use((err, _req, res, _next) => {
-    console.log('FCK', err);
     const error = {
         status: err.status || 500,
         title: err.status ? err.message : 'Server error',
