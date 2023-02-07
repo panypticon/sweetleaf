@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { message } from 'antd';
 
 import Button from '../../components/button/button';
+import ProductList from '../../components/productlist/productlist';
 
 import { StyledHome } from './home.styled';
 
@@ -30,6 +31,7 @@ const Home = (): JSX.Element => {
             </section>
             <section className="Home__section all-stars">
                 <h2>All-Stars</h2>
+                <ProductList route="/api/v1/products/allstars" />
             </section>
             <section className="Home__section true-colors">
                 <h2>True Colors</h2>
