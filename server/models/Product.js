@@ -109,10 +109,12 @@ productSchema.virtual('new').get(function () {
 productSchema.set('toJSON', {
     virtuals: true,
     transform: (_, vals) => {
-        const { id, name, type, category, attributes, inventory, image, new: isNew, purchases, ratings } = vals;
+        let { id, name, type, category, attributes, inventory, image, new: isNew, recentPurchases, ratings } = vals;
+        // Calculation of ratings averages had to be moved to Express server because the free MongoDB Atlas tier doesn't support $function calls
+        ratings.average = ratings.ratings.reduce((acc, rating) => acc + rating.rating, 0) / ratings.ratings.length || 0;
         delete ratings.ratings;
-        delete purchases.purchases;
-        return { id, name, type, category, attributes, inventory, image, new: isNew, purchases, ratings };
+        recentPurchases = recentPurchases.count;
+        return { id, name, type, category, attributes, inventory, image, new: isNew, recentPurchases, ratings };
     }
 });
 

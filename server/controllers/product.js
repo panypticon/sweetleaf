@@ -18,22 +18,24 @@ const pipeline = [
             from: 'orders',
             localField: '_id',
             foreignField: 'items.product',
-            as: 'purchases.purchases'
+            pipeline: [{ $match: { createdAt: { $gte: new Date(Date.now() - 90 * 24 * 60 * 60 * 1000) } } }],
+            as: 'recentPurchases.purchases'
         }
     },
     {
         $addFields: {
-            'purchases.count': { $size: '$purchases.purchases' },
-            'ratings.count': { $size: '$ratings.ratings' },
-            'ratings.average': {
-                $function: {
-                    args: ['$ratings.ratings'],
-                    lang: 'js',
-                    body: function (ratings) {
-                        return ratings.reduce((acc, rating) => acc + rating.rating, 0) / ratings.length || 0;
-                    }
-                }
-            }
+            'recentPurchases.count': { $size: '$recentPurchases.purchases' },
+            'ratings.count': { $size: '$ratings.ratings' }
+            // Calculation of ratings averages had to be moved to Express server because the free MongoDB Atlas tier doesn't support $function calls
+            // 'ratings.average': {
+            //     $function: {
+            //         args: ['$ratings.ratings'],
+            //         lang: 'js',
+            //         body: function (ratings) {
+            //             return ratings.reduce((acc, rating) => acc + rating.rating, 0) / ratings.length || 0;
+            //         }
+            //     }
+            // }
         }
     }
 ];
@@ -46,6 +48,20 @@ class ProductController extends GenericController {
     getAll = async (_, res, next) => {
         try {
             const docs = await this.Model.aggregate(pipeline).then(docs => docs.map(doc => this.Model.hydrate(doc)));
+            res.status(200).json(docs);
+        } catch (err) {
+            next(err);
+        }
+    };
+
+    getAllstars = async (_, res, next) => {
+        try {
+            const docs = await this.Model.aggregate(pipeline).then(docs =>
+                docs
+                    .map(doc => this.Model.hydrate(doc))
+                    .filter(doc => doc.new || doc.ratings.average >= 4.5 || doc.recentPurchases > 50)
+                    .slice(0, 12)
+            );
             res.status(200).json(docs);
         } catch (err) {
             next(err);
