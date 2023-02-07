@@ -25,16 +25,17 @@ const pipeline = [
     {
         $addFields: {
             'recentPurchases.count': { $size: '$recentPurchases.purchases' },
-            'ratings.count': { $size: '$ratings.ratings' },
-            'ratings.average': {
-                $function: {
-                    args: ['$ratings.ratings'],
-                    lang: 'js',
-                    body: function (ratings) {
-                        return ratings.reduce((acc, rating) => acc + rating.rating, 0) / ratings.length || 0;
-                    }
-                }
-            }
+            'ratings.count': { $size: '$ratings.ratings' }
+            // Calculation of ratings averages had to be moved to Express server because the free MongoDB Atlas tier doesn't support $function calls
+            // 'ratings.average': {
+            //     $function: {
+            //         args: ['$ratings.ratings'],
+            //         lang: 'js',
+            //         body: function (ratings) {
+            //             return ratings.reduce((acc, rating) => acc + rating.rating, 0) / ratings.length || 0;
+            //         }
+            //     }
+            // }
         }
     }
 ];
