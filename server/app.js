@@ -63,7 +63,7 @@ app.use((err, _req, res, _next) => {
         detail: []
     };
 
-    NODE_ENV === 'development' && console.log(err);
+    NODE_ENV !== 'production' && console.log(err);
 
     switch (err.constructor.name) {
         case 'SyntaxError':
