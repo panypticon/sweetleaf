@@ -6,7 +6,7 @@ interface Props {
 
 const Popover = (props: Props): JSX.Element => (
     <StyledPopover
-        overlayClassName="Popover"
+        className="Popover"
         destroyTooltipOnHide={true}
         mouseEnterDelay={0}
         mouseLeaveDelay={0.2}
