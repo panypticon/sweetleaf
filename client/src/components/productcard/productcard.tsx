@@ -1,17 +1,52 @@
+import { CompassFilled, StarFilled } from '@ant-design/icons';
+
 import type { Product } from '../productlist/productlist';
+import { colors } from '../../root.styled';
+import Button from '../button/button';
 
 import StyledProductCard from './productcard.styled';
 
-const ProductCard = ({ data: { name, image } }: { data: Product }): JSX.Element => {
+const ProductCard = ({
+    data: { name, image, category, attributes, ratings, inventory }
+}: {
+    data: Product;
+}): JSX.Element => {
     const { NODE_ENV, REACT_APP_SERVER } = process.env;
 
     return (
         <StyledProductCard className="ProductCard">
             <div className="ProductCard__header">
                 <h4>{name}</h4>
+                <div className="ProductCard__header-attributes">
+                    <span className="ProductCard__header-attributes-attribute ProductCard__header-category">
+                        <span
+                            className={`ProductCard__header-category-color ProductCard__header-category-color__${category}`}
+                        ></span>
+                        {category}
+                    </span>
+                    <span className="ProductCard__header-attributes-attribute ProductCard__header-rating">
+                        <StarFilled style={{ color: colors.oolong.standard }} />
+                        {ratings.average || '–'} ({ratings.count})
+                    </span>
+                    <span className="ProductCard__header-attributes-attribute ProductCard__header-taste">
+                        <CompassFilled style={{ color: colors.contrast['shade-5'] }} />
+                        {attributes?.taste && attributes?.taste.join(', ')}
+                    </span>
+                </div>
             </div>
             <div className="ProductCard__body">
                 <img src={`${NODE_ENV === 'development' ? REACT_APP_SERVER : ''}/${image}`} alt={name} />
+                <div className="ProductCard__overlay">
+                    <ul className="ProductCard__packagesizes">
+                        {inventory.map(({ size, price }, i) => (
+                            <li key={i}>
+                                <span>{size}</span>
+                                <span>{price.toFixed(2)} €</span>
+                            </li>
+                        ))}
+                    </ul>
+                    <Button wide>Click for details</Button>
+                </div>
             </div>
         </StyledProductCard>
     );

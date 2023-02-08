@@ -9,14 +9,13 @@ const StyledProductList = styled.section<{ length: number }>`
 
     .ProductList {
         &__data {
-            width: calc(${props => Math.ceil(props.length / 4) * 100}% - ${props => (props.length <= 4 ? 0 : 20)}%);
+            width: calc(${props => Math.ceil(props.length / 4) * 50}% - ${props => (props.length <= 4 ? 0 : 10)}%);
             display: grid;
             padding: ${defaults.layoutPadding};
             gap: ${defaults.layoutPadding};
-            grid-template-columns: repeat(
-                max(${props => props.length + (props.length % 4 ? 4 - (props.length % 4) : 0)}, 4),
-                1fr
-            );
+            grid-template-rows: 1fr 1fr;
+            grid-auto-flow: column;
+            grid-template-columns: repeat(max(${props => props.length / 2}, 4), 1fr);
         }
     }
 `;
