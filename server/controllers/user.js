@@ -60,6 +60,14 @@ class UserController extends GenericController {
         }
     };
 
+    saveGoogleRedirectURL = [
+        (req, _, next) => {
+            if (req.query.route) req.session.route = req.query.route;
+            else req.session.destroy();
+            next();
+        }
+    ];
+
     logIn =
         (isThirdParty = false) =>
         async (req, res) => {
@@ -77,7 +85,9 @@ class UserController extends GenericController {
                         secure: NODE_ENV !== 'development'
                     })
                     .json(req.user);
-            else
+            else {
+                const route = req.session?.route;
+                req.session && req.session.destroy();
                 res.status(200)
                     .cookie('auth', token, {
                         httpOnly: true,
@@ -88,7 +98,8 @@ class UserController extends GenericController {
                         expires: loginDuration,
                         secure: NODE_ENV !== 'development'
                     })
-                    .redirect('/');
+                    .redirect(route || '/');
+            }
         };
 
     logOut = (_, res) => res.status(200).clearCookie('auth').clearCookie('login').send();
@@ -113,7 +124,6 @@ class UserController extends GenericController {
         try {
             if (!emailToken) throw new createError.Unauthorized();
             const { email } = await verifyJWT(emailToken, JWT_SECRET);
-            console.log(email);
             const user = await User.findOne({ email });
             if (!user || user.email !== email) throw new createError.Unauthorized();
             user.emailVerified = true;

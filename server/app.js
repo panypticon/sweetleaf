@@ -7,7 +7,6 @@ import cors from 'cors';
 import compression from 'compression';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
-import createError from 'http-errors';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
 

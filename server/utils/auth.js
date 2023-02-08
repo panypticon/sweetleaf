@@ -59,7 +59,7 @@ passport.use(
             scope: ['profile', 'email'],
             state: false
         },
-        async (_accessToken, _refreshToken, { id, name, emails }, done) => {
+        async (req, _accessToken, _refreshToken, { id, name, emails }, done) => {
             try {
                 const user = await GoogleUser.findOne({ googleID: id });
                 if (user) return done(null, user);
