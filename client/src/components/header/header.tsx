@@ -75,7 +75,7 @@ const Header = (): JSX.Element => {
                             <div className="Header__login">
                                 {user && (
                                     <span className="Header__login-hi">
-                                        We 💘
+                                        Hello
                                         <br />
                                         {user.address.firstName}
                                     </span>
