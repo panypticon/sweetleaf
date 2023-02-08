@@ -1,6 +1,4 @@
-export interface DetailedError extends Error {
-    details: object;
-}
+import type { DetailedError } from '../types';
 
 export const postJSONData = async (url: string, payload: any) => {
     const res = await fetch(url, {

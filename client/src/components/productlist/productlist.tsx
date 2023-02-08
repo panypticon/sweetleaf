@@ -4,33 +4,9 @@ import { useRequest } from 'ahooks';
 import ProductCard from '../productcard/productcard';
 import { getJSONData } from '../../api/fetch';
 
+import type { Product } from '../../types';
+
 import StyledProductList from './productlist.styled';
-
-export interface PackageSize {
-    size: string;
-    price: number;
-    amount: number;
-}
-
-export interface Product {
-    id: string;
-    name: string;
-    type: string;
-    category: string;
-    attributes: {
-        origin?: string;
-        taste: string[];
-        flavored: boolean;
-    };
-    inventory: PackageSize[];
-    image?: string;
-    new: boolean;
-    recentPurchases: number;
-    ratings: {
-        count: number;
-        average: number;
-    };
-}
 
 const ProductList = ({ route }: { route: string }): JSX.Element => {
     const { data, loading, error, run } = useRequest(() => getJSONData(route), {

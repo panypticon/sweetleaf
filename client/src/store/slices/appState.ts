@@ -1,9 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
-export interface AppStateState {
-    mobileNavOpen: boolean;
-}
+import type { AppStateState } from '../../types';
 
 const initialState: AppStateState = {
     mobileNavOpen: false

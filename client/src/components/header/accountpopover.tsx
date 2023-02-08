@@ -11,7 +11,7 @@ import LoginModal from '../loginmodal/loginmodal';
 import { removeUser } from '../../store/slices/globalData';
 import SignupModal from '../signupmodal/signupmodal';
 
-import type { User } from '../../store/slices/globalData';
+import type { User } from '../../types';
 
 import StyledAccountPopover from './accountpopover.styled';
 

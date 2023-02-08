@@ -1,8 +1,9 @@
 import { CompassFilled, StarFilled } from '@ant-design/icons';
 
-import type { Product } from '../productlist/productlist';
 import { colors } from '../../root.styled';
 import Button from '../button/button';
+
+import type { Product } from '../../types';
 
 import StyledProductCard from './productcard.styled';
 
