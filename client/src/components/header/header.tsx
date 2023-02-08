@@ -8,6 +8,7 @@ import Button from '../button/button';
 import Menu from './menu';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { selectappState, setMobileNavState } from '../../store/slices/appState';
+import { selectGlobalData } from '../../store/slices/globalData';
 import AccountPopover from './accountpopover';
 import { modalContext } from '../../context/modalcontext';
 
@@ -27,6 +28,7 @@ const Header = (): JSX.Element => {
     const modalData = useContext(modalContext);
 
     const { mobileNavOpen } = useAppSelector(selectappState);
+    const { user } = useAppSelector(selectGlobalData);
     const dispatch = useAppDispatch();
 
     const MenuIcon = mobileNavOpen ? CloseOutlined : MenuOutlined;
@@ -70,9 +72,18 @@ const Header = (): JSX.Element => {
                                     setMobileSearchOpen(!mobileSearchOpen);
                                 }}
                             />
-                            <AccountPopover>
-                                <UserOutlined />
-                            </AccountPopover>
+                            <div className="Header__login">
+                                {user && (
+                                    <span className="Header__login-hi">
+                                        We 💘
+                                        <br />
+                                        {user.address.firstName}
+                                    </span>
+                                )}
+                                <AccountPopover user={user}>
+                                    <UserOutlined />
+                                </AccountPopover>
+                            </div>
                             <ShoppingOutlined />
                         </>
                     )}

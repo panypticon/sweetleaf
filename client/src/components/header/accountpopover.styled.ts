@@ -41,7 +41,7 @@ const StyledAccountPopover = styled(Popover)`
 
     .ant-popover {
         &-arrow {
-            right: 0.8rem;
+            right: 1.2rem;
         }
 
         &-title {
