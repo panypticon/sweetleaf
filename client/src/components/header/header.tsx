@@ -2,7 +2,6 @@ import { useState, useRef, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingOutlined, UserOutlined, SearchOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
-import type { InputRef } from 'antd';
 
 import Button from '../button/button';
 import Menu from './menu';
@@ -11,6 +10,8 @@ import { selectappState, setMobileNavState } from '../../store/slices/appState';
 import { selectGlobalData } from '../../store/slices/globalData';
 import AccountPopover from './accountpopover';
 import { modalContext } from '../../context/modalcontext';
+
+import type { InputRef } from 'antd';
 
 import { StyledHeader } from './header.styled';
 
