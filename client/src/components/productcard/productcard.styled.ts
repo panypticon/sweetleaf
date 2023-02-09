@@ -36,7 +36,6 @@ const StyledProductCard = styled.li`
 
             &-attributes {
                 font-size: 1.4rem;
-                font-weight: 600;
                 color: ${colors.contrast['shade-3']};
                 display: flex;
                 flex-wrap: wrap;
@@ -70,9 +69,6 @@ const StyledProductCard = styled.li`
                 }
             }
 
-            &-rating {
-            }
-
             &-taste {
                 flex-basis: 100%;
             }
@@ -82,6 +78,17 @@ const StyledProductCard = styled.li`
                 line-height: 1.3;
                 margin-bottom: calc(${defaults.layoutPadding} / 2);
             }
+        }
+
+        &__badge {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            position: absolute;
+            top: 0;
+            right: 0;
         }
 
         &__overlay {

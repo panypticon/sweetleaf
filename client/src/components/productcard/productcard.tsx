@@ -1,23 +1,43 @@
 import { CompassFilled, StarFilled } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 import { colors } from '../../root.styled';
 import Button from '../button/button';
+import Tag from '../tag/tag';
 
 import type { Product } from '../../types';
 
 import StyledProductCard from './productcard.styled';
 
+const badgeDetails = {
+    new: { label: 'New', color: colors.steamed.standard },
+    hot: { label: 'Hot', color: colors.herbal.standard },
+    fave: { label: 'Fave', color: colors.fermented.standard }
+};
+
 const ProductCard = ({
-    data: { name, image, category, attributes, ratings, inventory }
+    data: { id, type, name, image, new: isNew, category, attributes, ratings, inventory, recentPurchases }
 }: {
     data: Product;
 }): JSX.Element => {
+    const navigate = useNavigate();
+
     const { NODE_ENV, REACT_APP_SERVER } = process.env;
 
+    // Add match check once implemented
+    const badgeType = ratings.average >= 4.5 ? 'fave' : recentPurchases >= 25 ? 'hot' : isNew ? 'new' : null;
+
     return (
-        <StyledProductCard className="ProductCard">
+        <StyledProductCard className="ProductCard" onClick={() => navigate(`/${type}/${id}`)}>
             <div className="ProductCard__header">
-                <h4>{name}</h4>
+                <div className="ProductCard__header-heading">
+                    <h4>{name}</h4>
+                    {badgeType && (
+                        <Tag className="ProductCard__badge" color={badgeDetails[badgeType].color}>
+                            {badgeDetails[badgeType].label}
+                        </Tag>
+                    )}
+                </div>
                 <div className="ProductCard__header-attributes">
                     <span className="ProductCard__header-attributes-attribute ProductCard__header-category">
                         <span
@@ -38,6 +58,7 @@ const ProductCard = ({
             <div className="ProductCard__body">
                 <img src={`${NODE_ENV === 'development' ? REACT_APP_SERVER : ''}/${image}`} alt={name} />
                 <div className="ProductCard__overlay">
+                    <Button wide>Details</Button>
                     <ul className="ProductCard__packagesizes">
                         {inventory.map(({ size, price }, i) => (
                             <li key={i}>
@@ -46,7 +67,6 @@ const ProductCard = ({
                             </li>
                         ))}
                     </ul>
-                    <Button wide>Click for details</Button>
                 </div>
             </div>
         </StyledProductCard>
