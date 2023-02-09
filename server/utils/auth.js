@@ -17,7 +17,7 @@ passport.use(
             if (!user) throw new createError.Unauthorized();
             const passwordsMatch = await user.authenticate(password);
             if (!passwordsMatch) throw new createError.Unauthorized();
-            if (!user.emailVerified) throw new createError.Conflict();
+            if (!user.role === 'admin' && !user.emailVerified) throw new createError.Conflict();
             return done(null, user);
         } catch (err) {
             return done(err);
@@ -59,7 +59,7 @@ passport.use(
             scope: ['profile', 'email'],
             state: false
         },
-        async (_accessToken, _refreshToken, { id, name, emails }, done) => {
+        async (req, _accessToken, _refreshToken, { id, name, emails }, done) => {
             try {
                 const user = await GoogleUser.findOne({ googleID: id });
                 if (user) return done(null, user);

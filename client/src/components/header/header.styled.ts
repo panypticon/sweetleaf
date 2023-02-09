@@ -85,13 +85,43 @@ export const StyledHeader = styled(Layout.Header)`
                 align-items: center;
                 padding-left: ${defaults.layoutPadding};
 
+                &-results {
+                    list-style: none;
+                    position: absolute;
+                    top: 6rem;
+                    left: 0;
+                    right: 0;
+                    backdrop-filter: blur(5rem);
+                    background: ${rgba(colors.contrast.light, 0.8)};
+                    width: calc(${defaults.layoutMaxWidth} * 0.66666);
+                    max-width: ${defaults.layoutMaxWidth};
+                    padding: calc(${defaults.layoutPadding} / 2) ${defaults.layoutPadding};
+                    margin: 0 auto;
+                    box-shadow: 0 0 1.2rem ${rgba(colors.contrast.dark, 0.075)};
+                    border: 0.1rem solid ${colors.contrast['shade-6']};
+                    border-top: none;
+
+                    li {
+                        height: 3.6rem;
+                        display: flex;
+                    }
+                }
+
+                .ant-form {
+                    flex: 1;
+
+                    &-item {
+                        margin-bottom: 0;
+                    }
+                }
+
                 .ant-input {
                     caret-color: ${colors.contrast.dark};
 
                     &-affix-wrapper {
                         padding: 0;
 
-                        .anticon svg {
+                        .ant-input-prefix .anticon svg {
                             color: ${colors.contrast.dark};
                             width: 2.4rem;
                             height: 2.4rem;
@@ -169,6 +199,24 @@ export const StyledHeader = styled(Layout.Header)`
                     .Header__button-discover {
                         display: none;
                     }
+                }
+            }
+
+            &__login {
+                display: flex;
+                align-items: center;
+                gap: 1.2rem;
+
+                &-hi {
+                    font-size: 1.2rem;
+                    display: flex;
+                    line-height: 1.1;
+                    text-align: right;
+                    font-weight: 600;
+                    max-width: 8rem;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
                 }
             }
         }

@@ -1,5 +1,7 @@
 import { ReactElement } from 'react';
-import { createContext, useState, Dispatch, SetStateAction } from 'react';
+import { createContext, useState } from 'react';
+
+import type { Dispatch, SetStateAction } from 'react';
 
 interface ModalContext {
     modal: ReactElement | null;

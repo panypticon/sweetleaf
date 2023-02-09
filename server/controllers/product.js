@@ -60,7 +60,7 @@ class ProductController extends GenericController {
                 docs
                     .map(doc => this.Model.hydrate(doc))
                     .filter(doc => doc.new || doc.ratings.average >= 4.5 || doc.recentPurchases > 50)
-                    .slice(0, 12)
+                    .slice(0, 24)
             );
             res.status(200).json(docs);
         } catch (err) {

@@ -1,19 +1,29 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingOutlined, UserOutlined, SearchOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
-import { Input } from 'antd';
-import type { InputRef } from 'antd';
+import { Input, Form } from 'antd';
+import { useRequest, useDebounce } from 'ahooks';
 
 import Button from '../button/button';
 import Menu from './menu';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { selectappState, setMobileNavState } from '../../store/slices/appState';
+import { selectGlobalData } from '../../store/slices/globalData';
 import AccountPopover from './accountpopover';
 import { modalContext } from '../../context/modalcontext';
+import { getJSONData } from '../../api/fetch';
+
+import type { InputRef } from 'antd';
 
 import { StyledHeader } from './header.styled';
 
 import leafletLogo from '../../assets/leaflet-icon.svg';
+
+interface SearchResult {
+    id: string;
+    name: string;
+    [x: string]: any;
+}
 
 const Header = (): JSX.Element => {
     const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
@@ -26,7 +36,21 @@ const Header = (): JSX.Element => {
 
     const modalData = useContext(modalContext);
 
+    const { data, runAsync } = useRequest(searchterm => getJSONData(`/api/v1/products/query?name=${searchterm}`), {
+        manual: true,
+        debounceWait: 300,
+        debounceLeading: true
+    });
+
+    const [searchTerm, setSearchTerm] = useState('');
+    const debouncedSearchTerm = useDebounce(searchTerm, { wait: 500 });
+
+    useEffect(() => {
+        debouncedSearchTerm.length >= 2 && runAsync(debouncedSearchTerm);
+    }, [debouncedSearchTerm, runAsync]);
+
     const { mobileNavOpen } = useAppSelector(selectappState);
+    const { user } = useAppSelector(selectGlobalData);
     const dispatch = useAppDispatch();
 
     const MenuIcon = mobileNavOpen ? CloseOutlined : MenuOutlined;
@@ -50,14 +74,30 @@ const Header = (): JSX.Element => {
                     className={`Header__search ${mobileSearchOpen ? 'Header__search--mobile-open' : ''}`}
                     onClick={evt => evt.stopPropagation()}
                 >
-                    <Input
-                        type="search"
-                        placeholder="Search"
-                        prefix={<SearchOutlined />}
-                        onFocus={() => modalData?.setModal(false)}
-                        ref={searchInputRef}
-                        bordered={false}
-                    />
+                    <Form onValuesChange={({ searchterm }) => setSearchTerm(searchterm)}>
+                        <Form.Item name="searchterm">
+                            <Input
+                                type="search"
+                                placeholder="Search"
+                                prefix={<SearchOutlined />}
+                                onFocus={() => modalData?.setModal(false)}
+                                ref={searchInputRef}
+                                bordered={false}
+                                allowClear={true}
+                            />
+                        </Form.Item>
+                    </Form>
+                    {searchTerm.length >= 2 && data && data.length > 0 && (
+                        <ul className="Header__search-results">
+                            {data.map(({ id, name, category, type }: SearchResult) => (
+                                <li key={id}>
+                                    <Link to={`/${type}/${id}`}>
+                                        {name} {type} {category}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
                 </div>
                 <div className="Header__actions">
                     {!mobileNavOpen && (
@@ -70,9 +110,18 @@ const Header = (): JSX.Element => {
                                     setMobileSearchOpen(!mobileSearchOpen);
                                 }}
                             />
-                            <AccountPopover>
-                                <UserOutlined />
-                            </AccountPopover>
+                            <div className="Header__login">
+                                {user && (
+                                    <span className="Header__login-hi">
+                                        Hello
+                                        <br />
+                                        {user.address.firstName}
+                                    </span>
+                                )}
+                                <AccountPopover user={user}>
+                                    <UserOutlined />
+                                </AccountPopover>
+                            </div>
                             <ShoppingOutlined />
                         </>
                     )}

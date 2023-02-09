@@ -194,6 +194,25 @@ const GlobalStyle = createGlobalStyle`
         top: auto !important;
         bottom: ${defaults.layoutPadding};
     }
+
+    .ant-popover {
+        max-width: 28rem;
+        width: 100%;
+
+        &-inner {
+            && {
+                border-radius: unset;
+                padding: ${defaults.layoutPadding};
+            }
+        }
+
+        &-inner,
+        &-arrow::after {
+            && {
+                box-shadow: 0 0 1.2rem ${rgba(colors.contrast.dark, 0.1)};
+            }
+        }
+    }
 `;
 
 export default GlobalStyle;

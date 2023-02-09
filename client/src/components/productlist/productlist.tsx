@@ -3,34 +3,12 @@ import { useRequest } from 'ahooks';
 
 import ProductCard from '../productcard/productcard';
 import { getJSONData } from '../../api/fetch';
+import Spin from '../spin/spin';
+import Button from '../button/button';
+
+import type { Product } from '../../types';
 
 import StyledProductList from './productlist.styled';
-
-export interface PackageSize {
-    size: string;
-    price: number;
-    amount: number;
-}
-
-export interface Product {
-    id: string;
-    name: string;
-    type: string;
-    category: string;
-    attributes: {
-        origin?: string;
-        taste: string[];
-        flavored: boolean;
-    };
-    inventory: PackageSize[];
-    image?: string;
-    new: boolean;
-    recentPurchases: number;
-    ratings: {
-        count: number;
-        average: number;
-    };
-}
 
 const ProductList = ({ route }: { route: string }): JSX.Element => {
     const { data, loading, error, run } = useRequest(() => getJSONData(route), {
@@ -48,17 +26,22 @@ const ProductList = ({ route }: { route: string }): JSX.Element => {
     return (
         <StyledProductList className="ProductList" length={data?.length || 0}>
             {loading ? (
-                <>LOADING</>
+                <div className="ProductList--loading">
+                    <Spin />
+                </div>
             ) : data ? (
-                <ul className="ProductList__data">
+                <ul className="ProductList--data">
                     {data.map((product: Product) => (
                         <ProductCard key={product.id} data={product} />
                     ))}
                 </ul>
             ) : error ? (
-                <li>
-                    Something went wrong. <button onClick={() => run()}>Retry</button>
-                </li>
+                <div className="ProductList--error">
+                    <div>
+                        <h3>Oops, something went wrong :/</h3>
+                        <Button onClick={() => run()}>Retry loading data</Button>
+                    </div>
+                </div>
             ) : (
                 <></>
             )}

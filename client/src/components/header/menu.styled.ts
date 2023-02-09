@@ -37,7 +37,5 @@ export const StyledMenuBlade = styled.div`
     background: ${rgba(colors.steamed['lighter-4'], 0.8)};
     max-width: ${defaults.layoutMaxWidth};
     padding: ${defaults.layoutPadding};
-    border-bottom-left-radius: ${defaults.radiusDefault};
-    border-bottom-right-radius: ${defaults.radiusDefault};
     margin: 0 auto;
 `;

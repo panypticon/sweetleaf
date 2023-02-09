@@ -4,17 +4,19 @@ import { useResponsive } from 'ahooks';
 import { useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 
-import { selectGlobalData } from '../../store/slices/globalData';
-import { useAppSelector, useAppDispatch } from '../../store/hooks';
+import { useAppDispatch } from '../../store/hooks';
 import Button from '../button/button';
 import { modalContext } from '../../context/modalcontext';
 import LoginModal from '../loginmodal/loginmodal';
 import { removeUser } from '../../store/slices/globalData';
 import SignupModal from '../signupmodal/signupmodal';
 
+import type { User } from '../../types';
+
 import StyledAccountPopover from './accountpopover.styled';
 
 interface Props {
+    user: User | null;
     [x: string]: any;
 }
 
@@ -44,7 +46,7 @@ const AccountPopoverActions = (): JSX.Element => {
     return (
         <ul className="AccountPopover__items">
             <li>
-                <Link to="/account">My account</Link>
+                <Link to="/account">Account</Link>
             </li>
             <li>
                 <Link to="/account/orders">Orders</Link>
@@ -80,18 +82,16 @@ const AccountPopoverActions = (): JSX.Element => {
 };
 
 const AccountPopover = (props: Props): JSX.Element => {
-    const { user } = useAppSelector(selectGlobalData);
-
     const { sm } = useResponsive();
 
     return (
         <StyledAccountPopover
             overlayClassName="AccountPopover"
-            title={<h5>{user ? `Hi ${user.address?.firstName}!` : 'My Account'}</h5>}
+            title={<h5>{props.user ? `${props.user.address?.firstName}'s Leaflet` : 'My Account'}</h5>}
             placement={sm ? 'bottomRight' : 'bottom'}
-            content={user ? <AccountPopoverActions /> : <AccountPopoverLogin />}
+            content={props.user ? <AccountPopoverActions /> : <AccountPopoverLogin />}
             getPopupContainer={() => document.querySelector('.Header .Header__actions')}
-            align={{ offset: [4, -2] }}
+            align={{ offset: [0, 4] }}
             {...props}
         />
     );

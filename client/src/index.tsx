@@ -8,7 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import Root from './root';
 import Home from './routes/home/home';
 import Teas from './routes/teas';
-import Tea from './routes/tea';
+import Product from './routes/product';
 import { colors } from './root.styled';
 import { store } from './store/store';
 import { ModalProvider } from './context/modalcontext';
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
             { path: '/', element: <Home /> },
             { path: '/verified', element: <Home /> },
             { path: '/tea', element: <Teas /> },
-            { path: '/tea/:id', element: <Tea /> }
+            { path: '/:type/:id', element: <Product /> }
         ]
     }
 ]);

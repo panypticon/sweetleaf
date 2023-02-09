@@ -1,18 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RootState } from '../store';
+import { createSlice } from '@reduxjs/toolkit';
 
-interface User {
-    address: {
-        city: String;
-        country: String;
-        firstName: String;
-        lastName: String;
-        street: String;
-        zip: String;
-    };
-    email: String;
-    id: String;
-}
+import type { PayloadAction } from '@reduxjs/toolkit';
+import type { User } from '../../types';
+import type { RootState } from '../store';
 
 interface GlobalDataState {
     user: User | null;

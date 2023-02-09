@@ -15,6 +15,7 @@ import { modalContext } from '../../context/modalcontext';
 import StyledLoginModal from './loginmodal.styled';
 
 interface Props {
+    route?: string;
     [x: string]: any;
 }
 
@@ -38,9 +39,9 @@ const LoginModal = (props: Props) => {
             else setLoginError('Something went wrong, please try again later');
         } else if (data) {
             dispatch(setUser(data));
-            navigate('/account');
+            navigate(props.route || '/account');
         }
-    }, [data, error, dispatch, navigate]);
+    }, [data, error, dispatch, navigate, props.route]);
 
     const handleFinish = (values: object) => run('/api/v1/users/login', values);
 
