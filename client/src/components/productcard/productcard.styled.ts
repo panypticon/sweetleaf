@@ -100,6 +100,7 @@ const StyledProductCard = styled.li`
             padding: ${defaults.layoutPadding};
             background-color: ${rgba(colors.contrast.light, 0.6)};
             backdrop-filter: blur(2.5rem);
+            min-height: 40%;
 
             ul {
                 list-style: none;

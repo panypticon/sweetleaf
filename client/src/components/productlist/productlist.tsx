@@ -3,6 +3,8 @@ import { useRequest } from 'ahooks';
 
 import ProductCard from '../productcard/productcard';
 import { getJSONData } from '../../api/fetch';
+import Spin from '../spin/spin';
+import Button from '../button/button';
 
 import type { Product } from '../../types';
 
@@ -24,17 +26,22 @@ const ProductList = ({ route }: { route: string }): JSX.Element => {
     return (
         <StyledProductList className="ProductList" length={data?.length || 0}>
             {loading ? (
-                <>LOADING</>
+                <div className="ProductList--loading">
+                    <Spin />
+                </div>
             ) : data ? (
-                <ul className="ProductList__data">
+                <ul className="ProductList--data">
                     {data.map((product: Product) => (
                         <ProductCard key={product.id} data={product} />
                     ))}
                 </ul>
             ) : error ? (
-                <li>
-                    Something went wrong. <button onClick={() => run()}>Retry</button>
-                </li>
+                <div className="ProductList--error">
+                    <div>
+                        <h3>Oops, something went wrong :/</h3>
+                        <Button onClick={() => run()}>Retry loading data</Button>
+                    </div>
+                </div>
             ) : (
                 <></>
             )}

@@ -1,4 +1,4 @@
-import { defaults, breakpoints } from '../../root.styled';
+import { defaults, breakpoints, colors } from '../../root.styled';
 
 import styled from 'styled-components';
 
@@ -8,7 +8,7 @@ const StyledProductList = styled.section<{ length: number }>`
     overflow-x: scroll;
 
     .ProductList {
-        &__data {
+        &--data {
             width: calc(${props => Math.ceil(props.length / 4) * 50}% - ${props => (props.length <= 4 ? 0 : 10)}%);
             display: grid;
             padding: ${defaults.layoutPadding};
@@ -27,6 +27,38 @@ const StyledProductList = styled.section<{ length: number }>`
 
             @media (max-width: ${breakpoints.xs}) {
                 width: calc(${props => Math.ceil(props.length / 1) * 50}% - ${props => (props.length <= 1 ? 0 : 80)}%);
+            }
+        }
+
+        &--loading,
+        &--error {
+            padding: ${defaults.layoutPadding};
+            min-height: 50vh;
+            display: flex;
+        }
+
+        &--loading {
+            .Spin {
+                flex: 1;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        &--error {
+            align-items: center;
+            justify-content: center;
+
+            > div {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: ${defaults.layoutPadding};
+            }
+
+            h3 {
+                color: ${colors.contrast.dark};
             }
         }
     }
