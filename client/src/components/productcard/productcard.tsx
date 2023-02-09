@@ -58,7 +58,9 @@ const ProductCard = ({
             <div className="ProductCard__body">
                 <img src={`${NODE_ENV === 'development' ? REACT_APP_SERVER : ''}/${image}`} alt={name} />
                 <div className="ProductCard__overlay">
-                    <Button wide>Details</Button>
+                    <Button type="primary" wide>
+                        Details
+                    </Button>
                     <ul className="ProductCard__packagesizes">
                         {inventory.map(({ size, price }, i) => (
                             <li key={i}>
