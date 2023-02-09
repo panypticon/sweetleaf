@@ -36,10 +36,11 @@ const Header = (): JSX.Element => {
 
     const modalData = useContext(modalContext);
 
-    const { data, loading, error, runAsync } = useRequest(
-        searchterm => getJSONData(`/api/v1/products/query?name=${searchterm}`),
-        { manual: true, debounceWait: 300, debounceLeading: true }
-    );
+    const { data, runAsync } = useRequest(searchterm => getJSONData(`/api/v1/products/query?name=${searchterm}`), {
+        manual: true,
+        debounceWait: 300,
+        debounceLeading: true
+    });
 
     const [searchTerm, setSearchTerm] = useState('');
     const debouncedSearchTerm = useDebounce(searchTerm, { wait: 500 });
