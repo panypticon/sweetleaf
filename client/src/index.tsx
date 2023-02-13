@@ -8,10 +8,11 @@ import reportWebVitals from './reportWebVitals';
 import Root from './root';
 import Home from './routes/home/home';
 import Teas from './routes/teas';
-import Product from './routes/product';
+import Product from './routes/product/product';
 import { colors } from './root.styled';
 import { store } from './store/store';
 import { ModalProvider } from './context/modalcontext';
+import { getJSONData } from './api/fetch';
 
 import './index.scss';
 
@@ -25,7 +26,12 @@ const router = createBrowserRouter([
             { path: '/', element: <Home /> },
             { path: '/verified', element: <Home /> },
             { path: '/tea', element: <Teas /> },
-            { path: '/:type/:id', element: <Product /> }
+            { path: '/:product/:category', element: <Teas /> },
+            {
+                path: '/:type/id/:id',
+                element: <Product />,
+                loader: async ({ params: { id } }) => await getJSONData(`/api/v1/products/${id}`)
+            }
         ]
     }
 ]);
