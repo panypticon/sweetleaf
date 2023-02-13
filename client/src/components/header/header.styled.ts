@@ -95,7 +95,7 @@ export const StyledHeader = styled(Layout.Header)`
                     background: ${rgba(colors.contrast.light, 0.8)};
                     width: calc(${defaults.layoutMaxWidth} * 0.66666);
                     max-width: ${defaults.layoutMaxWidth};
-                    padding: calc(${defaults.layoutPadding} / 2) ${defaults.layoutPadding};
+                    padding: calc(${defaults.layoutPadding} / 2) 0;
                     margin: 0 auto;
                     box-shadow: 0 0 1.2rem ${rgba(colors.contrast.dark, 0.075)};
                     border: 0.1rem solid ${colors.contrast['shade-6']};
@@ -104,6 +104,51 @@ export const StyledHeader = styled(Layout.Header)`
                     li {
                         height: 3.6rem;
                         display: flex;
+                        align-items: center;
+
+                        &:hover {
+                            background-color: ${rgba(colors.fermented.standard, 0.2)};
+                        }
+                    }
+
+                    .link {
+                        &:link,
+                        &:visited,
+                        &:hover,
+                        &:active {
+                            color: inherit;
+                        }
+
+                        &__type,
+                        &__category {
+                            color: ${colors.contrast['shade-3']};
+                        }
+
+                        &__category {
+                            display: inline-block;
+                            width: 1.4rem;
+                            height: 1.4rem;
+                            box-shadow: 0 0 0.4rem ${rgba(colors.contrast.dark, 0.2)};
+                            border-radius: 50%;
+
+                            &--green {
+                                background-color: ${colors.steamed.standard};
+                            }
+
+                            &--white {
+                                background-color: ${colors.contrast.light};
+                            }
+                        }
+
+                        &__type {
+                            margin-left: auto;
+                        }
+
+                        flex-basis: 100%;
+                        padding: 0 ${defaults.layoutPadding};
+                        display: flex;
+                        align-items: center;
+                        gap: calc(${defaults.layoutPadding} / 2);
                     }
                 }
 

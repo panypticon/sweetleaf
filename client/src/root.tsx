@@ -9,6 +9,7 @@ import { modalContext } from './context/modalcontext';
 import { getJSONData } from './api/fetch';
 import { useAppDispatch } from './store/hooks';
 import { setUser } from './store/slices/globalData';
+import { setSearchTerm } from './store/slices/appState';
 
 import GlobalStyle from './root.styled';
 
@@ -18,9 +19,12 @@ const Root = (): JSX.Element => {
 
     const location = useLocation();
 
+    const dispatch = useAppDispatch();
+
     useEffect(() => {
         setModal && setModal(null);
-    }, [location, setModal]);
+        dispatch(setSearchTerm(''));
+    }, [location, setModal, dispatch]);
 
     // Get user data on mount, if logged in
     const { data, error, run } = useRequest(url => getJSONData(url), { manual: true });
@@ -32,8 +36,6 @@ const Root = (): JSX.Element => {
             .map(cookie => cookie.slice(6))[0];
         id && run(`/api/v1/users/${id}`);
     }, [run]);
-
-    const dispatch = useAppDispatch();
 
     useEffect(() => {
         if (error) document.cookie = 'login=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
