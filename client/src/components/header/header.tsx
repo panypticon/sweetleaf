@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ShoppingOutlined, UserOutlined, SearchOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
 import { useRequest, useDebounce } from 'ahooks';
+import capitalize from 'lodash/capitalize';
 
 import Button from '../button/button';
 import Menu from './menu';
@@ -88,9 +89,9 @@ const Header = (): JSX.Element => {
                         <ul className="Header__search-results">
                             {data.map(({ id, name, category, type }: SearchResult) => (
                                 <li key={id}>
-                                    <Link className="link" to={`/${type}/${id}`}>
+                                    <Link className="link" to={`/${type}/id/${id}`}>
                                         <span className="link__name">{name}</span>
-                                        <span className="link__type">{type.at(0).toUpperCase() + type.slice(1)}</span>
+                                        <span className="link__type">{capitalize(type)}</span>
                                         <span className={`link__category link__category--${category}`}></span>
                                     </Link>
                                 </li>

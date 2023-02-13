@@ -28,7 +28,7 @@ const ProductCard = ({
     const badgeType = ratings.average >= 4.5 ? 'fave' : recentPurchases >= 25 ? 'hot' : isNew ? 'new' : null;
 
     return (
-        <StyledProductCard className="ProductCard" onClick={() => navigate(`/${type}/${id}`)}>
+        <StyledProductCard className="ProductCard" onClick={() => navigate(`/${type}/id/${id}`)}>
             <div className="ProductCard__header">
                 <div className="ProductCard__header-heading">
                     <h4>{name}</h4>
