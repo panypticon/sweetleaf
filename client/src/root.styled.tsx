@@ -213,6 +213,29 @@ const GlobalStyle = createGlobalStyle`
             }
         }
     }
+
+    .ant-breadcrumb {
+        margin: ${defaults.layoutPadding} 0;
+        padding: 0 ${defaults.layoutPadding};
+        color: ${colors.steamed.standard};
+        font-weight: 600;
+
+        &-link, 
+        &-separator {
+            && {
+                color: inherit;
+            };
+        }
+
+        a {
+            color: ${colors.steamed.standard};
+
+            &:hover {
+                background-color: ${colors.fermented['lighter-4']};
+                border-radius: .4rem;
+            }
+        }
+    }
 `;
 
 export default GlobalStyle;
