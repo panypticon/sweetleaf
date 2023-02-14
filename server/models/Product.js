@@ -99,7 +99,7 @@ const productSchema = new Schema(
 );
 
 productSchema.virtual('image').get(function () {
-    return `assets/${this.id}.jpeg`;
+    return `/assets/${this.id}.jpeg`;
 });
 
 productSchema.virtual('new').get(function () {
