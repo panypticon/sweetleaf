@@ -31,6 +31,7 @@ export interface Product {
     name: string;
     type: string;
     category: string;
+    description: string;
     attributes: {
         origin?: string;
         taste: string[];
