@@ -56,7 +56,7 @@ const ProductCard = ({
                 </div>
             </div>
             <div className="ProductCard__body">
-                <img src={`${NODE_ENV === 'development' ? REACT_APP_SERVER : ''}/${image}`} alt={name} />
+                <img src={`${NODE_ENV === 'development' ? REACT_APP_SERVER : ''}${image}`} alt={name} />
                 <div className="ProductCard__overlay">
                     <Button type="primary" wide>
                         Details
