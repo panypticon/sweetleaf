@@ -5,7 +5,7 @@ import { defaults, colors } from '../../root.styled';
 export const StyledProduct = styled.article`
     h1 {
         color: ${colors.contrast.dark};
-        margin-bottom: calc(${defaults.layoutPadding} * 2);
+        margin-bottom: calc(${defaults.layoutPadding} * 3);
     }
 
     .Product {
