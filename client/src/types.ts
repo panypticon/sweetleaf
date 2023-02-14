@@ -17,6 +17,7 @@ export interface DetailedError extends Error {
 
 export interface AppStateState {
     mobileNavOpen: boolean;
+    searchTerm: string;
 }
 
 export interface PackageSize {
@@ -30,6 +31,7 @@ export interface Product {
     name: string;
     type: string;
     category: string;
+    description: string;
     attributes: {
         origin?: string;
         taste: string[];

@@ -28,7 +28,7 @@ const ProductCard = ({
     const badgeType = ratings.average >= 4.5 ? 'fave' : recentPurchases >= 25 ? 'hot' : isNew ? 'new' : null;
 
     return (
-        <StyledProductCard className="ProductCard" onClick={() => navigate(`/${type}/${id}`)}>
+        <StyledProductCard className="ProductCard" onClick={() => navigate(`/${type}/id/${id}`)}>
             <div className="ProductCard__header">
                 <div className="ProductCard__header-heading">
                     <h4>{name}</h4>
@@ -56,7 +56,7 @@ const ProductCard = ({
                 </div>
             </div>
             <div className="ProductCard__body">
-                <img src={`${NODE_ENV === 'development' ? REACT_APP_SERVER : ''}/${image}`} alt={name} />
+                <img src={`${NODE_ENV === 'development' ? REACT_APP_SERVER : ''}${image}`} alt={name} />
                 <div className="ProductCard__overlay">
                     <Button type="primary" wide>
                         Details

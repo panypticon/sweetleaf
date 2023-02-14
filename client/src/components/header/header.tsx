@@ -1,13 +1,14 @@
 import { useState, useRef, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingOutlined, UserOutlined, SearchOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
-import { Input, Form } from 'antd';
+import { Input } from 'antd';
 import { useRequest, useDebounce } from 'ahooks';
+import capitalize from 'lodash/capitalize';
 
 import Button from '../button/button';
 import Menu from './menu';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { selectappState, setMobileNavState } from '../../store/slices/appState';
+import { selectappState, setMobileNavState, setSearchTerm } from '../../store/slices/appState';
 import { selectGlobalData } from '../../store/slices/globalData';
 import AccountPopover from './accountpopover';
 import { modalContext } from '../../context/modalcontext';
@@ -42,16 +43,15 @@ const Header = (): JSX.Element => {
         debounceLeading: true
     });
 
-    const [searchTerm, setSearchTerm] = useState('');
+    const { mobileNavOpen, searchTerm } = useAppSelector(selectappState);
+    const { user } = useAppSelector(selectGlobalData);
+    const dispatch = useAppDispatch();
+
     const debouncedSearchTerm = useDebounce(searchTerm, { wait: 500 });
 
     useEffect(() => {
         debouncedSearchTerm.length >= 2 && runAsync(debouncedSearchTerm);
     }, [debouncedSearchTerm, runAsync]);
-
-    const { mobileNavOpen } = useAppSelector(selectappState);
-    const { user } = useAppSelector(selectGlobalData);
-    const dispatch = useAppDispatch();
 
     const MenuIcon = mobileNavOpen ? CloseOutlined : MenuOutlined;
 
@@ -74,25 +74,25 @@ const Header = (): JSX.Element => {
                     className={`Header__search ${mobileSearchOpen ? 'Header__search--mobile-open' : ''}`}
                     onClick={evt => evt.stopPropagation()}
                 >
-                    <Form onValuesChange={({ searchterm }) => setSearchTerm(searchterm)}>
-                        <Form.Item name="searchterm">
-                            <Input
-                                type="search"
-                                placeholder="Search"
-                                prefix={<SearchOutlined />}
-                                onFocus={() => modalData?.setModal(false)}
-                                ref={searchInputRef}
-                                bordered={false}
-                                allowClear={true}
-                            />
-                        </Form.Item>
-                    </Form>
+                    <Input
+                        type="search"
+                        placeholder="Search"
+                        prefix={<SearchOutlined />}
+                        onFocus={() => modalData?.setModal(false)}
+                        ref={searchInputRef}
+                        bordered={false}
+                        allowClear={true}
+                        value={searchTerm}
+                        onChange={evt => dispatch(setSearchTerm(evt.target.value))}
+                    />
                     {searchTerm.length >= 2 && data && data.length > 0 && (
                         <ul className="Header__search-results">
                             {data.map(({ id, name, category, type }: SearchResult) => (
                                 <li key={id}>
-                                    <Link to={`/${type}/${id}`}>
-                                        {name} {type} {category}
+                                    <Link className="link" to={`/${type}/id/${id}`}>
+                                        <span className="link__name">{name}</span>
+                                        <span className="link__type">{capitalize(type)}</span>
+                                        <span className={`link__category link__category--${category}`}></span>
                                     </Link>
                                 </li>
                             ))}

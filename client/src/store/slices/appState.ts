@@ -5,7 +5,8 @@ import type { AppStateState } from '../../types';
 import type { RootState } from '../store';
 
 const initialState: AppStateState = {
-    mobileNavOpen: false
+    mobileNavOpen: false,
+    searchTerm: ''
 };
 
 export const appStateSlice = createSlice({
@@ -14,11 +15,14 @@ export const appStateSlice = createSlice({
     reducers: {
         setMobileNavState: (state, action: PayloadAction<boolean>) => {
             state.mobileNavOpen = action.payload;
+        },
+        setSearchTerm: (state, action: PayloadAction<string>) => {
+            state.searchTerm = action.payload;
         }
     }
 });
 
-export const { setMobileNavState } = appStateSlice.actions;
+export const { setMobileNavState, setSearchTerm } = appStateSlice.actions;
 
 export const selectappState = (state: RootState) => state.appState;
 
