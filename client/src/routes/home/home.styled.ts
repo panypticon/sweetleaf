@@ -11,7 +11,7 @@ export const StyledHome = styled.article`
     }
 
     .hero {
-        background: center / cover no-repeat url('assets/hero.jpg');
+        background: center / cover no-repeat url('/assets/hero.jpg');
         min-height: 75vh;
         display: flex;
         align-items: flex-end;
