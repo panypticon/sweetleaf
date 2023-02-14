@@ -20,15 +20,17 @@ const PackageSelector = ({ inventory, id }: { id: string; inventory: PackageSize
 
     return (
         <StyledPackageSelector className="PackageSelector">
-            <h3>{currentItem ? `${(currentItem.price * amount).toFixed(2)} €` : 'Currently unavailable'}</h3>
-            <Radio.Group defaultValue={selection} onChange={({ target: { value } }) => setSelection(value)}>
-                {inventory.map(({ size, amount }, i) => (
-                    <Radio.Button key={i} value={size} disabled={!amount}>
-                        {size}
-                    </Radio.Button>
-                ))}
-            </Radio.Group>
-            <div>
+            <span className="PackageSelector__price">
+                <h3>{currentItem ? `${(currentItem.price * amount).toFixed(2)} €` : 'Currently unavailable'}</h3>
+            </span>
+            <div className="PackageSelector__config">
+                <Radio.Group defaultValue={selection} onChange={({ target: { value } }) => setSelection(value)}>
+                    {inventory.map(({ size, amount }, i) => (
+                        <Radio.Button key={i} value={size} disabled={!amount}>
+                            {size}
+                        </Radio.Button>
+                    ))}
+                </Radio.Group>
                 <Input.Group compact>
                     <Button onClick={() => setAmount(prev => prev - 1)} disabled={amount <= 1}>
                         <MinusOutlined />
@@ -47,6 +49,8 @@ const PackageSelector = ({ inventory, id }: { id: string; inventory: PackageSize
                         <PlusOutlined />
                     </Button>
                 </Input.Group>
+            </div>
+            <div className="PackageSelector__add">
                 <Button type="primary">Add to cart</Button>
             </div>
         </StyledPackageSelector>
