@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { Radio, Input, InputNumber } from 'antd';
-import { PlusOutlined, MinusOutlined } from '@ant-design/icons';
+import { PlusOutlined, MinusOutlined, CheckOutlined } from '@ant-design/icons';
 
 import Button from '../button/button';
 
@@ -8,15 +8,26 @@ import type { PackageSize } from '../../types';
 
 import StyledPackageSelector from './packageselector.styled';
 
-const PackageSelector = ({ inventory, id }: { id: string; inventory: PackageSize[] }) => {
+const PackageSelector = ({
+    inventory,
+    onAddToCart
+}: {
+    inventory: PackageSize[];
+    onAddToCart: (amount: number, packageSize: string) => void;
+}) => {
     const [selection, setSelection] = useState(inventory.find(item => item.amount > 0)?.size);
     const [amount, setAmount] = useState(1);
+    const [showAdded, setShowAdded] = useState(false);
 
     const currentItem = useMemo(() => inventory.find(item => item.size === selection), [selection, inventory]);
 
     useEffect(() => {
         currentItem && amount > currentItem.amount && setAmount(currentItem.amount);
     }, [currentItem, amount]);
+
+    useEffect(() => {
+        showAdded && setTimeout(() => setShowAdded(false), 1500);
+    }, [showAdded]);
 
     return (
         <StyledPackageSelector className="PackageSelector">
@@ -51,7 +62,19 @@ const PackageSelector = ({ inventory, id }: { id: string; inventory: PackageSize
                 </Input.Group>
             </div>
             <div className="PackageSelector__add">
-                <Button type="primary">Add to cart</Button>
+                <Button
+                    type="primary"
+                    onClick={() => {
+                        onAddToCart(amount, currentItem?.size || '');
+                        setShowAdded(true);
+                    }}
+                >
+                    Add to cart
+                </Button>
+                <span className={showAdded ? 'show' : ''}>
+                    <CheckOutlined />
+                    Product added
+                </span>
             </div>
         </StyledPackageSelector>
     );

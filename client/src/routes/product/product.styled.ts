@@ -8,10 +8,19 @@ export const StyledProduct = styled.article`
         margin-bottom: calc(${defaults.layoutPadding} * 3);
     }
 
+    h2 {
+        color: ${colors.contrast.dark};
+        margin-bottom: ${defaults.layoutPadding};
+    }
+
     .Product {
         &__section {
             padding: 0 ${defaults.layoutPadding};
             margin: ${defaults.layoutPadding} 0;
+
+            &:not(:first-of-type) {
+                margin: calc(${defaults.layoutPadding} * 3) 0;
+            }
         }
 
         &__main {

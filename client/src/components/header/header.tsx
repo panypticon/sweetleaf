@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useContext } from 'react';
+import { useState, useRef, useEffect, useContext, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingOutlined, UserOutlined, SearchOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
@@ -43,9 +43,11 @@ const Header = (): JSX.Element => {
         debounceLeading: true
     });
 
-    const { mobileNavOpen, searchTerm } = useAppSelector(selectappState);
+    const { mobileNavOpen, searchTerm, cart } = useAppSelector(selectappState);
     const { user } = useAppSelector(selectGlobalData);
     const dispatch = useAppDispatch();
+
+    const cartSize = useMemo(() => Object.keys(cart).length, [cart]);
 
     const debouncedSearchTerm = useDebounce(searchTerm, { wait: 500 });
 
@@ -122,7 +124,10 @@ const Header = (): JSX.Element => {
                                     <UserOutlined />
                                 </AccountPopover>
                             </div>
-                            <ShoppingOutlined />
+                            <span className="Header__cart">
+                                {cartSize > 0 && <span className="Header__cart-size">{cartSize}</span>}
+                                <ShoppingOutlined />
+                            </span>
                         </>
                     )}
                     <MenuIcon

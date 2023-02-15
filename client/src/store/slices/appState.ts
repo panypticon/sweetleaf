@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { AppStateState } from '../../types';
+import type { AppStateState, CartItem } from '../../types';
 import type { RootState } from '../store';
 
 const initialState: AppStateState = {
     mobileNavOpen: false,
-    searchTerm: ''
+    searchTerm: '',
+    cart: JSON.parse(localStorage.getItem('cart') || '{}')
 };
 
 export const appStateSlice = createSlice({
@@ -18,11 +19,18 @@ export const appStateSlice = createSlice({
         },
         setSearchTerm: (state, action: PayloadAction<string>) => {
             state.searchTerm = action.payload;
+        },
+        addToCart: (state, action: PayloadAction<CartItem>) => {
+            const { item, amount, packageSize } = action.payload;
+            const cartItemId = `${item.id}-${packageSize}`;
+            if (!state.cart[cartItemId]) state.cart[cartItemId] = action.payload;
+            else state.cart[cartItemId].amount = state.cart[cartItemId].amount + amount;
+            localStorage.setItem('cart', JSON.stringify(state.cart));
         }
     }
 });
 
-export const { setMobileNavState, setSearchTerm } = appStateSlice.actions;
+export const { setMobileNavState, setSearchTerm, addToCart } = appStateSlice.actions;
 
 export const selectappState = (state: RootState) => state.appState;
 

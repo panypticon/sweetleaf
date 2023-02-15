@@ -264,6 +264,29 @@ export const StyledHeader = styled(Layout.Header)`
                     text-overflow: ellipsis;
                 }
             }
+
+            &__cart {
+                position: relative;
+
+                &-size {
+                    position: absolute;
+                    background-color: ${colors.steamed.standard};
+                    min-width: 1.8rem;
+                    height: 1.8rem;
+                    border-radius: 1rem;
+                    padding: 0 0.4rem;
+                    color: ${colors.contrast.light};
+                    font-size: 1rem;
+                    display: flex;
+                    font-weight: 600;
+                    justify-content: center;
+                    align-items: center;
+                    top: 42.5%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    pointer-events: none;
+                }
+            }
         }
 
         &.Header--modalopen {

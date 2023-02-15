@@ -11,7 +11,7 @@ import type { Product } from '../../types';
 import StyledProductList from './productlist.styled';
 
 const ProductList = ({ route }: { route: string }): JSX.Element => {
-    const { data, loading, error, run } = useRequest(() => getJSONData(route), {
+    const { data, loading, error, runAsync } = useRequest(() => getJSONData(route), {
         pollingInterval: 1800000,
         cacheKey: 'allstars',
         staleTime: 300000,
@@ -20,8 +20,8 @@ const ProductList = ({ route }: { route: string }): JSX.Element => {
     });
 
     useEffect(() => {
-        run();
-    }, [run]);
+        runAsync();
+    }, [runAsync]);
 
     return (
         <StyledProductList className="ProductList" length={data?.length || 0}>
@@ -39,7 +39,7 @@ const ProductList = ({ route }: { route: string }): JSX.Element => {
                 <div className="ProductList--error">
                     <div>
                         <h3>Oops, something went wrong :/</h3>
-                        <Button onClick={() => run()}>Retry loading data</Button>
+                        <Button onClick={() => runAsync()}>Retry loading data</Button>
                     </div>
                 </div>
             ) : (

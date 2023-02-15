@@ -12,9 +12,20 @@ const StyledPackageSelector = styled.div`
             display: flex;
             gap: ${defaults.layoutPadding};
             margin-top: ${defaults.layoutPadding};
+            align-items: center;
 
-            .ant-input-group {
-                width: auto;
+            .anticon {
+                margin-right: 0.8rem;
+                color: ${colors.steamed.standard};
+            }
+
+            > span {
+                opacity: 0;
+                transition: 0.1s opacity ease-in;
+
+                &.show {
+                    opacity: 1;
+                }
             }
         }
 
