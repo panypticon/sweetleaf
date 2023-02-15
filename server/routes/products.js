@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import productController from '../controllers/product.js';
 import { isAdmin } from '../utils/auth.js';
+import ratingsRouter from './rating.js';
 
 const productsRouter = Router();
 
@@ -14,5 +15,6 @@ productsRouter
     .get(productController.getOne)
     .put(isAdmin, productController.update)
     .delete(isAdmin, productController.delete);
+productsRouter.use('/:id/ratings', ratingsRouter);
 
 export default productsRouter;

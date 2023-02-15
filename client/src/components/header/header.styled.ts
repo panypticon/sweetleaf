@@ -271,8 +271,8 @@ export const StyledHeader = styled(Layout.Header)`
                 &-size {
                     position: absolute;
                     background-color: ${colors.steamed.standard};
-                    min-width: 1.6rem;
-                    height: 1.6rem;
+                    min-width: 1.8rem;
+                    height: 1.8rem;
                     border-radius: 1rem;
                     padding: 0 0.4rem;
                     color: ${colors.contrast.light};

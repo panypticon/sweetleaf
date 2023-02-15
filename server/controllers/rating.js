@@ -8,9 +8,11 @@ class RatingController extends GenericController {
         super(Model);
     }
 
-    getAll = async (_, res, next) => {
+    getAll = async (req, res, next) => {
         try {
-            const docs = await this.Model.find()
+            // Handle redirected requests from product controller for product ratings
+            const query = req.params.id ? { product: req.params.id } : {};
+            const docs = await this.Model.find(query)
                 .populate({ path: 'user', options: { lean: true, select: 'address.firstName address.lastName' } })
                 .populate({ path: 'product', options: { lean: true, select: 'name type category attributes' } });
             res.status(200).json(docs);

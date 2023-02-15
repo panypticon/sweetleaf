@@ -55,3 +55,12 @@ export interface CartItem {
     amount: number;
     packageSize: string;
 }
+
+export interface Rating {
+    rating: number;
+    comment: string | null;
+    user: User;
+    product: object;
+    createdAt: Date;
+    id: string;
+}

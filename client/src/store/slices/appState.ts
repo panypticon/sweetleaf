@@ -7,7 +7,7 @@ import type { RootState } from '../store';
 const initialState: AppStateState = {
     mobileNavOpen: false,
     searchTerm: '',
-    cart: JSON.parse(localStorage.getItem('cart') || '') || {}
+    cart: JSON.parse(localStorage.getItem('cart') || '{}')
 };
 
 export const appStateSlice = createSlice({

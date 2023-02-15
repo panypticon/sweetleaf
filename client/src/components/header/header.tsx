@@ -57,8 +57,6 @@ const Header = (): JSX.Element => {
 
     const MenuIcon = mobileNavOpen ? CloseOutlined : MenuOutlined;
 
-    console.log(cart);
-
     return (
         <StyledHeader
             className={`Header ${modalData?.modal ? 'Header--modalopen' : ''}`}

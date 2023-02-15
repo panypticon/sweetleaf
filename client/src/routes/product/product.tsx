@@ -8,6 +8,7 @@ import PackageSelector from '../../components/packageselector/packageselector';
 import Table from '../../components/table/table';
 import { useAppDispatch } from '../../store/hooks';
 import { addToCart } from '../../store/slices/appState';
+import RatingList from '../../components/ratinglist/ratinglist';
 
 import type { Product } from '../../types';
 
@@ -34,7 +35,7 @@ const tableColumns = [
 const ProductPage = (): JSX.Element => {
     const item = useLoaderData() as Product;
 
-    const { type, category, name, image, description, inventory, attributes } = item;
+    const { id, type, category, name, image, description, inventory, attributes, ratings } = item;
 
     const tableData = useMemo(
         () =>
@@ -84,6 +85,10 @@ const ProductPage = (): JSX.Element => {
                         </div>
                     </div>
                 </div>
+            </section>
+            <section className="Product__section">
+                <h2>Reviews</h2>
+                <RatingList stats={ratings} route={`/api/v1/products/${id}/ratings`} />
             </section>
         </StyledProduct>
     );
