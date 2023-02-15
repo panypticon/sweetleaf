@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 
 import PackageSelector from '../../components/packageselector/packageselector';
 import Table from '../../components/table/table';
+import { useAppDispatch } from '../../store/hooks';
+import { addToCart } from '../../store/slices/appState';
 
 import type { Product } from '../../types';
 
@@ -30,7 +32,9 @@ const tableColumns = [
 ];
 
 const ProductPage = (): JSX.Element => {
-    const { type, category, name, image, description, id, inventory, attributes } = useLoaderData() as Product;
+    const item = useLoaderData() as Product;
+
+    const { type, category, name, image, description, inventory, attributes } = item;
 
     const tableData = useMemo(
         () =>
@@ -41,6 +45,18 @@ const ProductPage = (): JSX.Element => {
             })),
         [attributes]
     );
+
+    const dispatch = useAppDispatch();
+
+    const handleAddToCart = (amount: number, packageSize: string) =>
+        dispatch(
+            addToCart({
+                item,
+                amount,
+                packageSize
+            })
+        );
+
     return (
         <StyledProduct className="Product">
             <Breadcrumb>
@@ -57,7 +73,7 @@ const ProductPage = (): JSX.Element => {
                     <img src={image} alt="name" />
                     <div className="Product__data">
                         <div>{description}</div>
-                        <PackageSelector id={id} inventory={inventory} />
+                        <PackageSelector inventory={inventory} onAddToCart={handleAddToCart} />
                         <div className="Product__stats">
                             <Table
                                 columns={tableColumns}

@@ -18,6 +18,9 @@ export interface DetailedError extends Error {
 export interface AppStateState {
     mobileNavOpen: boolean;
     searchTerm: string;
+    cart: {
+        [x: string]: CartItem;
+    };
 }
 
 export interface PackageSize {
@@ -45,4 +48,10 @@ export interface Product {
         count: number;
         average: number;
     };
+}
+
+export interface CartItem {
+    item: Product;
+    amount: number;
+    packageSize: string;
 }
