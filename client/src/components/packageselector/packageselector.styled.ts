@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { defaults, colors } from '../../root.styled';
+import { defaults, colors, breakpoints } from '../../root.styled';
 
 const StyledPackageSelector = styled.div`
     margin: calc(${defaults.layoutPadding} * 2) 0;
@@ -10,9 +10,22 @@ const StyledPackageSelector = styled.div`
     .PackageSelector {
         &__add {
             display: flex;
+            flex-wrap: wrap;
             gap: ${defaults.layoutPadding};
             margin-top: ${defaults.layoutPadding};
             align-items: center;
+
+            @media (max-width: ${breakpoints.sm}) {
+                .Button {
+                    width: 100%;
+                }
+
+                > span {
+                    display: block;
+                    width: 100%;
+                    text-align: center;
+                }
+            }
 
             .anticon {
                 margin-right: 0.8rem;
@@ -20,11 +33,10 @@ const StyledPackageSelector = styled.div`
             }
 
             > span {
-                opacity: 0;
-                transition: 0.1s opacity ease-in;
+                display: none;
 
                 &.show {
-                    opacity: 1;
+                    display: block;
                 }
             }
         }
@@ -32,6 +44,10 @@ const StyledPackageSelector = styled.div`
         &__config {
             display: flex;
             gap: calc(${defaults.layoutPadding} * 2);
+
+            @media (max-width: ${breakpoints.xs}) {
+                flex-wrap: wrap;
+            }
         }
     }
 
