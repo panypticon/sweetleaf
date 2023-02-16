@@ -93,13 +93,17 @@ export const StyledHeader = styled(Layout.Header)`
                     right: 0;
                     backdrop-filter: blur(5rem);
                     background: ${rgba(colors.contrast.light, 0.8)};
-                    width: calc(${defaults.layoutMaxWidth} * 0.66666);
+                    width: 66.66666%;
                     max-width: ${defaults.layoutMaxWidth};
                     padding: calc(${defaults.layoutPadding} / 2) 0;
                     margin: 0 auto;
                     box-shadow: 0 0 1.2rem ${rgba(colors.contrast.dark, 0.075)};
                     border: 0.1rem solid ${colors.contrast['shade-6']};
                     border-top: none;
+
+                    @media (max-width: ${breakpoints.md}) {
+                        width: 100%;
+                    }
 
                     li {
                         height: 3.6rem;

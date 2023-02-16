@@ -9,7 +9,7 @@ import { modalContext } from './context/modalcontext';
 import { getJSONData } from './api/fetch';
 import { useAppDispatch } from './store/hooks';
 import { setUser } from './store/slices/globalData';
-import { setSearchTerm } from './store/slices/appState';
+import { setSearchTerm, setMobileSearchState } from './store/slices/appState';
 
 import GlobalStyle from './root.styled';
 
@@ -24,6 +24,7 @@ const Root = (): JSX.Element => {
     useEffect(() => {
         setModal && setModal(null);
         dispatch(setSearchTerm(''));
+        dispatch(setMobileSearchState(false));
     }, [location, setModal, dispatch]);
 
     // Get user data on mount, if logged in

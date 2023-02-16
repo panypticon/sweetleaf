@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { defaults, colors } from '../../root.styled';
+import { defaults, colors, breakpoints } from '../../root.styled';
 
 export const StyledProduct = styled.article`
     h1 {
@@ -25,11 +25,17 @@ export const StyledProduct = styled.article`
 
         &__main {
             display: flex;
+            flex-wrap: wrap;
             gap: ${defaults.layoutPadding};
+            align-items: flex-start;
 
             img {
                 mix-blend-mode: multiply;
                 width: calc(38.19660113% - (${defaults.layoutPadding} / 2));
+
+                @media (max-width: ${breakpoints.md}) {
+                    width: 100%;
+                }
             }
         }
 

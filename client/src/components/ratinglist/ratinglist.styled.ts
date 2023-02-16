@@ -1,4 +1,4 @@
-import { defaults, colors } from '../../root.styled';
+import { defaults, colors, breakpoints } from '../../root.styled';
 
 import styled from 'styled-components';
 
@@ -8,6 +8,10 @@ const StyledRatingList = styled.section`
             display: grid;
             gap: calc(${defaults.layoutPadding} * 2);
             grid-template-columns: 1fr 1.61803398875fr;
+
+            @media (max-width: ${breakpoints.md}) {
+                grid-template-columns: 1fr;
+            }
 
             &-stats {
                 border: 0.2rem solid ${colors.steamed['lighter-4']};
@@ -27,6 +31,7 @@ const StyledRatingList = styled.section`
                     display: flex;
                     gap: ${defaults.layoutPadding};
                     align-items: center;
+                    flex-wrap: wrap;
                 }
             }
 

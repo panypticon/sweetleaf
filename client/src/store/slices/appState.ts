@@ -6,6 +6,7 @@ import type { RootState } from '../store';
 
 const initialState: AppStateState = {
     mobileNavOpen: false,
+    mobileSearchOpen: false,
     searchTerm: '',
     cart: JSON.parse(localStorage.getItem('cart') || '{}')
 };
@@ -16,6 +17,9 @@ export const appStateSlice = createSlice({
     reducers: {
         setMobileNavState: (state, action: PayloadAction<boolean>) => {
             state.mobileNavOpen = action.payload;
+        },
+        setMobileSearchState: (state, action: PayloadAction<boolean>) => {
+            state.mobileSearchOpen = action.payload;
         },
         setSearchTerm: (state, action: PayloadAction<string>) => {
             state.searchTerm = action.payload;
@@ -30,7 +34,7 @@ export const appStateSlice = createSlice({
     }
 });
 
-export const { setMobileNavState, setSearchTerm, addToCart } = appStateSlice.actions;
+export const { setMobileNavState, setSearchTerm, setMobileSearchState, addToCart } = appStateSlice.actions;
 
 export const selectappState = (state: RootState) => state.appState;
 

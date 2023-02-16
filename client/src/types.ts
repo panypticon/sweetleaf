@@ -17,6 +17,7 @@ export interface DetailedError extends Error {
 
 export interface AppStateState {
     mobileNavOpen: boolean;
+    mobileSearchOpen: boolean;
     searchTerm: string;
     cart: {
         [x: string]: CartItem;
