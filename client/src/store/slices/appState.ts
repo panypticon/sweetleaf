@@ -30,11 +30,21 @@ export const appStateSlice = createSlice({
             if (!state.cart[cartItemId]) state.cart[cartItemId] = action.payload;
             else state.cart[cartItemId].amount = state.cart[cartItemId].amount + amount;
             localStorage.setItem('cart', JSON.stringify(state.cart));
+        },
+        incrementInCart: (state, action: PayloadAction<string>) => {
+            state.cart[action.payload].amount <= 99 && state.cart[action.payload].amount++;
+            localStorage.setItem('cart', JSON.stringify(state.cart));
+        },
+        decrementInCart: (state, action: PayloadAction<string>) => {
+            if (state.cart[action.payload].amount > 1) state.cart[action.payload].amount--;
+            else delete state.cart[action.payload];
+            localStorage.setItem('cart', JSON.stringify(state.cart));
         }
     }
 });
 
-export const { setMobileNavState, setSearchTerm, setMobileSearchState, addToCart } = appStateSlice.actions;
+export const { setMobileNavState, setSearchTerm, setMobileSearchState, addToCart, incrementInCart, decrementInCart } =
+    appStateSlice.actions;
 
 export const selectappState = (state: RootState) => state.appState;
 

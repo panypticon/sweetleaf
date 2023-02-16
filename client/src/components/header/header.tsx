@@ -11,6 +11,7 @@ import { useAppSelector, useAppDispatch } from '../../store/hooks';
 import { selectappState, setMobileNavState, setSearchTerm, setMobileSearchState } from '../../store/slices/appState';
 import { selectGlobalData } from '../../store/slices/globalData';
 import AccountPopover from './accountpopover';
+import CartPopover from './cartpopover';
 import { modalContext } from '../../context/modalcontext';
 import { getJSONData } from '../../api/fetch';
 
@@ -124,8 +125,10 @@ const Header = (): JSX.Element => {
                                 </AccountPopover>
                             </div>
                             <span className="Header__cart">
-                                {cartSize > 0 && <span className="Header__cart-size">{cartSize}</span>}
-                                <ShoppingOutlined />
+                                <CartPopover data={cart}>
+                                    <ShoppingOutlined />
+                                    {cartSize > 0 && <span className="Header__cart-size">{cartSize}</span>}
+                                </CartPopover>
                             </span>
                         </>
                     )}
