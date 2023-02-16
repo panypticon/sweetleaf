@@ -97,6 +97,10 @@ const GlobalStyle = createGlobalStyle`
         font-size: 1.8rem;
     }
 
+    h6 {
+        font-size: 1.6rem;
+    }
+
     .modal-lock {
         overflow: hidden;
     }

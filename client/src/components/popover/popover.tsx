@@ -9,7 +9,7 @@ const Popover = (props: Props): JSX.Element => (
         className="Popover"
         destroyTooltipOnHide={true}
         mouseEnterDelay={0}
-        mouseLeaveDelay={0.2}
+        mouseLeaveDelay={0.1}
         {...props}
     />
 );

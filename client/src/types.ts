@@ -55,6 +55,7 @@ export interface CartItem {
     item: Product;
     amount: number;
     packageSize: string;
+    id?: string;
 }
 
 export interface Rating {

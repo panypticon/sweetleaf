@@ -272,8 +272,19 @@ export const StyledHeader = styled(Layout.Header)`
             &__cart {
                 position: relative;
 
+                > span {
+                    display: flex;
+                    gap: 0.4rem;
+                    align-items: center;
+
+                    &:hover {
+                        svg {
+                            color: ${colors.steamed.standard};
+                        }
+                    }
+                }
+
                 &-size {
-                    position: absolute;
                     background-color: ${colors.steamed.standard};
                     min-width: 1.8rem;
                     height: 1.8rem;
@@ -285,10 +296,8 @@ export const StyledHeader = styled(Layout.Header)`
                     font-weight: 600;
                     justify-content: center;
                     align-items: center;
-                    top: 42.5%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    pointer-events: none;
+                    cursor: pointer;
+                    transform: translateY(0.2rem);
                 }
             }
         }
