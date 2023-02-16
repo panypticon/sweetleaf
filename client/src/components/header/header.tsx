@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useContext, useMemo } from 'react';
+import { useRef, useEffect, useContext, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingOutlined, UserOutlined, SearchOutlined, MenuOutlined, CloseOutlined } from '@ant-design/icons';
 import { Input } from 'antd';
@@ -8,7 +8,7 @@ import capitalize from 'lodash/capitalize';
 import Button from '../button/button';
 import Menu from './menu';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { selectappState, setMobileNavState, setSearchTerm } from '../../store/slices/appState';
+import { selectappState, setMobileNavState, setSearchTerm, setMobileSearchState } from '../../store/slices/appState';
 import { selectGlobalData } from '../../store/slices/globalData';
 import AccountPopover from './accountpopover';
 import { modalContext } from '../../context/modalcontext';
@@ -27,8 +27,11 @@ interface SearchResult {
 }
 
 const Header = (): JSX.Element => {
-    const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
     const searchInputRef = useRef<InputRef>(null);
+
+    const { mobileNavOpen, mobileSearchOpen, searchTerm, cart } = useAppSelector(selectappState);
+    const { user } = useAppSelector(selectGlobalData);
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         const searchInput = searchInputRef.current as HTMLElement | null;
@@ -42,10 +45,6 @@ const Header = (): JSX.Element => {
         debounceWait: 300,
         debounceLeading: true
     });
-
-    const { mobileNavOpen, searchTerm, cart } = useAppSelector(selectappState);
-    const { user } = useAppSelector(selectGlobalData);
-    const dispatch = useAppDispatch();
 
     const cartSize = useMemo(() => Object.keys(cart).length, [cart]);
 
@@ -62,7 +61,7 @@ const Header = (): JSX.Element => {
             className={`Header ${modalData?.modal ? 'Header--modalopen' : ''}`}
             onClick={() => {
                 dispatch(setMobileNavState(false));
-                setMobileSearchOpen(false);
+                dispatch(setMobileSearchState(false));
             }}
         >
             <div className="Header__content">
@@ -109,7 +108,7 @@ const Header = (): JSX.Element => {
                                 className="Header__actions-search"
                                 onClick={evt => {
                                     evt.stopPropagation();
-                                    setMobileSearchOpen(!mobileSearchOpen);
+                                    dispatch(setMobileSearchState(!mobileSearchOpen));
                                 }}
                             />
                             <div className="Header__login">
@@ -134,7 +133,7 @@ const Header = (): JSX.Element => {
                         className="Header__actions-menu"
                         onClick={evt => {
                             evt.stopPropagation();
-                            setMobileSearchOpen(false);
+                            dispatch(setMobileSearchState(false));
                             dispatch(setMobileNavState(!mobileNavOpen));
                         }}
                     />
