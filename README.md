@@ -1,6 +1,6 @@
 # Leaflet MERN stack prototype
 
-This is a rather large demo prototype of a tea store that quizzes you for your taste.
+This is a rather large demo prototype of a tea store that quizzes you for your taste (**WORK IN PROGRESS**).
 
 It is a full-stack MERN monorepo application, written entirely in TypeScript and JavaScript, and [deployed here](https://sweetleaf.vercel.app).
 
