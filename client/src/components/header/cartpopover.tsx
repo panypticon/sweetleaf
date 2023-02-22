@@ -85,8 +85,6 @@ const CartPopover = (props: Props): JSX.Element => {
         </p>
     );
 
-    console.log(isEmpty);
-
     return (
         <StyledCartPopover
             overlayClassName="CartPopover"

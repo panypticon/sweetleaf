@@ -52,9 +52,6 @@ const AccountPopoverActions = (): JSX.Element => {
                 <Link to="/account/orders">Orders</Link>
             </li>
             <li>
-                <Link to="/account/favorites">Favorites</Link>
-            </li>
-            <li>
                 <Link to="/account/recommendations">Recommendations</Link>
             </li>
             <li>
@@ -92,7 +89,7 @@ const AccountPopover = (props: Props): JSX.Element => {
             content={props.user ? <AccountPopoverActions /> : <AccountPopoverLogin />}
             getPopupContainer={() => document.querySelector('.Header .Header__actions')}
             destroyTooltipOnHide={false}
-            align={{ offset: [0, 4] }}
+            align={{ offset: [10, 4] }}
             {...props}
         />
     );

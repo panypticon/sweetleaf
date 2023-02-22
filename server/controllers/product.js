@@ -56,13 +56,28 @@ class ProductController extends GenericController {
 
     getAllstars = async (_, res, next) => {
         try {
-            const docs = await this.Model.aggregate(pipeline).then(docs =>
-                docs
-                    .map(doc => this.Model.hydrate(doc))
-                    .filter(doc => doc.new || doc.ratings.average >= 4.5 || doc.recentPurchases > 50)
-                    .slice(0, 24)
-            );
-            res.status(200).json(docs);
+            const docs = await this.Model.aggregate(pipeline);
+            const hydrated = docs.map(doc => this.Model.hydrate(doc));
+            const results = hydrated
+                .filter(doc => {
+                    const objectified = doc.toObject();
+                    return (
+                        objectified.new ||
+                        (objectified.ratings?.ratings.reduce((acc, rating) => acc + rating.rating, 0) /
+                            objectified.ratings?.ratings.length || 0) >= 4.25 ||
+                        objectified.recentPurchases?.count > 25
+                    );
+                })
+                .slice(0, 24);
+            if (results.length < 24) {
+                const foundIDs = results.flatMap(result => result.id);
+                results.splice(
+                    results.length,
+                    0,
+                    ...hydrated.filter(product => !foundIDs.includes(product.id)).slice(0, 24 - results.length)
+                );
+            }
+            res.status(200).json(results);
         } catch (err) {
             next(err);
         }

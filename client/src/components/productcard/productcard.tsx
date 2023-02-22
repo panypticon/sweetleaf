@@ -25,7 +25,7 @@ const ProductCard = ({
     const { NODE_ENV, REACT_APP_SERVER } = process.env;
 
     // Add match check once implemented
-    const badgeType = ratings.average >= 4.5 ? 'fave' : recentPurchases >= 25 ? 'hot' : isNew ? 'new' : null;
+    const badgeType = ratings?.average >= 4.25 ? 'fave' : recentPurchases >= 25 ? 'hot' : isNew ? 'new' : null;
 
     return (
         <StyledProductCard className="ProductCard" onClick={() => navigate(`/${type}/id/${id}`)}>
@@ -47,7 +47,7 @@ const ProductCard = ({
                     </span>
                     <span className="ProductCard__header-attributes-attribute ProductCard__header-rating">
                         <StarFilled style={{ color: colors.oolong.standard }} />
-                        {ratings.average || '–'} ({ratings.count})
+                        {ratings?.average || '–'} ({ratings?.count})
                     </span>
                     <span className="ProductCard__header-attributes-attribute ProductCard__header-taste">
                         <CompassFilled style={{ color: colors.contrast['shade-5'] }} />

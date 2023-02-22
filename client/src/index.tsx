@@ -9,6 +9,8 @@ import Root from './root';
 import Home from './routes/home/home';
 import Teas from './routes/teas';
 import Product from './routes/product/product';
+import Account from './routes/account/account';
+import Orders from './routes/account/orders';
 import { colors } from './root.styled';
 import { store } from './store/store';
 import { ModalProvider } from './context/modalcontext';
@@ -26,12 +28,19 @@ const router = createBrowserRouter([
             { path: '/', element: <Home /> },
             { path: '/verified', element: <Home /> },
             { path: '/tea', element: <Teas /> },
-            { path: '/:product/:category', element: <Teas /> },
+            {
+                path: '/account',
+                children: [
+                    { path: '/account', element: <Account /> },
+                    { path: '/account/orders', element: <Orders /> }
+                ]
+            },
             {
                 path: '/:type/id/:id',
                 element: <Product />,
                 loader: async ({ params: { id } }) => await getJSONData(`/api/v1/products/${id}`)
-            }
+            },
+            { path: '/:product/:category', element: <Teas /> }
         ]
     }
 ]);
