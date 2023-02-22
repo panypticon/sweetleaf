@@ -46,6 +46,6 @@ export const appStateSlice = createSlice({
 export const { setMobileNavState, setSearchTerm, setMobileSearchState, addToCart, incrementInCart, decrementInCart } =
     appStateSlice.actions;
 
-export const selectappState = (state: RootState) => state.appState;
+export const selectAppState = (state: RootState) => state.appState;
 
 export default appStateSlice.reducer;

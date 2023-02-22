@@ -8,7 +8,7 @@ import capitalize from 'lodash/capitalize';
 import Button from '../button/button';
 import Menu from './menu';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { selectappState, setMobileNavState, setSearchTerm, setMobileSearchState } from '../../store/slices/appState';
+import { selectAppState, setMobileNavState, setSearchTerm, setMobileSearchState } from '../../store/slices/appState';
 import { selectGlobalData } from '../../store/slices/globalData';
 import AccountPopover from './accountpopover';
 import CartPopover from './cartpopover';
@@ -30,7 +30,7 @@ interface SearchResult {
 const Header = (): JSX.Element => {
     const searchInputRef = useRef<InputRef>(null);
 
-    const { mobileNavOpen, mobileSearchOpen, searchTerm, cart } = useAppSelector(selectappState);
+    const { mobileNavOpen, mobileSearchOpen, searchTerm, cart } = useAppSelector(selectAppState);
     const { user } = useAppSelector(selectGlobalData);
     const dispatch = useAppDispatch();
 
