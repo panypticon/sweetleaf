@@ -113,14 +113,14 @@ const Header = (): JSX.Element => {
                                 }}
                             />
                             <div className="Header__login">
-                                {user && (
-                                    <span className="Header__login-hi">
-                                        Hello
-                                        <br />
-                                        {user.address.firstName}
-                                    </span>
-                                )}
                                 <AccountPopover user={user}>
+                                    {user && (
+                                        <span className="Header__login-hi">
+                                            Hello
+                                            <br />
+                                            {user.address.firstName}
+                                        </span>
+                                    )}
                                     <UserOutlined />
                                 </AccountPopover>
                             </div>

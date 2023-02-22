@@ -252,9 +252,11 @@ export const StyledHeader = styled(Layout.Header)`
             }
 
             &__login {
-                display: flex;
-                align-items: center;
-                gap: 1.2rem;
+                > span {
+                    display: flex;
+                    align-items: center;
+                    gap: 1.2rem;
+                }
 
                 &-hi {
                     font-size: 1.2rem;

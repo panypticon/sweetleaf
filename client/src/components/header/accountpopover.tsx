@@ -92,7 +92,7 @@ const AccountPopover = (props: Props): JSX.Element => {
             content={props.user ? <AccountPopoverActions /> : <AccountPopoverLogin />}
             getPopupContainer={() => document.querySelector('.Header .Header__actions')}
             destroyTooltipOnHide={false}
-            align={{ offset: [0, 4] }}
+            align={{ offset: [10, 4] }}
             {...props}
         />
     );
