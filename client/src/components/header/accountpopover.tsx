@@ -52,9 +52,6 @@ const AccountPopoverActions = (): JSX.Element => {
                 <Link to="/account/orders">Orders</Link>
             </li>
             <li>
-                <Link to="/account/favorites">Favorites</Link>
-            </li>
-            <li>
                 <Link to="/account/recommendations">Recommendations</Link>
             </li>
             <li>
