@@ -46,7 +46,7 @@ const AccountPopoverActions = (): JSX.Element => {
     return (
         <ul className="AccountPopover__items">
             <li>
-                <Link to="/account">Account</Link>
+                <Link to="/account">Account data</Link>
             </li>
             <li>
                 <Link to="/account/orders">Orders</Link>
