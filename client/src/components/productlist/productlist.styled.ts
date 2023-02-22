@@ -9,7 +9,9 @@ const StyledProductList = styled.section<{ length: number }>`
 
     .ProductList {
         &--data {
-            width: calc(${props => Math.ceil(props.length / 4) * 50}% - ${props => (props.length <= 4 ? 0 : 10)}%);
+            width: calc(
+                (${props => Math.max(Math.ceil(props.length / 4), 2) * 50}%) - ${props => (props.length <= 4 ? 0 : 10)}%
+            );
             display: grid;
             padding: ${defaults.layoutPadding};
             gap: ${defaults.layoutPadding};
@@ -18,15 +20,24 @@ const StyledProductList = styled.section<{ length: number }>`
             grid-template-columns: repeat(max(${props => props.length / 2}, 4), 1fr);
 
             @media (max-width: 72em) {
-                width: calc(${props => Math.ceil(props.length / 3) * 50}% - ${props => (props.length <= 3 ? 0 : 20)}%);
+                width: calc(
+                    (${props => Math.max(Math.ceil(props.length / 3), 3) * 50}%) -
+                        (${props => (props.length <= 3 ? 0 : 20)}%)
+                );
             }
 
             @media (max-width: ${breakpoints.md}) {
-                width: calc(${props => Math.ceil(props.length / 2) * 50}% - ${props => (props.length <= 2 ? 0 : 40)}%);
+                width: calc(
+                    (${props => Math.max(Math.ceil(props.length / 2), 5) * 50}%) -
+                        (${props => (props.length <= 2 ? 0 : 40)}%)
+                );
             }
 
             @media (max-width: ${breakpoints.xs}) {
-                width: calc(${props => Math.ceil(props.length / 1) * 50}% - ${props => (props.length <= 1 ? 0 : 80)}%);
+                width: calc(
+                    (${props => Math.max(Math.ceil(props.length / 1), 7) * 50}%) -
+                        (${props => (props.length <= 1 ? 0 : 80)}%)
+                );
             }
         }
 
