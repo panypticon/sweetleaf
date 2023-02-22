@@ -57,8 +57,8 @@ class ProductController extends GenericController {
     getAllstars = async (_, res, next) => {
         try {
             const docs = await this.Model.aggregate(pipeline);
-            const result = docs
-                .map(doc => this.Model.hydrate(doc))
+            const hydrated = docs.map(doc => this.Model.hydrate(doc));
+            const results = hydrated
                 .filter(doc => {
                     const objectified = doc.toObject();
                     return (
@@ -69,7 +69,15 @@ class ProductController extends GenericController {
                     );
                 })
                 .slice(0, 24);
-            res.status(200).json(result);
+            if (results.length < 24) {
+                const foundIDs = results.flatMap(result => result.id);
+                results.splice(
+                    results.length,
+                    0,
+                    ...hydrated.filter(product => !foundIDs.includes(product.id)).slice(0, 24 - results.length)
+                );
+            }
+            res.status(200).json(results);
         } catch (err) {
             next(err);
         }
