@@ -60,12 +60,12 @@ class ProductController extends GenericController {
             const result = docs
                 .map(doc => this.Model.hydrate(doc))
                 .filter(doc => {
-                    const objectOfDoc = doc.toObject();
+                    const objectified = doc.toObject();
                     return (
-                        objectOfDoc.new ||
-                        (objectOfDoc.ratings?.ratings.reduce((acc, rating) => acc + rating.rating, 0) /
-                            objectOfDoc.ratings?.ratings.length || 0) >= 4.25 ||
-                        objectOfDoc.recentPurchases?.count > 25
+                        objectified.new ||
+                        (objectified.ratings?.ratings.reduce((acc, rating) => acc + rating.rating, 0) /
+                            objectified.ratings?.ratings.length || 0) >= 4.25 ||
+                        objectified.recentPurchases?.count > 25
                     );
                 })
                 .slice(0, 24);
