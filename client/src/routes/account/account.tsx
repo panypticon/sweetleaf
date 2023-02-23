@@ -3,6 +3,7 @@ import { Form, Input, Select } from 'antd';
 import { selectGlobalData } from '../../store/slices/globalData';
 import { useAppSelector } from '../../store/hooks';
 import Button from '../../components/button/button';
+import useAuthProtection from '../../hooks/useAuthProtection';
 
 import { StyledAccount } from './account.styled';
 
@@ -14,6 +15,8 @@ const countryOptions = [
 
 const Account = (): JSX.Element => {
     const { user } = useAppSelector(selectGlobalData);
+
+    useAuthProtection(user);
 
     const [form] = Form.useForm();
 
