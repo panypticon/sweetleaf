@@ -7,14 +7,16 @@ interface TimedRequestState {
     error: boolean;
 }
 
-const useTimedRequestState = (): [TimedRequestState, Dispatch<SetStateAction<TimedRequestState>>] => {
+const useTimedRequestState = (
+    delay: number = 1500
+): [TimedRequestState, Dispatch<SetStateAction<TimedRequestState>>] => {
     const initialState = useMemo(() => ({ success: false, error: false }), []) as TimedRequestState;
     const [state, setState] = useState(initialState);
 
     useEffect(() => {
-        const timer = setTimeout(() => setState(initialState), 1500);
+        const timer = setTimeout(() => setState(initialState), delay);
         return () => clearTimeout(timer);
-    }, [state, initialState]);
+    }, [state, initialState, delay]);
 
     return [state, setState];
 };
