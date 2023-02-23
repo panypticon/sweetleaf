@@ -4,6 +4,13 @@ import Popover from '../popover/popover';
 import { defaults, colors } from '../../root.styled';
 
 const StyledAccountPopover = styled(Popover)`
+    h5 {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
     .AccountPopover {
         &__signup {
             margin-top: 2.4rem;

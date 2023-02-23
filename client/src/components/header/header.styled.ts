@@ -261,13 +261,17 @@ export const StyledHeader = styled(Layout.Header)`
                 &-hi {
                     font-size: 1.2rem;
                     display: flex;
+                    flex-direction: column;
                     line-height: 1.1;
                     text-align: right;
                     font-weight: 600;
-                    max-width: 8rem;
-                    overflow: hidden;
-                    white-space: nowrap;
-                    text-overflow: ellipsis;
+
+                    > span {
+                        max-width: 8rem;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
                 }
             }
 
