@@ -1,4 +1,4 @@
-import { Form, Input, Select } from 'antd';
+import { Form, Input } from 'antd';
 import { CheckOutlined, ExclamationOutlined } from '@ant-design/icons';
 
 import { selectGlobalData } from '../../store/slices/globalData';
@@ -8,6 +8,7 @@ import useAuthProtection from '../../hooks/useAuthProtection';
 import { postJSONData } from '../../api/fetch';
 import { setUser } from '../../store/slices/globalData';
 import useTimedRequestState from '../../hooks/useTimedRequestState';
+import Select from '../../components/select/select';
 
 import type { User } from '../../types';
 
@@ -25,7 +26,8 @@ const Account = (): JSX.Element => {
     const { user } = useAppSelector(selectGlobalData);
     useAuthProtection(user);
 
-    const [form] = Form.useForm();
+    const [nameAddressForm] = Form.useForm();
+    const [passwordForm] = Form.useForm();
 
     const dispatch = useAppDispatch();
 
@@ -39,6 +41,8 @@ const Account = (): JSX.Element => {
         }
     };
 
+    const handlePasswordSubmit = async () => {};
+
     return (
         <StyledAccount className="Account">
             {user && (
@@ -47,7 +51,7 @@ const Account = (): JSX.Element => {
                     <section className="Account__section">
                         <h2>Name and Address</h2>
                         <Form
-                            form={form}
+                            form={nameAddressForm}
                             name="name_address"
                             onFinish={handleNameAddressSubmit}
                             layout="vertical"
@@ -140,8 +144,69 @@ const Account = (): JSX.Element => {
                             </div>
                         </Form>
                     </section>
-                    <h2>Email</h2>
-                    <h2>Password</h2>
+                    <section className="Account__section">
+                        <h2>Email</h2>
+                        <Form name="email" layout="vertical" requiredMark={false}>
+                            <Form.Item name="email" label="Email" initialValue={user.email}>
+                                <Input disabled />
+                            </Form.Item>
+                        </Form>
+                    </section>
+                    <section className="Account__section Account__section--password">
+                        <h2>Password</h2>
+                        <Form
+                            form={passwordForm}
+                            name="password"
+                            onFinish={handlePasswordSubmit}
+                            layout="vertical"
+                            requiredMark={false}
+                            validateTrigger="onBlur"
+                        >
+                            <Form.Item
+                                name="currentPassword"
+                                label="Current password"
+                                rules={[{ required: true, message: 'Password is required' }]}
+                            >
+                                <Input.Password />
+                            </Form.Item>
+                            <Form.Item
+                                name="newPassword"
+                                label="New password"
+                                extra="Password must be 8+ characters long and must include upper- and lower-case letters, numbers, and special characters"
+                                rules={[
+                                    { required: true, message: 'Password is required' },
+                                    {
+                                        pattern: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
+                                        message: "Password doesn't match security rules"
+                                    }
+                                ]}
+                            >
+                                <Input.Password />
+                            </Form.Item>
+                            <div className="Account__status">
+                                <Button
+                                    type="primary"
+                                    htmlType="submit"
+                                    // disabled={nameAddressState.success || nameAddressState.error}
+                                >
+                                    Change
+                                </Button>
+                                {/* {nameAddressState.success ? (
+                                    <span className="success">
+                                        <CheckOutlined />
+                                        Changes saved
+                                    </span>
+                                ) : nameAddressState.error ? (
+                                    <span className="error">
+                                        <ExclamationOutlined />
+                                        Error saving changes, try again later
+                                    </span>
+                                ) : (
+                                    <></>
+                                )} */}
+                            </div>
+                        </Form>
+                    </section>
                 </>
             )}
         </StyledAccount>
