@@ -11,11 +11,9 @@ import LoginModal from '../loginmodal/loginmodal';
 import { modalContext } from '../../context/modalcontext';
 import StyledSignupModal from './signupmodal.styled';
 
-interface Props {
-    [x: string]: any;
-}
+import type { ModalProps } from 'antd';
 
-const SignupModal = (props: Props) => {
+const SignupModal = (props: ModalProps) => {
     const [signupError, setSignupError] = useState<String | null>(null);
 
     const modalData = useContext(modalContext);

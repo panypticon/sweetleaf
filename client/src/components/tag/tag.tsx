@@ -1,9 +1,7 @@
+import type { TagProps } from 'antd';
+
 import StyledTag from './tag.styled';
 
-interface Props {
-    [x: string]: any;
-}
-
-const Tag = (props: Props) => <StyledTag className="Tag" {...props} />;
+const Tag = (props: TagProps) => <StyledTag className="Tag" {...props} />;
 
 export default Tag;

@@ -3,14 +3,11 @@ import { Modal as ModalAnt } from 'antd';
 
 import { modalContext } from '../../context/modalcontext';
 
+import type { ModalProps } from 'antd';
+
 import StyledModal from './modal.styled';
 
-interface Props {
-    title: String;
-    [x: string]: any;
-}
-
-const Modal = ({ title, ...props }: Props) => {
+const Modal = ({ title, ...props }: ModalProps) => {
     const modalData = useContext(modalContext);
 
     useEffect(() => {
