@@ -1,8 +1,8 @@
 import type { DetailedError } from '../types';
 
-export const postJSONData = async (url: string, payload: any) => {
+export const postJSONData = async (url: string, payload: any, method = 'POST') => {
     const res = await fetch(url, {
-        method: 'POST',
+        method,
         headers: {
             'Content-Type': 'application/json'
         },
