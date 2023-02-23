@@ -20,7 +20,7 @@ const countryOptions = [
 ];
 
 const Account = (): JSX.Element => {
-    const [nameAddressState, setNameAddressState] = useTimedRequestState(2000);
+    const [nameAddressState, setNameAddressState] = useTimedRequestState(1500);
 
     const { user } = useAppSelector(selectGlobalData);
     useAuthProtection(user);
@@ -117,7 +117,11 @@ const Account = (): JSX.Element => {
                                 <Select options={countryOptions} />
                             </Form.Item>
                             <div className="Account__status">
-                                <Button type="primary" htmlType="submit">
+                                <Button
+                                    type="primary"
+                                    htmlType="submit"
+                                    disabled={nameAddressState.success || nameAddressState.error}
+                                >
                                     Update
                                 </Button>
                                 {nameAddressState.success ? (
