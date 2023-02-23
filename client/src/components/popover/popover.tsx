@@ -1,10 +1,8 @@
+import type { LaxProps } from '../../types';
+
 import StyledPopover from './popover.styled';
 
-interface Props {
-    [x: string]: any;
-}
-
-const Popover = (props: Props): JSX.Element => (
+const Popover = (props: LaxProps): JSX.Element => (
     <StyledPopover
         className="Popover"
         destroyTooltipOnHide={true}

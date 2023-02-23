@@ -66,3 +66,7 @@ export interface Rating {
     createdAt: Date;
     id: string;
 }
+
+export interface LaxProps {
+    [x: string]: any;
+}
