@@ -24,8 +24,9 @@ const Account = (): JSX.Element => {
     const [nameAddressState, setNameAddressState] = useTimedRequestState(2500);
     const [passwordState, setPasswordState] = useTimedRequestState(2500);
 
+    useAuthProtection();
+
     const { user } = useAppSelector(selectGlobalData);
-    useAuthProtection(user);
 
     const [nameAddressForm] = Form.useForm();
     const [passwordForm] = Form.useForm();
