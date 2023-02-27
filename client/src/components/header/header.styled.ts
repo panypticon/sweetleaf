@@ -256,6 +256,7 @@ export const StyledHeader = styled(Layout.Header)`
                     display: flex;
                     align-items: center;
                     gap: 1.2rem;
+                    cursor: pointer;
                 }
 
                 &-hi {
