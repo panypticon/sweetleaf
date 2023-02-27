@@ -63,11 +63,13 @@ const AccountPopoverActions = (): JSX.Element => {
                 <span
                     onClick={async () => {
                         try {
-                            const res = await fetch('/api/v1/users/logout');
-                            if (!res.ok) throw new Error();
-                            dispatch(removeUser());
-                            dispatch(resetCart());
-                            navigate('/');
+                            if (window.confirm('Are you sure you want to log out?')) {
+                                const res = await fetch('/api/v1/users/logout');
+                                if (!res.ok) throw new Error();
+                                dispatch(removeUser());
+                                dispatch(resetCart());
+                                navigate('/');
+                            }
                         } catch (err) {
                             messageAPI.error('Something went wrong, please try again later');
                         }
