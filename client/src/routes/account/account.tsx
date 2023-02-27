@@ -21,7 +21,8 @@ const countryOptions = [
 ];
 
 const Account = (): JSX.Element => {
-    const [nameAddressState, setNameAddressState] = useTimedRequestState(1500);
+    const [nameAddressState, setNameAddressState] = useTimedRequestState(2500);
+    const [passwordState, setPasswordState] = useTimedRequestState(2500);
 
     const { user } = useAppSelector(selectGlobalData);
     useAuthProtection(user);
@@ -41,7 +42,15 @@ const Account = (): JSX.Element => {
         }
     };
 
-    const handlePasswordSubmit = async () => {};
+    const handlePasswordSubmit = async (vals: { currentPassword: string; newPassword: string }) => {
+        try {
+            await postJSONData(`/api/v1/users/${user?.id}/password`, vals, 'PUT');
+            setPasswordState({ success: true, error: false });
+            passwordForm.resetFields();
+        } catch (err: any) {
+            setPasswordState({ success: false, error: true, status: Number(err.message) });
+        }
+    };
 
     return (
         <StyledAccount className="Account">
@@ -187,23 +196,27 @@ const Account = (): JSX.Element => {
                                 <Button
                                     type="primary"
                                     htmlType="submit"
-                                    // disabled={nameAddressState.success || nameAddressState.error}
+                                    disabled={passwordState.success || passwordState.error}
                                 >
                                     Change
                                 </Button>
-                                {/* {nameAddressState.success ? (
+                                {passwordState.success ? (
                                     <span className="success">
                                         <CheckOutlined />
-                                        Changes saved
+                                        New password saved
                                     </span>
-                                ) : nameAddressState.error ? (
+                                ) : passwordState.error ? (
                                     <span className="error">
                                         <ExclamationOutlined />
-                                        Error saving changes, try again later
+                                        {passwordState.status === 401
+                                            ? 'Current password is incorrect'
+                                            : passwordState.status === 409
+                                            ? 'New password must differ from old one'
+                                            : 'Error changing password, try again later'}
                                     </span>
                                 ) : (
                                     <></>
-                                )} */}
+                                )}
                             </div>
                         </Form>
                     </section>

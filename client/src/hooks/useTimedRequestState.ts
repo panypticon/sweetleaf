@@ -5,6 +5,7 @@ import type { Dispatch, SetStateAction } from 'react';
 interface TimedRequestState {
     success: boolean;
     error: boolean;
+    status?: number;
 }
 
 const useTimedRequestState = (

@@ -75,6 +75,11 @@ userSchema.pre('findOneAndUpdate', async function (next) {
     next();
 });
 
+//// Encrypt password
+userSchema.method('encrypt', async function (newPassword) {
+    return await hash(newPassword, 12);
+});
+
 //// Authenticate password
 userSchema.method('authenticate', async function (enteredPassword) {
     return await compare(enteredPassword, this.password);
