@@ -94,8 +94,10 @@ userSchema.method('generateToken', async function () {
 userSchema.set('toJSON', {
     virtuals: true,
     transform: (_, vals) => {
-        const { address, email, id } = vals;
-        return { address, email, id };
+        const { address, email, id, googleID } = vals;
+        const values = { address, email, id };
+        if (googleID) values.googleID = googleID;
+        return values;
     }
 });
 

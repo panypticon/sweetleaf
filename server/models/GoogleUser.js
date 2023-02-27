@@ -36,8 +36,8 @@ googleUserSchema.method('generateToken', async function () {
 googleUserSchema.set('toJSON', {
     virtuals: true,
     transform: (_, vals) => {
-        const { address, email, id } = vals;
-        return { address, email, id };
+        const { address, email, id, googleID } = vals;
+        return { address, email, id, googleID };
     }
 });
 

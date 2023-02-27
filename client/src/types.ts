@@ -9,6 +9,7 @@ export interface User {
     };
     email: String;
     id: String;
+    googleID?: String;
 }
 
 export interface DetailedError extends Error {

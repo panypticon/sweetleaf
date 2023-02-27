@@ -161,65 +161,67 @@ const Account = (): JSX.Element => {
                             </Form.Item>
                         </Form>
                     </section>
-                    <section className="Account__section Account__section--password">
-                        <h2>Password</h2>
-                        <Form
-                            form={passwordForm}
-                            name="password"
-                            onFinish={handlePasswordSubmit}
-                            layout="vertical"
-                            requiredMark={false}
-                            validateTrigger="onBlur"
-                        >
-                            <Form.Item
-                                name="currentPassword"
-                                label="Current password"
-                                rules={[{ required: true, message: 'Password is required' }]}
+                    {!user.googleID && (
+                        <section className="Account__section Account__section--password">
+                            <h2>Password</h2>
+                            <Form
+                                form={passwordForm}
+                                name="password"
+                                onFinish={handlePasswordSubmit}
+                                layout="vertical"
+                                requiredMark={false}
+                                validateTrigger="onBlur"
                             >
-                                <Input.Password />
-                            </Form.Item>
-                            <Form.Item
-                                name="newPassword"
-                                label="New password"
-                                extra="Password must be 8+ characters long and must include upper- and lower-case letters, numbers, and special characters"
-                                rules={[
-                                    { required: true, message: 'Password is required' },
-                                    {
-                                        pattern: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
-                                        message: "Password doesn't match security rules"
-                                    }
-                                ]}
-                            >
-                                <Input.Password />
-                            </Form.Item>
-                            <div className="Account__status">
-                                <Button
-                                    type="primary"
-                                    htmlType="submit"
-                                    disabled={passwordState.success || passwordState.error}
+                                <Form.Item
+                                    name="currentPassword"
+                                    label="Current password"
+                                    rules={[{ required: true, message: 'Password is required' }]}
                                 >
-                                    Change
-                                </Button>
-                                {passwordState.success ? (
-                                    <span className="success">
-                                        <CheckOutlined />
-                                        New password saved
-                                    </span>
-                                ) : passwordState.error ? (
-                                    <span className="error">
-                                        <ExclamationOutlined />
-                                        {passwordState.status === 401
-                                            ? 'Current password is incorrect'
-                                            : passwordState.status === 409
-                                            ? 'New password must differ from old one'
-                                            : 'Error changing password, try again later'}
-                                    </span>
-                                ) : (
-                                    <></>
-                                )}
-                            </div>
-                        </Form>
-                    </section>
+                                    <Input.Password />
+                                </Form.Item>
+                                <Form.Item
+                                    name="newPassword"
+                                    label="New password"
+                                    extra="Password must be 8+ characters long and must include upper- and lower-case letters, numbers, and special characters"
+                                    rules={[
+                                        { required: true, message: 'Password is required' },
+                                        {
+                                            pattern: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
+                                            message: "Password doesn't match security rules"
+                                        }
+                                    ]}
+                                >
+                                    <Input.Password />
+                                </Form.Item>
+                                <div className="Account__status">
+                                    <Button
+                                        type="primary"
+                                        htmlType="submit"
+                                        disabled={passwordState.success || passwordState.error}
+                                    >
+                                        Change
+                                    </Button>
+                                    {passwordState.success ? (
+                                        <span className="success">
+                                            <CheckOutlined />
+                                            New password saved
+                                        </span>
+                                    ) : passwordState.error ? (
+                                        <span className="error">
+                                            <ExclamationOutlined />
+                                            {passwordState.status === 401
+                                                ? 'Current password is incorrect'
+                                                : passwordState.status === 409
+                                                ? 'New password must differ from old one'
+                                                : 'Error changing password, try again later'}
+                                        </span>
+                                    ) : (
+                                        <></>
+                                    )}
+                                </div>
+                            </Form>
+                        </section>
+                    )}
                 </>
             )}
         </StyledAccount>
