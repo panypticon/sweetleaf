@@ -109,12 +109,33 @@ class UserController extends GenericController {
             if (!Types.ObjectId.isValid(id)) throw new createError.NotFound();
             // Make sure email verification can't be changed via API
             if (body.emailVerified || body.emailToken) throw new createError.Unauthorized();
+            // Make sure password can only be changed via updatePassword controller
+            if (body.password) delete body.password;
             const doc = await this.Model.findByIdAndUpdate(id, body, {
                 new: true,
                 runValidators: true
             });
             if (!doc) throw new createError.NotFound();
             res.status(200).json(doc);
+        } catch (err) {
+            next(err);
+        }
+    };
+
+    updatePassword = async ({ params: { id }, body: { currentPassword, newPassword } }, res, next) => {
+        try {
+            if (!Types.ObjectId.isValid(id)) throw new createError.NotFound();
+            // Get user and compare old password
+            const user = await User.findById(id);
+            if (!user) throw new createError.Unauthorized();
+            const currentPasswordMatches = await user.authenticate(currentPassword);
+            if (!currentPasswordMatches) throw new createError.Unauthorized();
+            // Make sure new password differs
+            if (currentPassword === newPassword) throw new createError.Conflict();
+            // Save and encrypt new pasword
+            user.password = await user.encrypt(newPassword);
+            await user.save();
+            res.status(200).json(user);
         } catch (err) {
             next(err);
         }

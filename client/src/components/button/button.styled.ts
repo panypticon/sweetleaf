@@ -27,6 +27,15 @@ const StyledButton = styled(Button)`
 
         &-primary {
             color: currentColor;
+
+            &:disabled {
+                &,
+                &:hover {
+                    background-color: ${colors.oolong['lighter-3']};
+                    color: ${colors.contrast['shade-3']};
+                    border-color: transparent;
+                }
+            }
         }
     }
 `;

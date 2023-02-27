@@ -4,11 +4,12 @@ import { ShoppingOutlined, UserOutlined, SearchOutlined, MenuOutlined, CloseOutl
 import { Input } from 'antd';
 import { useRequest, useDebounce } from 'ahooks';
 import capitalize from 'lodash/capitalize';
+import { useLocation } from 'react-router-dom';
 
 import Button from '../button/button';
 import Menu from './menu';
 import { useAppSelector, useAppDispatch } from '../../store/hooks';
-import { selectappState, setMobileNavState, setSearchTerm, setMobileSearchState } from '../../store/slices/appState';
+import { selectAppState, setMobileNavState, setSearchTerm, setMobileSearchState } from '../../store/slices/appState';
 import { selectGlobalData } from '../../store/slices/globalData';
 import AccountPopover from './accountpopover';
 import CartPopover from './cartpopover';
@@ -16,6 +17,7 @@ import { modalContext } from '../../context/modalcontext';
 import { getJSONData } from '../../api/fetch';
 
 import type { InputRef } from 'antd';
+import type { PropsWithChildren } from 'react';
 
 import { StyledHeader } from './header.styled';
 
@@ -30,7 +32,7 @@ interface SearchResult {
 const Header = (): JSX.Element => {
     const searchInputRef = useRef<InputRef>(null);
 
-    const { mobileNavOpen, mobileSearchOpen, searchTerm, cart } = useAppSelector(selectappState);
+    const { mobileNavOpen, mobileSearchOpen, searchTerm, cart } = useAppSelector(selectAppState);
     const { user } = useAppSelector(selectGlobalData);
     const dispatch = useAppDispatch();
 
@@ -56,6 +58,11 @@ const Header = (): JSX.Element => {
     }, [debouncedSearchTerm, runAsync]);
 
     const MenuIcon = mobileNavOpen ? CloseOutlined : MenuOutlined;
+
+    const { pathname } = useLocation();
+
+    const CartPopoverComponent =
+        pathname === '/checkout' ? ({ children }: PropsWithChildren) => <span>{children}</span> : CartPopover;
 
     return (
         <StyledHeader
@@ -117,18 +124,17 @@ const Header = (): JSX.Element => {
                                     {user && (
                                         <span className="Header__login-hi">
                                             Hello
-                                            <br />
-                                            {user.address.firstName}
+                                            <span>{user.address.firstName}</span>
                                         </span>
                                     )}
                                     <UserOutlined />
                                 </AccountPopover>
                             </div>
                             <span className="Header__cart">
-                                <CartPopover data={cart}>
+                                <CartPopoverComponent data={cart}>
                                     <ShoppingOutlined />
                                     {cartSize > 0 && <span className="Header__cart-size">{cartSize}</span>}
-                                </CartPopover>
+                                </CartPopoverComponent>
                             </span>
                         </>
                     )}

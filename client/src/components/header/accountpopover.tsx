@@ -9,6 +9,7 @@ import Button from '../button/button';
 import { modalContext } from '../../context/modalcontext';
 import LoginModal from '../loginmodal/loginmodal';
 import { removeUser } from '../../store/slices/globalData';
+import { resetCart } from '../../store/slices/appState';
 import SignupModal from '../signupmodal/signupmodal';
 
 import type { User } from '../../types';
@@ -46,7 +47,7 @@ const AccountPopoverActions = (): JSX.Element => {
     return (
         <ul className="AccountPopover__items">
             <li>
-                <Link to="/account">Account</Link>
+                <Link to="/account">Account data</Link>
             </li>
             <li>
                 <Link to="/account/orders">Orders</Link>
@@ -62,10 +63,13 @@ const AccountPopoverActions = (): JSX.Element => {
                 <span
                     onClick={async () => {
                         try {
-                            const res = await fetch('/api/v1/users/logout');
-                            if (!res.ok) throw new Error();
-                            dispatch(removeUser());
-                            navigate('/');
+                            if (window.confirm('Are you sure you want to log out?')) {
+                                const res = await fetch('/api/v1/users/logout');
+                                if (!res.ok) throw new Error();
+                                dispatch(removeUser());
+                                dispatch(resetCart());
+                                navigate('/');
+                            }
                         } catch (err) {
                             messageAPI.error('Something went wrong, please try again later');
                         }

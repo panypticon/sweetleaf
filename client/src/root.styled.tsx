@@ -192,6 +192,15 @@ const GlobalStyle = createGlobalStyle`
             -webkit-appearance: none;
             display: none;
         }
+
+        &-disabled[disabled] {
+            background-color: ${colors.contrast.light};
+            color: ${colors.contrast['shade-4']};
+
+            &:hover {
+                border-color: ${colors.contrast['shade-6']};
+            }
+        }
     }
 
     .ant-message {

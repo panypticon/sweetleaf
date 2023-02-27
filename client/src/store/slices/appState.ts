@@ -39,13 +39,24 @@ export const appStateSlice = createSlice({
             if (state.cart[action.payload].amount > 1) state.cart[action.payload].amount--;
             else delete state.cart[action.payload];
             localStorage.setItem('cart', JSON.stringify(state.cart));
+        },
+        resetCart: state => {
+            state.cart = {};
+            localStorage.setItem('cart', JSON.stringify(state.cart));
         }
     }
 });
 
-export const { setMobileNavState, setSearchTerm, setMobileSearchState, addToCart, incrementInCart, decrementInCart } =
-    appStateSlice.actions;
+export const {
+    setMobileNavState,
+    setSearchTerm,
+    setMobileSearchState,
+    addToCart,
+    incrementInCart,
+    decrementInCart,
+    resetCart
+} = appStateSlice.actions;
 
-export const selectappState = (state: RootState) => state.appState;
+export const selectAppState = (state: RootState) => state.appState;
 
 export default appStateSlice.reducer;

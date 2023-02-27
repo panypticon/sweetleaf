@@ -11,11 +11,9 @@ import LoginModal from '../loginmodal/loginmodal';
 import { modalContext } from '../../context/modalcontext';
 import StyledSignupModal from './signupmodal.styled';
 
-interface Props {
-    [x: string]: any;
-}
+import type { ModalProps } from 'antd';
 
-const SignupModal = (props: Props) => {
+const SignupModal = (props: ModalProps) => {
     const [signupError, setSignupError] = useState<String | null>(null);
 
     const modalData = useContext(modalContext);
@@ -141,7 +139,7 @@ const SignupModal = (props: Props) => {
                     <p>
                         <strong>Please check your inbox to verify your email address.</strong>
                     </p>
-                    <p>Only then you will be able to log in.</p>
+                    <p>Only then will you be able to log in.</p>
                     <p>
                         Already verified? <Button onClick={() => modalData?.setModal(<LoginModal />)}>Log in</Button>
                     </p>

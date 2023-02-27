@@ -75,6 +75,11 @@ userSchema.pre('findOneAndUpdate', async function (next) {
     next();
 });
 
+//// Encrypt password
+userSchema.method('encrypt', async function (newPassword) {
+    return await hash(newPassword, 12);
+});
+
 //// Authenticate password
 userSchema.method('authenticate', async function (enteredPassword) {
     return await compare(enteredPassword, this.password);
@@ -89,8 +94,10 @@ userSchema.method('generateToken', async function () {
 userSchema.set('toJSON', {
     virtuals: true,
     transform: (_, vals) => {
-        const { address, email, id } = vals;
-        return { address, email, id };
+        const { address, email, id, googleID } = vals;
+        const values = { address, email, id };
+        if (googleID) values.googleID = googleID;
+        return values;
     }
 });
 

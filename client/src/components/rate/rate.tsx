@@ -1,9 +1,7 @@
+import type { RateProps } from 'antd';
+
 import StyledRate from './rate.styled';
 
-interface Props {
-    [x: string]: any;
-}
-
-const Rate = (props: Props) => <StyledRate className="Rate" {...props} />;
+const Rate = (props: RateProps) => <StyledRate className="Rate" {...props} />;
 
 export default Rate;

@@ -1,12 +1,10 @@
 import StyledButton from './button.styled';
 
-interface Props {
-    [x: string]: any;
-}
+import type { LaxProps } from '../../types';
 
-const Button = (props: Props): JSX.Element => {
+const Button = (props: LaxProps): JSX.Element => {
     const { wide, className, ...otherProps } = props;
-    return <StyledButton className={`Button ${props.wide ? 'Button--wide' : ''} ${className}`} {...otherProps} />;
+    return <StyledButton className={`Button ${props.wide ? 'Button--wide' : ''} ${className || ''}`} {...otherProps} />;
 };
 
 export default Button;

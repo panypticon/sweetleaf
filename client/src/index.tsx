@@ -15,6 +15,7 @@ import { colors } from './root.styled';
 import { store } from './store/store';
 import { ModalProvider } from './context/modalcontext';
 import { getJSONData } from './api/fetch';
+import Checkout from './routes/checkout/checkout';
 
 import './index.scss';
 
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
                     { path: '/account/orders', element: <Orders /> }
                 ]
             },
+            { path: 'checkout', element: <Checkout /> },
             {
                 path: '/:type/id/:id',
                 element: <Product />,

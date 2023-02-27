@@ -28,15 +28,15 @@ const Root = (): JSX.Element => {
     }, [location, setModal, dispatch]);
 
     // Get user data on mount, if logged in
-    const { data, error, run } = useRequest(url => getJSONData(url), { manual: true });
+    const { data, error, runAsync } = useRequest(url => getJSONData(url), { manual: true });
 
     useEffect(() => {
         const id = document.cookie
             .split('; ')
             .filter(cookie => cookie.startsWith('login='))
             .map(cookie => cookie.slice(6))[0];
-        id && run(`/api/v1/users/${id}`);
-    }, [run]);
+        id && runAsync(`/api/v1/users/${id}`);
+    }, [runAsync]);
 
     useEffect(() => {
         if (error) document.cookie = 'login=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';

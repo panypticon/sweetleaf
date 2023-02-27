@@ -1,79 +1,40 @@
-import { useMemo } from 'react';
 import { useResponsive } from 'ahooks';
-import { PlusCircleFilled, MinusCircleFilled, CoffeeOutlined } from '@ant-design/icons';
+import { CoffeeOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch } from '../../store/hooks';
 import Button from '../button/button';
-import { incrementInCart, decrementInCart } from '../../store/slices/appState';
+import useCartData from '../../hooks/useCartData';
+import CartItem from '../cartitem/cartitem';
 
-import type { CartItem } from '../../types';
+import type { CartItem as CartItemType } from '../../types';
 
 import StyledCartPopover from './cartpopover.styled';
 
 interface Props {
-    data: { [x: string]: CartItem };
+    data: { [x: string]: CartItemType };
     [x: string]: any;
 }
-
-const CartPopoverItem = ({
-    data: {
-        amount,
-        packageSize,
-        id,
-        item: { name, inventory }
-    }
-}: {
-    data: CartItem;
-}): JSX.Element => {
-    const price = useMemo(
-        () => inventory.find(item => item.size === packageSize)?.price || 0,
-        [inventory, packageSize]
-    );
-
-    const dispatch = useAppDispatch();
-
-    return (
-        <li className="CartPopoverItem">
-            <h6>{name}</h6>
-            <div className="CartPopoverItem__specs">
-                <span className="CartPopoverItem__amount">
-                    <MinusCircleFilled onClick={() => id && dispatch(decrementInCart(id))} />
-                    <span>{amount}</span>
-                    <PlusCircleFilled onClick={() => id && dispatch(incrementInCart(id))} />
-                </span>
-                <span className="CartPopoverItem__packagesize">{packageSize}</span>
-                <span className="CartPopoverItem__price">{`${(price * amount).toFixed(2)} €`}</span>
-            </div>
-        </li>
-    );
-};
 
 const CartPopover = (props: Props): JSX.Element => {
     const { sm } = useResponsive();
 
-    const totalPrice = Object.values(props.data)
-        .reduce(
-            (acc, item) =>
-                acc + item.amount * (item.item.inventory.find(size => size.size === item.packageSize)?.price || 0),
-            0
-        )
-        .toFixed(2);
+    const navigate = useNavigate();
 
-    const isEmpty = Object.keys(props.data).length === 0;
+    const { totalPrice, isEmpty, cartItems } = useCartData(props.data);
 
     const cartList = (
         <>
             <ul>
-                {Object.entries(props.data).map(([id, item]: [string, CartItem]) => (
-                    <CartPopoverItem data={{ ...item, id }} key={id} />
+                {cartItems.map(([id, item]: [string, CartItemType]) => (
+                    <CartItem data={{ ...item, id }} key={id} />
                 ))}
             </ul>
             <div className="CartPopover__total">
                 <span>Total</span>
                 <span>{`${totalPrice} €`}</span>
             </div>
-            <Button className="CartPopover__checkout" type="primary" wide>
-                Checkout
+            <Button className="CartPopover__checkout" type="primary" wide onClick={() => navigate('/checkout')}>
+                Check out
             </Button>
         </>
     );

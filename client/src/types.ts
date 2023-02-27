@@ -9,6 +9,7 @@ export interface User {
     };
     email: String;
     id: String;
+    googleID?: String;
 }
 
 export interface DetailedError extends Error {
@@ -65,4 +66,8 @@ export interface Rating {
     product: object;
     createdAt: Date;
     id: string;
+}
+
+export interface LaxProps {
+    [x: string]: any;
 }
