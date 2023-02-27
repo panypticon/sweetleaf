@@ -4,6 +4,7 @@ import { ShoppingOutlined, UserOutlined, SearchOutlined, MenuOutlined, CloseOutl
 import { Input } from 'antd';
 import { useRequest, useDebounce } from 'ahooks';
 import capitalize from 'lodash/capitalize';
+import { useLocation } from 'react-router-dom';
 
 import Button from '../button/button';
 import Menu from './menu';
@@ -16,6 +17,7 @@ import { modalContext } from '../../context/modalcontext';
 import { getJSONData } from '../../api/fetch';
 
 import type { InputRef } from 'antd';
+import type { PropsWithChildren } from 'react';
 
 import { StyledHeader } from './header.styled';
 
@@ -56,6 +58,11 @@ const Header = (): JSX.Element => {
     }, [debouncedSearchTerm, runAsync]);
 
     const MenuIcon = mobileNavOpen ? CloseOutlined : MenuOutlined;
+
+    const { pathname } = useLocation();
+
+    const CartPopoverComponent =
+        pathname === '/checkout' ? ({ children }: PropsWithChildren) => <span>{children}</span> : CartPopover;
 
     return (
         <StyledHeader
@@ -124,10 +131,10 @@ const Header = (): JSX.Element => {
                                 </AccountPopover>
                             </div>
                             <span className="Header__cart">
-                                <CartPopover data={cart}>
+                                <CartPopoverComponent data={cart}>
                                     <ShoppingOutlined />
                                     {cartSize > 0 && <span className="Header__cart-size">{cartSize}</span>}
-                                </CartPopover>
+                                </CartPopoverComponent>
                             </span>
                         </>
                     )}
