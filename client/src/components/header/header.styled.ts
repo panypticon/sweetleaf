@@ -111,7 +111,7 @@ export const StyledHeader = styled(Layout.Header)`
                         align-items: center;
 
                         &:hover {
-                            background-color: ${rgba(colors.fermented.standard, 0.2)};
+                            background-color: ${rgba(colors.contrast['shade-6'], 0.33333)};
                         }
                     }
 
