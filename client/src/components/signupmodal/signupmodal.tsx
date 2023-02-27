@@ -139,7 +139,7 @@ const SignupModal = (props: ModalProps) => {
                     <p>
                         <strong>Please check your inbox to verify your email address.</strong>
                     </p>
-                    <p>Only then you will be able to log in.</p>
+                    <p>Only then will you be able to log in.</p>
                     <p>
                         Already verified? <Button onClick={() => modalData?.setModal(<LoginModal />)}>Log in</Button>
                     </p>
