@@ -76,13 +76,35 @@ export const StyledCheckout = styled.article`
                 display: flex;
                 justify-content: flex-end;
                 align-items: center;
+                gap: ${defaults.layoutPadding};
+
+                .anticon {
+                    margin-right: 0.8rem;
+                }
+
+                .error {
+                    .anticon {
+                        color: ${colors.herbal.standard};
+                    }
+                }
 
                 @media (max-width: ${breakpoints.sm}) {
+                    flex-direction: column-reverse;
+
                     .Button {
                         align-self: stretch;
                         width: 100%;
                     }
                 }
+            }
+        }
+
+        &--success {
+            &__buttons {
+                margin-top: ${defaults.layoutPadding};
+                display: flex;
+                gap: calc(${defaults.layoutPadding} / 2);
+                align-items: center;
             }
         }
     }
