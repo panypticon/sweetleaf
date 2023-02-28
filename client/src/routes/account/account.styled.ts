@@ -25,12 +25,16 @@ export const StyledAccount = styled.article`
     }
 
     .Account {
-        &__form-column {
+        &__form-row {
             display: flex;
             gap: ${defaults.layoutPadding};
 
             > * {
                 flex: 1;
+            }
+
+            @media (max-width: ${breakpoints.xs}) {
+                display: block;
             }
         }
 
@@ -38,6 +42,15 @@ export const StyledAccount = styled.article`
             display: flex;
             gap: ${defaults.layoutPadding};
             align-items: center;
+            justify-content: flex-end;
+
+            @media (max-width: ${breakpoints.sm}) {
+                flex-direction: column-reverse;
+
+                .Button {
+                    align-self: stretch;
+                }
+            }
 
             .anticon {
                 margin-right: 0.8rem;
