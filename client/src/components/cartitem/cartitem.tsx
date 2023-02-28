@@ -29,17 +29,19 @@ const CartItem = ({
 
     return (
         <StyledCartItem className="CartItem">
-            <h6>{name}</h6>
-            <div className="CartItem__specs">
-                {showImage && image && <img src={image} alt={name} />}
-                <span className="CartItem__amount">
-                    <MinusCircleFilled onClick={() => id && dispatch(decrementInCart(id))} />
-                    <span>{amount}</span>
-                    <PlusCircleFilled onClick={() => id && dispatch(incrementInCart(id))} />
-                </span>
-                <span className="CartItem__packagesize">{packageSize}</span>
-                <span className="CartItem__price">{`${(price * amount).toFixed(2)} €`}</span>
-            </div>
+            {showImage && image && <img src={image} alt={name} />}
+            <span>
+                <h6>{name}</h6>
+                <div className="CartItem__specs">
+                    <span className="CartItem__amount">
+                        <MinusCircleFilled onClick={() => id && dispatch(decrementInCart(id))} />
+                        <span>{amount}</span>
+                        <PlusCircleFilled onClick={() => id && dispatch(incrementInCart(id))} />
+                    </span>
+                    <span className="CartItem__packagesize">{packageSize}</span>
+                    <span className="CartItem__price">{`${(price * amount).toFixed(2)} €`}</span>
+                </div>
+            </span>
         </StyledCartItem>
     );
 };

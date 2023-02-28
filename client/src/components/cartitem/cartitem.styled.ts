@@ -4,13 +4,22 @@ import styled from 'styled-components';
 
 const StyledCartItem = styled.li`
     &.CartItem {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: ${defaults.layoutPadding};
+
+        > span {
+            flex: 1;
+        }
+
         &:not(:last-of-type) {
             border-bottom: 0.1rem solid ${colors.contrast['shade-6']};
             padding-bottom: calc(${defaults.layoutPadding} / 2);
         }
 
         img {
-            width: 3.6rem;
+            width: 6.8rem;
             mix-blend-mode: multiply;
         }
 
