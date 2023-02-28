@@ -9,16 +9,11 @@ import { postJSONData } from '../../api/fetch';
 import { setUser } from '../../store/slices/globalData';
 import useTimedRequestState from '../../hooks/useTimedRequestState';
 import Select from '../../components/select/select';
+import countryOptions from '../../components/select/countryoptions';
 
 import type { User } from '../../types';
 
 import { StyledAccount } from './account.styled';
-
-const countryOptions = [
-    { label: 'Austria', value: 'austria' },
-    { label: 'Germany', value: 'germany' },
-    { label: 'Switzerland', value: 'switzerland' }
-];
 
 const Account = (): JSX.Element => {
     const [nameAddressState, setNameAddressState] = useTimedRequestState(2500);
@@ -67,8 +62,9 @@ const Account = (): JSX.Element => {
                             layout="vertical"
                             requiredMark={false}
                             validateTrigger="onBlur"
+                            initialValues={user.address}
                         >
-                            <span className="Account__form-column">
+                            <span className="Account__form-row">
                                 <Form.Item
                                     name="firstName"
                                     label="First Name"
@@ -76,7 +72,6 @@ const Account = (): JSX.Element => {
                                         { required: true, message: 'First name is required' },
                                         { max: 128, message: 'First name is too long' }
                                     ]}
-                                    initialValue={user.address.firstName}
                                 >
                                     <Input />
                                 </Form.Item>
@@ -87,7 +82,6 @@ const Account = (): JSX.Element => {
                                         { required: true, message: 'Last name is required' },
                                         { max: 128, message: 'Last name is too long' }
                                     ]}
-                                    initialValue={user.address.lastName}
                                 >
                                     <Input />
                                 </Form.Item>
@@ -99,11 +93,10 @@ const Account = (): JSX.Element => {
                                     { required: true, message: 'Street address is required' },
                                     { max: 266, message: 'Street address is too long' }
                                 ]}
-                                initialValue={user.address.street}
                             >
                                 <Input />
                             </Form.Item>
-                            <span className="Account__form-column">
+                            <span className="Account__form-row">
                                 <Form.Item
                                     name="city"
                                     label="City"
@@ -111,7 +104,6 @@ const Account = (): JSX.Element => {
                                         { required: true, message: 'City is required' },
                                         { max: 128, message: 'City is too long' }
                                     ]}
-                                    initialValue={user.address.city}
                                 >
                                     <Input />
                                 </Form.Item>
@@ -122,22 +114,14 @@ const Account = (): JSX.Element => {
                                         { required: true, message: 'ZIP is required' },
                                         { max: 32, message: 'ZIP is too long' }
                                     ]}
-                                    initialValue={user.address.zip}
                                 >
                                     <Input />
                                 </Form.Item>
                             </span>
-                            <Form.Item name="country" label="Country" initialValue={user.address.country}>
+                            <Form.Item name="country" label="Country">
                                 <Select options={countryOptions} />
                             </Form.Item>
                             <div className="Account__status">
-                                <Button
-                                    type="primary"
-                                    htmlType="submit"
-                                    disabled={nameAddressState.success || nameAddressState.error}
-                                >
-                                    Update
-                                </Button>
                                 {nameAddressState.success ? (
                                     <span className="success">
                                         <CheckOutlined />
@@ -151,6 +135,13 @@ const Account = (): JSX.Element => {
                                 ) : (
                                     <></>
                                 )}
+                                <Button
+                                    type="primary"
+                                    htmlType="submit"
+                                    disabled={nameAddressState.success || nameAddressState.error}
+                                >
+                                    Update
+                                </Button>
                             </div>
                         </Form>
                     </section>
@@ -195,13 +186,6 @@ const Account = (): JSX.Element => {
                                     <Input.Password />
                                 </Form.Item>
                                 <div className="Account__status">
-                                    <Button
-                                        type="primary"
-                                        htmlType="submit"
-                                        disabled={passwordState.success || passwordState.error}
-                                    >
-                                        Change
-                                    </Button>
                                     {passwordState.success ? (
                                         <span className="success">
                                             <CheckOutlined />
@@ -219,6 +203,13 @@ const Account = (): JSX.Element => {
                                     ) : (
                                         <></>
                                     )}
+                                    <Button
+                                        type="primary"
+                                        htmlType="submit"
+                                        disabled={passwordState.success || passwordState.error}
+                                    >
+                                        Change
+                                    </Button>
                                 </div>
                             </Form>
                         </section>
