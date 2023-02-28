@@ -86,8 +86,8 @@ class ProductController extends GenericController {
     getOne = async ({ params: { id } }, res, next) => {
         try {
             if (!Types.ObjectId.isValid(id)) throw new createError.NotFound();
-            const doc = await this.Model.aggregate([{ $match: { _id: Types.ObjectId(id) } }, ...pipeline]).then(docs =>
-                docs.map(doc => this.Model.hydrate(doc))
+            const doc = await this.Model.aggregate([{ $match: { _id: new Types.ObjectId(id) } }, ...pipeline]).then(
+                docs => docs.map(doc => this.Model.hydrate(doc))
             );
             if (doc.length < 1) throw new createError.NotFound();
             res.status(200).json(doc[0]);
