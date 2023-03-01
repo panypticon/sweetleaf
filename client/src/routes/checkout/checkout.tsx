@@ -201,7 +201,7 @@ const Checkout = (): JSX.Element => {
                                     Continue shopping
                                 </Button>
                                 <span>or</span>
-                                <Button onClick={() => navigate('/account/orders')}>View orders</Button>
+                                <Button onClick={() => navigate(`/account/${user?.id}/orders`)}>View orders</Button>
                             </p>
                         </>
                     )
