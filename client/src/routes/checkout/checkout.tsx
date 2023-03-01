@@ -45,8 +45,6 @@ const Checkout = (): JSX.Element => {
         data && dispatch(resetCart());
     }, [data, dispatch]);
 
-    console.log(cart);
-
     return (
         <StyledCheckout className="Checkout">
             <section className="Checkout__section">
