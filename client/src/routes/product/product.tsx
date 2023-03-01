@@ -49,12 +49,13 @@ const ProductPage = (): JSX.Element => {
 
     const dispatch = useAppDispatch();
 
-    const handleAddToCart = (amount: number, packageSize: string) =>
+    const handleAddToCart = (amount: number, packageSize: string, price: number) =>
         dispatch(
             addToCart({
                 item,
                 amount,
-                packageSize
+                packageSize,
+                price
             })
         );
 

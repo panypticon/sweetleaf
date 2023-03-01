@@ -45,6 +45,8 @@ const Checkout = (): JSX.Element => {
         data && dispatch(resetCart());
     }, [data, dispatch]);
 
+    console.log(cart);
+
     return (
         <StyledCheckout className="Checkout">
             <section className="Checkout__section">
@@ -82,12 +84,13 @@ const Checkout = (): JSX.Element => {
                                                     {
                                                         amount,
                                                         packageSize: size,
-                                                        item: { id: product }
+                                                        item: { id: product },
+                                                        price
                                                     }
-                                                ]) => ({ product, amount, size })
+                                                ]) => ({ product, amount, size, price })
                                             );
 
-                                            runAsync({ user: user.id, shippingAddress, items });
+                                            runAsync({ user: user.id, shippingAddress, items, totalPrice });
                                         }}
                                         layout="vertical"
                                         requiredMark={false}
