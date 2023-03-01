@@ -33,7 +33,11 @@ const router = createBrowserRouter([
                 path: '/account',
                 children: [
                     { path: '/account', element: <Account /> },
-                    { path: '/account/orders', element: <Orders /> }
+                    {
+                        path: '/account/:id/orders',
+                        element: <Orders />,
+                        loader: async ({ params: { id } }) => await getJSONData(`/api/v1/users/${id}/orders`)
+                    }
                 ]
             },
             { path: 'checkout', element: <Checkout /> },

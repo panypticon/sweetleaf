@@ -1,5 +1,5 @@
-// import { useAppSelector } from '../../store/hooks';
-// import { selectGlobalData } from '../../store/slices/globalData';
+import { useLoaderData } from 'react-router-dom';
+
 import useAuthProtection from '../../hooks/useAuthProtection';
 
 import { StyledOrders } from './orders.styled';
@@ -7,7 +7,8 @@ import { StyledOrders } from './orders.styled';
 const Orders = (): JSX.Element => {
     useAuthProtection();
 
-    // const { user } = useAppSelector(selectGlobalData);
+    const orders = useLoaderData();
+    console.log(orders);
 
     return <StyledOrders className="Orders">Orders</StyledOrders>;
 };
