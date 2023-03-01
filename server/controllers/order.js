@@ -8,9 +8,11 @@ class OrderController extends GenericController {
         super(Model);
     }
 
-    getAll = async (_, res, next) => {
+    getAll = async (req, res, next) => {
         try {
-            const docs = await this.Model.find()
+            // Handle redirected requests from user controller for user orders
+            const query = req.params.id ? { user: req.params.id } : {};
+            const docs = await this.Model.find(query)
                 .populate({ path: 'user', options: { lean: true, select: 'address email' } })
                 .populate({ path: 'items.product', options: { lean: true, select: 'name' } });
             res.status(200).json(docs);

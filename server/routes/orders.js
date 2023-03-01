@@ -1,11 +1,11 @@
 import { Router } from 'express';
 
 import orderController from '../controllers/order.js';
-import { isAdmin, isEmbeddedUserOrAdmin } from '../utils/auth.js';
+import { isEmbeddedUserOrAdmin, isUserOrAdmin } from '../utils/auth.js';
 
-const ordersRouter = Router();
+const ordersRouter = Router({ mergeParams: true });
 
-ordersRouter.route('/').get(isAdmin, orderController.getAll);
+ordersRouter.route('/').get(isUserOrAdmin, orderController.getAll);
 ordersRouter.route('/add').post(isEmbeddedUserOrAdmin, orderController.add);
 ordersRouter
     .route('/:id')
