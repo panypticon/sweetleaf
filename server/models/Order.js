@@ -46,8 +46,8 @@ const orderSchema = new Schema(
 orderSchema.set('toJSON', {
     virtuals: true,
     transform: (_, vals) => {
-        const { id, user, shippingAddress, items } = vals;
-        return { id, user, shippingAddress, items };
+        const { id, user, shippingAddress, items, createdAt } = vals;
+        return { id, user, shippingAddress, items, createdAt };
     }
 });
 
