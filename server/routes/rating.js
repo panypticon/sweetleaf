@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import ratingController from '../controllers/rating.js';
-import { isAdmin, isEmbeddedUserOrAdmin } from '../utils/auth.js';
+import { isEmbeddedUserOrAdmin } from '../utils/auth.js';
 
 const ratingsRouter = Router({ mergeParams: true });
 
