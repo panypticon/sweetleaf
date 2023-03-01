@@ -1,3 +1,5 @@
+import type { ReactElement, Dispatch, SetStateAction } from 'react';
+
 export interface Address {
     city: String;
     country: String;
@@ -82,4 +84,9 @@ export interface Order {
     user: User;
     createdAt: Date;
     totalPrice: number;
+}
+
+export interface ModalContext {
+    modal: ReactElement | null;
+    setModal: Dispatch<SetStateAction<any>>;
 }
