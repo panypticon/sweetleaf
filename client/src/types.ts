@@ -81,4 +81,5 @@ export interface Order {
     shippingAddress: Address;
     user: User;
     createdAt: Date;
+    totalPrice: number;
 }
