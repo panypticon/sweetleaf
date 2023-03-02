@@ -56,9 +56,6 @@ const AccountPopoverActions = ({ user }: { user: User }): JSX.Element => {
                 <Link to={`/account/${user.id}/recommendations`}>Recommendations</Link>
             </li>
             <li>
-                <Link to={`/account/${user.id}/subscription`}>MyBox</Link>
-            </li>
-            <li>
                 {contextHolder}
                 <span
                     onClick={async () => {

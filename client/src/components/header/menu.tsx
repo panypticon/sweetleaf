@@ -5,7 +5,6 @@ import { StyledNavLink, StyledMenuBlade, StyledMenu } from './menu.styled';
 const menuItems = [
     { label: 'Tea', link: '/tea', content: () => <div>Tea</div> },
     { label: 'Gear', link: '/gear', content: () => <div>Gear</div> },
-    { label: 'MyBox', link: '/mybox', content: () => <div>MyBox</div> },
     { label: 'About', link: '/about', content: () => <div>About</div> }
 ];
 

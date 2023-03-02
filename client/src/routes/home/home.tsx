@@ -36,9 +36,6 @@ const Home = (): JSX.Element => {
             <section className="Home__section true-colors">
                 <h2>True Colors</h2>
             </section>
-            <section className="Home__section mybox">
-                <h2>MyBox is Your Box</h2>
-            </section>
         </StyledHome>
     );
 };
