@@ -39,7 +39,7 @@ const AccountPopoverLogin = (): JSX.Element => {
     );
 };
 
-const AccountPopoverActions = (): JSX.Element => {
+const AccountPopoverActions = ({ user }: { user: User }): JSX.Element => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const [messageAPI, contextHolder] = message.useMessage();
@@ -50,13 +50,10 @@ const AccountPopoverActions = (): JSX.Element => {
                 <Link to="/account">Account data</Link>
             </li>
             <li>
-                <Link to="/account/orders">Orders</Link>
+                <Link to={`/account/${user.id}/orders`}>Orders</Link>
             </li>
             <li>
-                <Link to="/account/recommendations">Recommendations</Link>
-            </li>
-            <li>
-                <Link to="/account/subscription">MyBox</Link>
+                <Link to={`/account/${user.id}/recommendations`}>Recommendations</Link>
             </li>
             <li>
                 {contextHolder}
@@ -90,7 +87,7 @@ const AccountPopover = (props: Props): JSX.Element => {
             overlayClassName="AccountPopover"
             title={<h5>{props.user ? `${props.user.address?.firstName}'s Leaflet` : 'My Account'}</h5>}
             placement={sm ? 'bottomRight' : 'bottom'}
-            content={props.user ? <AccountPopoverActions /> : <AccountPopoverLogin />}
+            content={props.user ? <AccountPopoverActions user={props.user} /> : <AccountPopoverLogin />}
             getPopupContainer={() => document.querySelector('.Header .Header__actions')}
             destroyTooltipOnHide={false}
             align={{ offset: [10, 4] }}

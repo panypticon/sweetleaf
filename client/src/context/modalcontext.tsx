@@ -1,12 +1,6 @@
-import { ReactElement } from 'react';
 import { createContext, useState } from 'react';
 
-import type { Dispatch, SetStateAction } from 'react';
-
-interface ModalContext {
-    modal: ReactElement | null;
-    setModal: Dispatch<SetStateAction<any>>;
-}
+import type { ModalContext } from '../types';
 
 export const modalContext = createContext<ModalContext | null>(null);
 

@@ -82,12 +82,13 @@ const Checkout = (): JSX.Element => {
                                                     {
                                                         amount,
                                                         packageSize: size,
-                                                        item: { id: product }
+                                                        item: { id: product },
+                                                        price
                                                     }
-                                                ]) => ({ product, amount, size })
+                                                ]) => ({ product, amount, size, price })
                                             );
 
-                                            runAsync({ user: user.id, shippingAddress, items });
+                                            runAsync({ user: user.id, shippingAddress, items, totalPrice });
                                         }}
                                         layout="vertical"
                                         requiredMark={false}
@@ -200,7 +201,7 @@ const Checkout = (): JSX.Element => {
                                     Continue shopping
                                 </Button>
                                 <span>or</span>
-                                <Button onClick={() => navigate('/account/orders')}>View orders</Button>
+                                <Button onClick={() => navigate(`/account/${user?.id}/orders`)}>View orders</Button>
                             </p>
                         </>
                     )

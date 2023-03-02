@@ -1,12 +1,16 @@
+import type { ReactElement, Dispatch, SetStateAction } from 'react';
+
+export interface Address {
+    city: String;
+    country: String;
+    firstName: String;
+    lastName: String;
+    street: String;
+    zip: String;
+}
+
 export interface User {
-    address: {
-        city: String;
-        country: String;
-        firstName: String;
-        lastName: String;
-        street: String;
-        zip: String;
-    };
+    address: Address;
     email: String;
     id: String;
     googleID?: String;
@@ -56,6 +60,7 @@ export interface CartItem {
     item: Product;
     amount: number;
     packageSize: string;
+    price: number;
     id?: string;
 }
 
@@ -70,4 +75,25 @@ export interface Rating {
 
 export interface LaxProps {
     [x: string]: any;
+}
+
+export interface OrderItem {
+    amount: number;
+    size: string;
+    product: { _id: string; name: string };
+    price: number;
+}
+
+export interface Order {
+    id: string;
+    items: [OrderItem];
+    shippingAddress: Address;
+    user: User;
+    createdAt: Date;
+    totalPrice: number;
+}
+
+export interface ModalContext {
+    modal: ReactElement | null;
+    setModal: Dispatch<SetStateAction<any>>;
 }

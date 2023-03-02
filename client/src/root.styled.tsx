@@ -75,6 +75,10 @@ const GlobalStyle = createGlobalStyle`
         color: ${colors.steamed.standard}
     }
 
+    strong {
+        font-weight: 600
+    };
+
     h1 {
         font-size: 4rem;
         line-height: 1.2;

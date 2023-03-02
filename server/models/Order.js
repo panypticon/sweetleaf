@@ -17,6 +17,10 @@ const itemSchema = new Schema(
         size: {
             type: String,
             required: true
+        },
+        price: {
+            type: Number,
+            required: true
         }
     },
     { _id: false }
@@ -38,6 +42,10 @@ const orderSchema = new Schema(
             type: [itemSchema],
             required: true,
             default: undefined
+        },
+        totalPrice: {
+            type: Number,
+            required: true
         }
     },
     { timestamps: true }
@@ -46,8 +54,8 @@ const orderSchema = new Schema(
 orderSchema.set('toJSON', {
     virtuals: true,
     transform: (_, vals) => {
-        const { id, user, shippingAddress, items } = vals;
-        return { id, user, shippingAddress, items };
+        const { id, user, shippingAddress, items, createdAt, totalPrice } = vals;
+        return { id, user, shippingAddress, items, createdAt, totalPrice };
     }
 });
 

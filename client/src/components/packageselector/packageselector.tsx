@@ -13,7 +13,7 @@ const PackageSelector = ({
     onAddToCart
 }: {
     inventory: PackageSize[];
-    onAddToCart: (amount: number, packageSize: string) => void;
+    onAddToCart: (amount: number, packageSize: string, price: number) => void;
 }) => {
     const [selection, setSelection] = useState(inventory.find(item => item.amount > 0)?.size);
     const [amount, setAmount] = useState(1);
@@ -65,7 +65,7 @@ const PackageSelector = ({
                 <Button
                     type="primary"
                     onClick={() => {
-                        onAddToCart(amount, currentItem?.size || '');
+                        onAddToCart(amount, currentItem?.size || '', (currentItem?.price || 0) * amount);
                         setShowAdded(true);
                     }}
                 >

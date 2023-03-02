@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { MinusCircleFilled, PlusCircleFilled } from '@ant-design/icons';
 
 import { useAppDispatch } from '../../store/hooks';
@@ -13,18 +12,14 @@ const CartItem = ({
         amount,
         packageSize,
         id,
-        item: { name, inventory, image }
+        item: { name, image },
+        price
     },
     showImage = false
 }: {
     data: CartItemType;
     showImage?: boolean;
 }): JSX.Element => {
-    const price = useMemo(
-        () => inventory.find(item => item.size === packageSize)?.price || 0,
-        [inventory, packageSize]
-    );
-
     const dispatch = useAppDispatch();
 
     return (
@@ -39,7 +34,7 @@ const CartItem = ({
                         <PlusCircleFilled onClick={() => id && dispatch(incrementInCart(id))} />
                     </span>
                     <span className="CartItem__packagesize">{packageSize}</span>
-                    <span className="CartItem__price">{`${(price * amount).toFixed(2)} €`}</span>
+                    <span className="CartItem__price">{`${price.toFixed(2)} €`}</span>
                 </div>
             </span>
         </StyledCartItem>

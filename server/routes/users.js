@@ -3,7 +3,8 @@ import session from 'express-session';
 import connect from 'connect-mongodb-session';
 
 import userController from '../controllers/user.js';
-import { authLocal, authGoogle, isAdmin, isUserOrAdmin, isEmbeddedUserOrAdmin } from '../utils/auth.js';
+import { authLocal, authGoogle, isAdmin, isUserOrAdmin } from '../utils/auth.js';
+import ordersRouter from './orders.js';
 
 const MongoDBStore = connect(session);
 const store = new MongoDBStore({
@@ -32,7 +33,6 @@ usersRouter
     .put(isUserOrAdmin, userController.update)
     .delete(isUserOrAdmin, userController.delete);
 usersRouter.route('/:id/password').put(isUserOrAdmin, userController.updatePassword);
+usersRouter.use('/:id/orders', ordersRouter);
 
 export default usersRouter;
-
-// localhost:3000/api/v1/users/login/google?route=/foo
