@@ -77,9 +77,16 @@ export interface LaxProps {
     [x: string]: any;
 }
 
+export interface OrderItem {
+    amount: number;
+    size: string;
+    product: { _id: string; name: string };
+    price: number;
+}
+
 export interface Order {
     id: string;
-    items: [{ amount: number; size: string; product: { _id: string; name: string } }];
+    items: [OrderItem];
     shippingAddress: Address;
     user: User;
     createdAt: Date;

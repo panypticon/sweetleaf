@@ -11,6 +11,6 @@ ordersRouter
     .route('/:id')
     .get(isLoggedIn, orderController.getOne) // Further auth in controller
     .put(isEmbeddedUserOrAdmin, orderController.update)
-    .delete(isEmbeddedUserOrAdmin, orderController.delete);
+    .delete(isLoggedIn, orderController.delete); // Further auth in controller
 
 export default ordersRouter;
