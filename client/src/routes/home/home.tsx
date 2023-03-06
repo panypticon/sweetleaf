@@ -1,9 +1,13 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { message } from 'antd';
 
 import Button from '../../components/button/button';
 import ProductList from '../../components/productlist/productlist';
+import { modalContext } from '../../context/modalcontext';
+import DiscoverTasteModal from '../../components/discovertastemodal/discovertastemodal';
+
+import type { ModalContext } from '../../types';
 
 import { StyledHome } from './home.styled';
 
@@ -11,6 +15,8 @@ const Home = (): JSX.Element => {
     const location = useLocation();
 
     const [messageAPI, contextHolder] = message.useMessage();
+
+    const { setModal } = useContext(modalContext) as ModalContext;
 
     useEffect(() => {
         location.pathname === '/verified' && messageAPI.info('Email address verified, you can now log in', 0);
@@ -26,7 +32,9 @@ const Home = (): JSX.Element => {
                         <br /> Begins with You
                     </h1>
                     <p>Answer 12 questions to discover your taste</p>
-                    <Button type="primary">Get started</Button>
+                    <Button type="primary" onClick={() => setModal(<DiscoverTasteModal />)}>
+                        Get started
+                    </Button>
                 </div>
             </section>
             <section className="Home__section all-stars">

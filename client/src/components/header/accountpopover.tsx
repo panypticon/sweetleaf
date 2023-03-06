@@ -13,6 +13,7 @@ import { resetCart } from '../../store/slices/appState';
 import SignupModal from '../signupmodal/signupmodal';
 
 import type { User } from '../../types';
+import type { ModalContext } from '../../types';
 
 import StyledAccountPopover from './accountpopover.styled';
 
@@ -22,16 +23,16 @@ interface Props {
 }
 
 const AccountPopoverLogin = (): JSX.Element => {
-    const modalData = useContext(modalContext);
+    const { setModal } = useContext(modalContext) as ModalContext;
 
     return (
         <>
-            <Button type="primary" wide onClick={() => modalData?.setModal(<LoginModal />)}>
+            <Button type="primary" wide onClick={() => setModal(<LoginModal />)}>
                 Log in
             </Button>
             <div className="AccountPopover__signup">
                 <p>New around here?</p>
-                <Button wide onClick={() => modalData?.setModal(<SignupModal />)}>
+                <Button wide onClick={() => setModal(<SignupModal />)}>
                     Sign up
                 </Button>
             </div>

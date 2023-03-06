@@ -4,11 +4,12 @@ import { Modal as ModalAnt } from 'antd';
 import { modalContext } from '../../context/modalcontext';
 
 import type { ModalProps } from 'antd';
+import type { ModalContext } from '../../types';
 
 import StyledModal from './modal.styled';
 
 const Modal = ({ title, ...props }: ModalProps) => {
-    const modalData = useContext(modalContext);
+    const { setModal } = useContext(modalContext) as ModalContext;
 
     useEffect(() => {
         document.body.classList.add('modal-lock');
@@ -20,7 +21,7 @@ const Modal = ({ title, ...props }: ModalProps) => {
             title={<h3>{title}</h3>}
             open={true}
             centered={true}
-            onCancel={() => modalData?.setModal(null)}
+            onCancel={() => setModal(null)}
             width="100%"
             destroyOnClose={true}
             {...props}
