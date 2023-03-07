@@ -123,6 +123,7 @@ const GlobalStyle = createGlobalStyle`
     .ant-modal-root {
         position: fixed;
         top: 6rem;
+        z-index: 1000;
 
         .ant-modal-mask {
             background-color: ${rgba(colors.contrast.light, 0.4)};
