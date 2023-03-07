@@ -47,6 +47,11 @@ const StyledDiscoverTasteModal = styled(Modal)`
                 margin-top: ${defaults.layoutPadding};
             }
         }
+
+        &__Question {
+            flex: 1;
+            align-self: stretch;
+        }
     }
 `;
 
