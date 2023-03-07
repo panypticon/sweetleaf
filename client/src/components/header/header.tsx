@@ -15,9 +15,11 @@ import AccountPopover from './accountpopover';
 import CartPopover from './cartpopover';
 import { modalContext } from '../../context/modalcontext';
 import { getJSONData } from '../../api/fetch';
+import DiscoverTasteModal from '../discovertastemodal/discovertastemodal';
 
 import type { InputRef } from 'antd';
 import type { PropsWithChildren } from 'react';
+import type { ModalContext } from '../../types';
 
 import { StyledHeader } from './header.styled';
 
@@ -41,7 +43,7 @@ const Header = (): JSX.Element => {
         mobileSearchOpen && searchInput && searchInput.focus();
     }, [mobileSearchOpen]);
 
-    const modalData = useContext(modalContext);
+    const { setModal, modal } = useContext(modalContext) as ModalContext;
 
     const { data, runAsync } = useRequest(searchterm => getJSONData(`/api/v1/products/query?name=${searchterm}`), {
         manual: true,
@@ -66,7 +68,7 @@ const Header = (): JSX.Element => {
 
     return (
         <StyledHeader
-            className={`Header ${modalData?.modal ? 'Header--modalopen' : ''}`}
+            className={`Header ${modal ? 'Header--modalopen' : ''}`}
             onClick={() => {
                 dispatch(setMobileNavState(false));
                 dispatch(setMobileSearchState(false));
@@ -87,7 +89,7 @@ const Header = (): JSX.Element => {
                         type="search"
                         placeholder="Search"
                         prefix={<SearchOutlined />}
-                        onFocus={() => modalData?.setModal(false)}
+                        onFocus={() => setModal(false)}
                         ref={searchInputRef}
                         bordered={false}
                         allowClear={true}
@@ -111,7 +113,12 @@ const Header = (): JSX.Element => {
                 <div className="Header__actions">
                     {!mobileNavOpen && (
                         <>
-                            <Button className="Header__button-discover">Discover your taste</Button>
+                            <Button
+                                className="Header__button-discover"
+                                onClick={() => setModal(<DiscoverTasteModal />)}
+                            >
+                                Discover your taste
+                            </Button>
                             <SearchOutlined
                                 className="Header__actions-search"
                                 onClick={evt => {

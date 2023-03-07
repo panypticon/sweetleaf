@@ -12,6 +12,8 @@ import { postJSONData } from '../../api/fetch';
 import SignupModal from '../signupmodal/signupmodal';
 import { modalContext } from '../../context/modalcontext';
 
+import type { ModalContext } from '../../types';
+
 import StyledLoginModal from './loginmodal.styled';
 
 interface Props {
@@ -22,7 +24,7 @@ interface Props {
 const LoginModal = (props: Props) => {
     const [loginError, setLoginError] = useState<String | null>(null);
 
-    const modalData = useContext(modalContext);
+    const { setModal } = useContext(modalContext) as ModalContext;
 
     const [form] = Form.useForm();
 
@@ -79,7 +81,7 @@ const LoginModal = (props: Props) => {
                 </Button>
             </Form>
             <p className="Modal__switch">
-                Not registered? <span onClick={() => modalData?.setModal(<SignupModal />)}>Sign up</span>
+                Not registered? <span onClick={() => setModal(<SignupModal />)}>Sign up</span>
             </p>
             <span className="Modal__separator">
                 <div>

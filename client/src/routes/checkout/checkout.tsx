@@ -17,6 +17,8 @@ import Select from '../../components/select/select';
 import countryOptions from '../../components/select/countryoptions';
 import { postJSONData } from '../../api/fetch';
 
+import type { ModalContext } from '../../types';
+
 import StyledCheckout from './checkout.styled';
 
 const Checkout = (): JSX.Element => {
@@ -25,7 +27,7 @@ const Checkout = (): JSX.Element => {
 
     const navigate = useNavigate();
 
-    const modalData = useContext(modalContext);
+    const { setModal } = useContext(modalContext) as ModalContext;
 
     const { totalPrice, isEmpty, cartItems } = useCartData(cart);
 
@@ -61,12 +63,12 @@ const Checkout = (): JSX.Element => {
                                         <span>To continue, please</span>
                                         <Button
                                             type="primary"
-                                            onClick={() => modalData?.setModal(<LoginModal route="/checkout" />)}
+                                            onClick={() => setModal(<LoginModal route="/checkout" />)}
                                         >
                                             <span>Log in</span>
                                         </Button>
                                         <span>or</span>
-                                        <Button onClick={() => modalData?.setModal(<SignupModal />)}>Sign up</Button>
+                                        <Button onClick={() => setModal(<SignupModal />)}>Sign up</Button>
                                     </p>
                                 </div>
                             ) : (

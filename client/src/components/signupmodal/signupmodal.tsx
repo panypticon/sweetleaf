@@ -12,11 +12,12 @@ import { modalContext } from '../../context/modalcontext';
 import StyledSignupModal from './signupmodal.styled';
 
 import type { ModalProps } from 'antd';
+import type { ModalContext } from '../../types';
 
 const SignupModal = (props: ModalProps) => {
     const [signupError, setSignupError] = useState<String | null>(null);
 
-    const modalData = useContext(modalContext);
+    const { setModal } = useContext(modalContext) as ModalContext;
 
     const [form] = Form.useForm();
 
@@ -116,7 +117,7 @@ const SignupModal = (props: ModalProps) => {
                         </Button>
                     </Form>
                     <p className="Modal__switch">
-                        Already registered? <span onClick={() => modalData?.setModal(<LoginModal />)}>Log in</span>
+                        Already registered? <span onClick={() => setModal(<LoginModal />)}>Log in</span>
                     </p>
                     <span className="Modal__separator">
                         <div>
@@ -141,7 +142,7 @@ const SignupModal = (props: ModalProps) => {
                     </p>
                     <p>Only then will you be able to log in.</p>
                     <p>
-                        Already verified? <Button onClick={() => modalData?.setModal(<LoginModal />)}>Log in</Button>
+                        Already verified? <Button onClick={() => setModal(<LoginModal />)}>Log in</Button>
                     </p>
                 </div>
             )}
