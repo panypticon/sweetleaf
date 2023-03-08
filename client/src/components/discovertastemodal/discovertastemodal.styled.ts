@@ -53,6 +53,16 @@ const StyledDiscoverTasteModal = styled(Modal)`
         &__Question {
             flex: 1;
             align-self: stretch;
+
+            > div > p {
+                background-color: ${colors.contrast['shade-6']};
+                padding: ${defaults.layoutPadding};
+                font-size: 1.4rem;
+            }
+
+            .ant-form-item {
+                margin-bottom: calc(${defaults.layoutPadding} * 2);
+            }
         }
     }
 
@@ -98,8 +108,12 @@ const StyledDiscoverTasteModal = styled(Modal)`
         border-radius: ${defaults.radiusDefault};
         box-shadow: 0 0 1.2rem ${rgba(colors.contrast.dark, 0.15)};
 
-        .ant-radio-inner {
-            border-color: ${colors.contrast['shade-6']};
+        .ant-radio {
+            margin-right: 0.4rem;
+
+            &-inner {
+                border-color: ${colors.contrast['shade-6']};
+            }
         }
 
         &-checked {

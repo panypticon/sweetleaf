@@ -1,6 +1,6 @@
 const quizData = [
     {
-        question: 'Do you prefer your food and drink plain or flavored?',
+        question: 'Do you prefer food and drink plain or flavored?',
         whyweask:
             "There's Coke, and then there's Cherry Coke. There's frozen yogurt, and then there are fifteen toppings. Tea is the same – it can be consumed barebones or with additional flavors.",
         answers: {
