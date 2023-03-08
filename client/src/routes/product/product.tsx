@@ -61,14 +61,12 @@ const ProductPage = (): JSX.Element => {
 
     return (
         <StyledProduct className="Product">
-            <Breadcrumb>
-                <Breadcrumb.Item>
-                    <Link to={`/${type}`}>{capitalize(type)}</Link>
-                </Breadcrumb.Item>
-                <Breadcrumb.Item>
-                    <Link to={`/${type}/${category}`}>{capitalize(category)}</Link>
-                </Breadcrumb.Item>
-            </Breadcrumb>
+            <Breadcrumb
+                items={[
+                    { title: <Link to={`/${type}`}>{capitalize(type)}</Link> },
+                    { title: <Link to={`/${type}/${category}`}>{capitalize(category)}</Link> }
+                ]}
+            />
             <section className="Product__section">
                 <h1>{name}</h1>
                 <div className="Product__main">
