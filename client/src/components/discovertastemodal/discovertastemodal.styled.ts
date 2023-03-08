@@ -53,6 +53,12 @@ const StyledDiscoverTasteModal = styled(Modal)`
             > *:nth-last-child(-n + 2) {
                 margin-top: ${defaults.layoutPadding};
             }
+
+            .accountbuttons {
+                display: flex;
+                gap: calc(${defaults.layoutPadding} / 2);
+                align-items: center;
+            }
         }
 
         &__Question {

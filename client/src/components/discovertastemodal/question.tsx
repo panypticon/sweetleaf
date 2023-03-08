@@ -17,12 +17,14 @@ const Question = ({
     state,
     data: { question, whyweask, answers },
     onChange,
-    length
+    length,
+    answer
 }: {
     state: number;
     data: QuizItem;
     onChange: (data: QuizFormItemData) => void;
     length: number;
+    answer: string | string[];
 }) => {
     const [form] = Form.useForm();
 
@@ -33,12 +35,16 @@ const Question = ({
                 <h4>{question}</h4>
                 <Form form={form} onValuesChange={onChange}>
                     {answers.type === 'one' && (
-                        <Form.Item name={answers.name} initialValue={answers.data.at(0)?.value}>
+                        <Form.Item name={answers.name} initialValue={answer}>
                             <Radio.Group options={answers.data} />
                         </Form.Item>
                     )}
                     {answers.type === 'many' && (
-                        <Form.Item name={answers.name} help="Leave unchecked if you have no preference">
+                        <Form.Item
+                            name={answers.name}
+                            initialValue={answer}
+                            help="Leave unchecked if you have no preference"
+                        >
                             <Checkbox.Group options={answers.data} />
                         </Form.Item>
                     )}
