@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { rgba } from 'polished';
 
 import Modal from '../modal/modal';
 import { defaults, breakpoints, colors } from '../../root.styled';
@@ -14,7 +15,7 @@ const StyledDiscoverTasteModal = styled(Modal)`
 
         @media (max-width: ${breakpoints.lg}) {
             margin-top: 6rem;
-            margin-bottom: 2.4rem;
+            margin-bottom: ${defaults.layoutPadding};
             min-height: calc(100vh - 10.8rem);
         }
 
@@ -29,6 +30,7 @@ const StyledDiscoverTasteModal = styled(Modal)`
 
     h4 {
         color: ${colors.contrast.dark};
+        margin-bottom: calc(${defaults.layoutPadding} * 2);
     }
 
     .DiscoverTasteModal {
@@ -51,6 +53,68 @@ const StyledDiscoverTasteModal = styled(Modal)`
         &__Question {
             flex: 1;
             align-self: stretch;
+        }
+    }
+
+    .ant-steps {
+        transform: translateX(calc(${defaults.layoutPadding} * -2));
+        width: calc(100% + calc(${defaults.layoutPadding} * 4));
+        margin-bottom: calc(${defaults.layoutPadding} * 2);
+
+        .ant-steps-item-container {
+            .ant-steps-item-tail::after {
+                background-color: ${colors.contrast['shade-6']};
+            }
+
+            .ant-steps-item-icon .ant-steps-icon-dot {
+                background-color: ${colors.contrast['shade-4']};
+            }
+        }
+
+        &-item-active,
+        &-item-finish {
+            .ant-steps-item-container .ant-steps-item-icon .ant-steps-icon-dot {
+                background-color: ${colors.fermented.standard};
+            }
+        }
+
+        &-item-finish {
+            .ant-steps-item-container .ant-steps-item-tail::after {
+                background-color: ${colors.fermented.standard};
+            }
+        }
+    }
+
+    .ant-form-item-control-input-content {
+        display: flex;
+        justify-content: center;
+    }
+
+    .ant-radio-wrapper {
+        font-weight: 600;
+        color: ${colors.steamed.standard};
+        padding: ${defaults.layoutPadding};
+        border: 0.1rem solid ${colors.contrast['shade-6']};
+        border-radius: ${defaults.radiusDefault};
+        box-shadow: 0 0 1.2rem ${rgba(colors.contrast.dark, 0.15)};
+
+        .ant-radio-inner {
+            border-color: ${colors.contrast['shade-6']};
+        }
+
+        &-checked {
+            border-color: ${colors.steamed.standard};
+
+            .ant-radio-inner {
+                border-color: ${colors.steamed.standard};
+                background-color: ${colors.steamed.standard};
+            }
+        }
+
+        &:hover {
+            .ant-radio-inner {
+                border-color: ${colors.steamed.standard};
+            }
         }
     }
 `;
