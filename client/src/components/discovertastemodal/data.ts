@@ -13,7 +13,7 @@ const quizData = [
         }
     },
     {
-        question: 'What types of flavor do you like most?',
+        question: 'What types of flavor do you like the most?',
         whyweask:
             'Tea comes in many forms, and even the one made from tea leaves has very distinct flavors depending on the way it was produced.',
         answers: {

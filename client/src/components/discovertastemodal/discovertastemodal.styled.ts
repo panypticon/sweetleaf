@@ -28,6 +28,11 @@ const StyledDiscoverTasteModal = styled(Modal)`
         }
     }
 
+    .ant-modal-footer {
+        display: flex;
+        justify-content: space-between;
+    }
+
     h4 {
         color: ${colors.contrast.dark};
         margin-bottom: calc(${defaults.layoutPadding} * 2);
@@ -62,6 +67,11 @@ const StyledDiscoverTasteModal = styled(Modal)`
 
             .ant-form-item {
                 margin-bottom: calc(${defaults.layoutPadding} * 2);
+
+                &-explain {
+                    text-align: center;
+                    padding-top: calc(${defaults.layoutPadding} / 2);
+                }
             }
         }
     }
@@ -100,15 +110,22 @@ const StyledDiscoverTasteModal = styled(Modal)`
         justify-content: center;
     }
 
-    .ant-radio-wrapper {
+    .ant-radio-wrapper,
+    .ant-checkbox-wrapper {
         font-weight: 600;
         color: ${colors.steamed.standard};
         padding: ${defaults.layoutPadding};
         border: 0.1rem solid ${colors.contrast['shade-6']};
         border-radius: ${defaults.radiusDefault};
         box-shadow: 0 0 1.2rem ${rgba(colors.contrast.dark, 0.15)};
+        margin-right: 0;
 
-        .ant-radio {
+        &:not(:last-child) {
+            margin-right: calc(${defaults.layoutPadding} / 2);
+        }
+
+        .ant-radio,
+        .ant-checkbox {
             margin-right: 0.4rem;
 
             &-inner {
@@ -116,17 +133,24 @@ const StyledDiscoverTasteModal = styled(Modal)`
             }
         }
 
-        &-checked {
+        &-checked,
+        &-checked:hover {
             border-color: ${colors.steamed.standard};
 
-            .ant-radio-inner {
+            .ant-checkbox:not(.ant-checkbox-disabled)::after {
+                border-color: ${colors.steamed.standard};
+            }
+
+            .ant-radio-inner,
+            .ant-checkbox.ant-checkbox-checked .ant-checkbox-inner {
                 border-color: ${colors.steamed.standard};
                 background-color: ${colors.steamed.standard};
             }
         }
 
         &:hover {
-            .ant-radio-inner {
+            .ant-radio-inner,
+            .ant-checkbox-inner {
                 border-color: ${colors.steamed.standard};
             }
         }
