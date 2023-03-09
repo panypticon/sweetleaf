@@ -14,6 +14,7 @@ export interface User {
     email: String;
     id: String;
     googleID?: String;
+    preferences?: { [x: string]: any };
 }
 
 export interface DetailedError extends Error {

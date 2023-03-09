@@ -53,6 +53,10 @@ const userSchema = new Schema(
         emailVerified: {
             type: Boolean,
             default: false
+        },
+        preferences: {
+            type: Schema.Types.Mixed,
+            default: undefined
         }
     },
     { timestamps: true }
@@ -94,8 +98,8 @@ userSchema.method('generateToken', async function () {
 userSchema.set('toJSON', {
     virtuals: true,
     transform: (_, vals) => {
-        const { address, email, id, googleID } = vals;
-        const values = { address, email, id };
+        const { address, email, id, googleID, preferences } = vals;
+        const values = { address, email, id, preferences };
         if (googleID) values.googleID = googleID;
         return values;
     }

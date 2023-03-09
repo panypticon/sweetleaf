@@ -113,12 +113,14 @@ const Header = (): JSX.Element => {
                 <div className="Header__actions">
                     {!mobileNavOpen && (
                         <>
-                            <Button
-                                className="Header__button-discover"
-                                onClick={() => setModal(<DiscoverTasteModal />)}
-                            >
-                                Discover your taste
-                            </Button>
+                            {!user?.preferences && (
+                                <Button
+                                    className="Header__button-discover"
+                                    onClick={() => setModal(<DiscoverTasteModal />)}
+                                >
+                                    Discover your taste
+                                </Button>
+                            )}
                             <SearchOutlined
                                 className="Header__actions-search"
                                 onClick={evt => {

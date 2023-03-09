@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, SyntheticEvent } from 'react';
 
 import Button from '../button/button';
 import Start from './start';
@@ -29,7 +29,7 @@ const DiscoverTasteModal = () => {
 
     const handleChange = (data: QuizFormItemData) => setPrefs(prevState => ({ ...prevState, ...data }));
 
-    const handleCancel = () =>
+    const handleCancel = (evt: SyntheticEvent) =>
         progress && progress <= quizData.length
             ? window.confirm('Are you sure you want to cancel this quiz?') && setModal(null)
             : setModal(null);
