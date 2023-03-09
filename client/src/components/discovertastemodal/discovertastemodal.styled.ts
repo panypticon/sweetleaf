@@ -80,6 +80,22 @@ const StyledDiscoverTasteModal = styled(Modal)`
                 }
             }
         }
+
+        &__Done {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: ${defaults.layoutPadding};
+
+            h4 {
+                margin-bottom: 0;
+            }
+
+            .anticon {
+                color: ${colors.steamed.standard};
+                font-size: 4.8rem;
+            }
+        }
     }
 
     .ant-steps {
