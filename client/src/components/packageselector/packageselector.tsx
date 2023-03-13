@@ -1,5 +1,5 @@
 import { useState, useMemo, useEffect } from 'react';
-import { Radio, Input, InputNumber } from 'antd';
+import { Radio, InputNumber, Space } from 'antd';
 import { PlusOutlined, MinusOutlined, CheckOutlined } from '@ant-design/icons';
 
 import Button from '../button/button';
@@ -42,7 +42,7 @@ const PackageSelector = ({
                         </Radio.Button>
                     ))}
                 </Radio.Group>
-                <Input.Group compact>
+                <Space.Compact>
                     <Button onClick={() => setAmount(prev => prev - 1)} disabled={amount <= 1}>
                         <MinusOutlined />
                     </Button>
@@ -59,7 +59,7 @@ const PackageSelector = ({
                     >
                         <PlusOutlined />
                     </Button>
-                </Input.Group>
+                </Space.Compact>
             </div>
             <div className="PackageSelector__add">
                 <Button
