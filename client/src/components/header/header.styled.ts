@@ -24,6 +24,10 @@ export const StyledHeader = styled(Layout.Header)`
                 display: flex;
             }
 
+            &__button-discover {
+                animation: reveal 0.25s ease-in 0.2s both;
+            }
+
             &__content {
                 max-width: ${defaults.layoutMaxWidth};
                 padding: 0 ${defaults.layoutPadding};

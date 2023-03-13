@@ -91,7 +91,8 @@ const AccountPopover = (props: Props): JSX.Element => {
             content={props.user ? <AccountPopoverActions user={props.user} /> : <AccountPopoverLogin />}
             getPopupContainer={() => document.querySelector('.Header .Header__actions')}
             destroyTooltipOnHide={false}
-            align={{ offset: [10, 4] }}
+            // Ant 5.3.0+ seems to ignore align without offering an alternative
+            // align={{ offset: [10, 4] }}
             {...props}
         />
     );

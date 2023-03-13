@@ -56,7 +56,7 @@ const StyledPackageSelector = styled.div`
         line-height: 1;
     }
 
-    .ant-input-group {
+    .ant-space-compact {
         .ant-btn {
             border-width: 0.2rem;
             margin: 0;
