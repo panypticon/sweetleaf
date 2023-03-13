@@ -4,7 +4,7 @@ import productController from '../controllers/product.js';
 import { isAdmin } from '../utils/auth.js';
 import ratingsRouter from './rating.js';
 
-const productsRouter = Router();
+const productsRouter = Router({ mergeParams: true });
 
 productsRouter.route('/').get(productController.getAll);
 productsRouter.route('/add').post(isAdmin, productController.add);
