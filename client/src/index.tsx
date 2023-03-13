@@ -41,8 +41,8 @@ const router = createBrowserRouter([
                     },
                     {
                         path: '/account/:id/recommendations',
-                        element: <Recommendations />
-                        // loader: async ({ params: { id } }) => await getJSONData(`/api/v1/users/${id}/recommendations`)
+                        element: <Recommendations />,
+                        loader: async ({ params: { id } }) => await getJSONData(`/api/v1/users/${id}/recommendations`)
                     }
                 ]
             },
