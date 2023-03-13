@@ -75,7 +75,8 @@ const GlobalStyle = createGlobalStyle`
         color: ${colors.steamed.standard}
     }
 
-    strong {
+    strong, 
+    b {
         font-weight: 600
     };
 
