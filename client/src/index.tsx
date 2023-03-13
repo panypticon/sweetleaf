@@ -16,6 +16,7 @@ import { store } from './store/store';
 import { ModalProvider } from './context/modalcontext';
 import { getJSONData } from './api/fetch';
 import Checkout from './routes/checkout/checkout';
+import Recommendations from './routes/recommendations/recommendations';
 
 import './index.scss';
 
@@ -37,6 +38,11 @@ const router = createBrowserRouter([
                         path: '/account/:id/orders',
                         element: <Orders />,
                         loader: async ({ params: { id } }) => await getJSONData(`/api/v1/users/${id}/orders`)
+                    },
+                    {
+                        path: '/account/:id/recommendations',
+                        element: <Recommendations />
+                        // loader: async ({ params: { id } }) => await getJSONData(`/api/v1/users/${id}/recommendations`)
                     }
                 ]
             },
