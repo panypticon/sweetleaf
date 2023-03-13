@@ -54,7 +54,8 @@ const CartPopover = (props: Props): JSX.Element => {
             content={isEmpty ? cartEmpty : cartList}
             getPopupContainer={() => document.querySelector('.Header .Header__actions')}
             destroyTooltipOnHide={false}
-            align={{ offset: [isEmpty ? 8 : -14, 4] }}
+            // Ant 5.3.0+ seems to ignore align without offering an alternative
+            // align={{ offset: [isEmpty ? 8 : -14, 4] }}
             {...props}
         />
     );
