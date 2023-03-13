@@ -17,6 +17,11 @@ export const StyledHome = styled.article`
         align-items: flex-end;
         justify-content: right;
         font-size: 1.8rem;
+        animation: reveal 0.25s ease-out 0.2s both;
+
+        &--recs {
+            background-image: url('/assets/hero_recs.jpg');
+        }
 
         &__box {
             background-color: ${rgba(colors.contrast.light, 0.8)};

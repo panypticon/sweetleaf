@@ -1,11 +1,13 @@
 import { useEffect, useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 
 import Button from '../../components/button/button';
 import ProductList from '../../components/productlist/productlist';
 import { modalContext } from '../../context/modalcontext';
 import DiscoverTasteModal from '../../components/discovertastemodal/discovertastemodal';
+import { useAppSelector } from '../../store/hooks';
+import { selectGlobalData } from '../../store/slices/globalData';
 
 import type { ModalContext } from '../../types';
 
@@ -18,6 +20,10 @@ const Home = (): JSX.Element => {
 
     const { setModal } = useContext(modalContext) as ModalContext;
 
+    const { user } = useAppSelector(selectGlobalData);
+
+    const navigate = useNavigate();
+
     useEffect(() => {
         location.pathname === '/verified' && messageAPI.info('Email address verified, you can now log in', 0);
     }, [location.pathname, messageAPI]);
@@ -25,18 +31,33 @@ const Home = (): JSX.Element => {
     return (
         <StyledHome className="Home">
             {contextHolder}
-            <section className="Home__section hero">
-                <div className="hero__box">
-                    <h1>
-                        Perfect Tea
-                        <br /> Begins with You
-                    </h1>
-                    <p>Answer 12 questions to discover your taste</p>
-                    <Button type="primary" onClick={() => setModal(<DiscoverTasteModal />)}>
-                        Get started
-                    </Button>
-                </div>
-            </section>
+            {!user?.preferences ? (
+                <section className="Home__section hero">
+                    <div className="hero__box">
+                        <h1>
+                            Perfect Tea
+                            <br /> Begins with You
+                        </h1>
+                        <p>Answer 12 questions to discover your taste</p>
+                        <Button type="primary" onClick={() => setModal(<DiscoverTasteModal />)}>
+                            Get started
+                        </Button>
+                    </div>
+                </section>
+            ) : (
+                <section className="Home__section hero hero--recs">
+                    <div className="hero__box">
+                        <h1>
+                            Zen Is
+                            <br /> Perfect Tea
+                        </h1>
+                        <p>Discover which teas fit your flavor profile</p>
+                        <Button type="primary" onClick={() => navigate(`/account/${user.id}/recommendations`)}>
+                            See recommendations
+                        </Button>
+                    </div>
+                </section>
+            )}
             <section className="Home__section all-stars">
                 <h2>All-Stars</h2>
                 <ProductList route="/api/v1/products/allstars" />
