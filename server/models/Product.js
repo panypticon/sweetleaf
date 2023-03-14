@@ -2,7 +2,7 @@ import { Schema, model } from 'mongoose';
 
 const categories = {
     tea: ['green', 'black', 'white', 'oolong', 'herbal'],
-    gear: []
+    gear: ['pot', 'cup', 'caddy']
 };
 
 const attributes = {
@@ -123,9 +123,12 @@ productSchema.set('toJSON', {
             ratings
         } = vals;
         // Calculation of ratings averages had to be moved to Express server because the free MongoDB Atlas tier doesn't support $function calls
-        ratings.average = ratings.ratings.reduce((acc, rating) => acc + rating.rating, 0) / ratings.ratings.length || 0;
-        delete ratings.ratings;
-        recentPurchases = recentPurchases.count;
+        if (ratings) {
+            ratings.average =
+                ratings.ratings.reduce((acc, rating) => acc + rating.rating, 0) / ratings.ratings.length || 0;
+            delete ratings.ratings;
+        }
+        if (recentPurchases) recentPurchases = recentPurchases.count;
         return {
             id,
             name,
