@@ -5,8 +5,9 @@ import useAuthProtection from '../../hooks/useAuthProtection';
 import Button from '../../components/button/button';
 import DiscoverTasteModal from '../../components/discovertastemodal/discovertastemodal';
 import { modalContext } from '../../context/modalcontext';
+import ProductGrid from '../../components/productgrid/productgrid';
 
-import type { ModalContext } from '../../types';
+import type { ModalContext, Product } from '../../types';
 
 import StyledRecommendations from './recommendations.styled';
 
@@ -15,16 +16,14 @@ const Recommendations = () => {
 
     const { setModal } = useContext(modalContext) as ModalContext;
 
-    const data = useLoaderData();
-
-    console.log(data);
+    const data = useLoaderData() as Product[];
 
     return (
         <StyledRecommendations className="Recommendations">
             <section className="Recommendations__section Recommendations__section--overview">
-                <h1>Your Recommendations</h1>
+                <h1>Tea Just for You</h1>
                 <p>
-                    These product recommendations are based on the <b>answers you gave in the Leaflet tea quiz.</b>
+                    Product recommendations are based on the <b>answers you gave in the Leaflet tea quiz.</b>
                 </p>
                 <p className="Recommendations__retake">
                     You have evolved as a human being?
@@ -33,7 +32,9 @@ const Recommendations = () => {
                     </Button>
                 </p>
             </section>
-            <section className="Recommendations__section">RECS</section>
+            <section className="Recommendations__section">
+                <ProductGrid data={data} />
+            </section>
         </StyledRecommendations>
     );
 };
