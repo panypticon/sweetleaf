@@ -83,6 +83,15 @@ class ProductController extends GenericController {
         }
     };
 
+    getCategories = async (_, res, next) => {
+        const docs = await this.Model.aggregate([
+            ...pipeline,
+            { $group: { _id: '$type', categories: { $addToSet: '$category' } } }
+        ]);
+        const data = docs.reduce((acc, type) => ({ ...acc, [type._id]: type.categories }), {});
+        res.status(200).json(data);
+    };
+
     getOne = async ({ params: { id } }, res, next) => {
         try {
             if (!Types.ObjectId.isValid(id)) throw new createError.NotFound();
