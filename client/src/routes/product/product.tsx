@@ -35,7 +35,7 @@ const tableColumns = [
 const ProductPage = (): JSX.Element => {
     const item = useLoaderData() as Product;
 
-    const { id, type, category, name, image, description, inventory, attributes, ratings } = item;
+    const { id, type, category, name, image, description, inventory, attributes = {}, ratings } = item;
 
     const tableData = useMemo(
         () =>
@@ -74,14 +74,16 @@ const ProductPage = (): JSX.Element => {
                     <div className="Product__data">
                         <div>{description}</div>
                         <PackageSelector inventory={inventory} onAddToCart={handleAddToCart} />
-                        <div className="Product__stats">
-                            <Table
-                                columns={tableColumns}
-                                dataSource={tableData}
-                                pagination={false}
-                                showHeader={false}
-                            />
-                        </div>
+                        {tableData.length > 0 && (
+                            <div className="Product__stats">
+                                <Table
+                                    columns={tableColumns}
+                                    dataSource={tableData}
+                                    pagination={false}
+                                    showHeader={false}
+                                />
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>
