@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import { useState, useMemo } from 'react';
+import { useRequest } from 'ahooks';
+import { Link } from 'react-router-dom';
+
+import { getJSONData } from '../../api/fetch';
+
+import type { MouseEvent } from 'react';
 
 import { StyledNavLink, StyledMenuBlade, StyledMenu } from './menu.styled';
-
-const menuItems = [
-    { label: 'Tea', link: '/tea', content: () => <div>Tea</div> },
-    { label: 'Gear', link: '/gear', content: () => <div>Gear</div> },
-    { label: 'About', link: '/about', content: () => <div>About</div> }
-];
 
 const MenuBlade = ({
     content,
     onMouseLeave
 }: {
     content: JSX.Element;
-    onMouseLeave: (evt: React.MouseEvent) => void;
+    onMouseLeave: (evt: MouseEvent) => void;
 }): JSX.Element => (
     <StyledMenuBlade className="MenuBlade" onMouseLeave={onMouseLeave}>
         {content}
@@ -23,7 +23,44 @@ const MenuBlade = ({
 const Menu = (): JSX.Element => {
     const [menuBladeContent, setMenuBladeContent] = useState<JSX.Element | null>(null);
 
-    const hideBladefromMenu = (evt: React.MouseEvent): void => {
+    const { data } = useRequest(() => getJSONData('/api/v1/products/categories'));
+
+    const menuItems = useMemo(
+        () => [
+            {
+                label: 'Tea',
+                link: '/tea',
+                content: () =>
+                    data.tea ? (
+                        <ul>
+                            {data.tea.map((category: string) => (
+                                <li key={category}>
+                                    <Link to={`/tea/${category}`}>{category}</Link>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : null
+            },
+            {
+                label: 'Gear',
+                link: '/gear',
+                content: () =>
+                    data.gear ? (
+                        <ul>
+                            {data.gear.map((category: string) => (
+                                <li key={category}>
+                                    <Link to={`/gear/${category}`}>{category}</Link>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : null
+            },
+            { label: 'About', link: '/about', content: null }
+        ],
+        [data]
+    );
+
+    const hideBladefromMenu = (evt: MouseEvent): void => {
         const node = evt.target as HTMLElement;
         const container = node.closest('ul.Menu');
         if (container) {
@@ -32,7 +69,7 @@ const Menu = (): JSX.Element => {
         }
     };
 
-    const hideBladefromBlade = (evt: React.MouseEvent): void => {
+    const hideBladefromBlade = (evt: MouseEvent): void => {
         const node = evt.target as HTMLElement;
         const container = node.closest('div.MenuBlade');
         if (container) {

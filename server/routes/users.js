@@ -5,6 +5,7 @@ import connect from 'connect-mongodb-session';
 import userController from '../controllers/user.js';
 import { authLocal, authGoogle, isAdmin, isUserOrAdmin } from '../utils/auth.js';
 import ordersRouter from './orders.js';
+import productsRouter from './products.js';
 
 const MongoDBStore = connect(session);
 const store = new MongoDBStore({
@@ -34,5 +35,6 @@ usersRouter
     .delete(isUserOrAdmin, userController.delete);
 usersRouter.route('/:id/password').put(isUserOrAdmin, userController.updatePassword);
 usersRouter.use('/:id/orders', ordersRouter);
+usersRouter.use('/:id/recommendations', isUserOrAdmin, productsRouter);
 
 export default usersRouter;

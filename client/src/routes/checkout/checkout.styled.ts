@@ -15,7 +15,7 @@ export const StyledCheckout = styled.article`
     .Checkout {
         &__section {
             padding: 0 ${defaults.layoutPadding};
-            margin: ${defaults.layoutPadding} 0;
+            margin: calc(${defaults.layoutPadding} * 3) 0;
             max-width: 61.80339887%;
 
             @media (max-width: ${breakpoints.lg}) {
@@ -23,8 +23,8 @@ export const StyledCheckout = styled.article`
                 max-width: unset;
             }
 
-            &:not(:first-of-type) {
-                margin: calc(${defaults.layoutPadding} * 3) 0;
+            &:first-of-type {
+                margin: ${defaults.layoutPadding} 0;
             }
         }
 

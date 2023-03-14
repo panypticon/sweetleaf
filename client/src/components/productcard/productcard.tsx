@@ -1,5 +1,6 @@
 import { CompassFilled, StarFilled } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import startCase from 'lodash/startCase';
 
 import { colors } from '../../root.styled';
 import Button from '../button/button';
@@ -40,19 +41,23 @@ const ProductCard = ({
                 </div>
                 <div className="ProductCard__header-attributes">
                     <span className="ProductCard__header-attributes-attribute ProductCard__header-category">
-                        <span
-                            className={`ProductCard__header-category-color ProductCard__header-category-color__${category}`}
-                        ></span>
-                        {category}
+                        {type === 'tea' && (
+                            <span
+                                className={`ProductCard__header-category-color ProductCard__header-category-color__${category}`}
+                            ></span>
+                        )}
+                        {type === 'gear' ? startCase(category) : category}
                     </span>
                     <span className="ProductCard__header-attributes-attribute ProductCard__header-rating">
                         <StarFilled style={{ color: colors.oolong.standard }} />
                         {ratings?.average || '–'} ({ratings?.count})
                     </span>
-                    <span className="ProductCard__header-attributes-attribute ProductCard__header-taste">
-                        <CompassFilled style={{ color: colors.contrast['shade-5'] }} />
-                        {attributes?.taste && attributes?.taste.join(', ')}
-                    </span>
+                    {type === 'tea' && (
+                        <span className="ProductCard__header-attributes-attribute ProductCard__header-taste">
+                            <CompassFilled style={{ color: colors.contrast['shade-5'] }} />
+                            {attributes?.taste && attributes?.taste.join(', ')}
+                        </span>
+                    )}
                 </div>
             </div>
             <div className="ProductCard__body">
