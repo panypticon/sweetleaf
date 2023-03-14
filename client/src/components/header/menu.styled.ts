@@ -38,4 +38,18 @@ export const StyledMenuBlade = styled.div`
     max-width: ${defaults.layoutMaxWidth};
     padding: ${defaults.layoutPadding};
     margin: 0 auto;
+
+    a:link,
+    a:visited,
+    a:hover,
+    a:active {
+        text-decoration: none;
+        color: ${colors.contrast.dark};
+        font-weight: 600;
+    }
+
+    a:hover {
+        border-bottom: 0.2rem solid ${colors.steamed.standard};
+        padding-bottom: 0.2rem;
+    }
 `;
