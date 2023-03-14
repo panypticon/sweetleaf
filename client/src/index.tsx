@@ -7,7 +7,6 @@ import { Provider as ReduxProvider } from 'react-redux';
 import reportWebVitals from './reportWebVitals';
 import Root from './root';
 import Home from './routes/home/home';
-import Teas from './routes/teas';
 import Product from './routes/product/product';
 import Account from './routes/account/account';
 import Orders from './routes/account/orders';
@@ -17,6 +16,8 @@ import { ModalProvider } from './context/modalcontext';
 import { getJSONData } from './api/fetch';
 import Checkout from './routes/checkout/checkout';
 import Recommendations from './routes/recommendations/recommendations';
+import About from './routes/about/about';
+import Products from './routes/products/products';
 
 import './index.scss';
 
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
         children: [
             { path: '/', element: <Home /> },
             { path: '/verified', element: <Home /> },
-            { path: '/tea', element: <Teas /> },
+            { path: '/about', element: <About /> },
             {
                 path: '/account',
                 children: [
@@ -52,7 +53,17 @@ const router = createBrowserRouter([
                 element: <Product />,
                 loader: async ({ params: { id } }) => await getJSONData(`/api/v1/products/${id}`)
             },
-            { path: '/:product/:category', element: <Teas /> }
+            {
+                path: '/:type',
+                element: <Products />,
+                loader: async ({ params: { type } }) => await getJSONData(`/api/v1/products/query/?type=${type}`)
+            },
+            {
+                path: '/:type/:category',
+                element: <Products />,
+                loader: async ({ params: { type, category } }) =>
+                    await getJSONData(`/api/v1/products/query/?type=${type}&category=${category}`)
+            }
         ]
     }
 ]);
