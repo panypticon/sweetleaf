@@ -7,7 +7,7 @@ const categories = {
 
 const attributes = {
     tea: {
-        origin: ['china', 'japan', 'korea', 'darjeeling'],
+        origin: ['china', 'japan', 'korea', 'darjeeling', 'formosa', null],
         flavored: [true, false],
         taste: ['aromatic', 'astringent', 'flowery', 'fresh', 'fragrant', 'fruity', 'light', 'jasmine']
     },
