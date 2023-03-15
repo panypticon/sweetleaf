@@ -7,6 +7,33 @@ export const StyledHome = styled.article`
     .Home {
         &__section {
             padding: calc(${defaults.layoutPadding} * 2) ${defaults.layoutPadding};
+
+            &--true-colors {
+                background-color: ${colors.steamed.standard};
+                color: ${colors.contrast.light};
+                padding-bottom: calc(${defaults.layoutPadding} * 3);
+
+                h2 {
+                    color: inherit;
+                    margin-bottom: ${defaults.layoutPadding};
+                }
+
+                ul {
+                    display: grid;
+                    grid-template-columns: repeat(5, 1fr);
+                    gap: calc(${defaults.layoutPadding} * 2);
+                    margin: 0 ${defaults.layoutPadding};
+                    align-items: center;
+
+                    @media (max-width: ${breakpoints.lg}) {
+                        grid-template-columns: repeat(3, 1fr);
+                    }
+
+                    @media (max-width: ${breakpoints.sm}) {
+                        grid-template-columns: repeat(2, 1fr);
+                    }
+                }
+            }
         }
     }
 

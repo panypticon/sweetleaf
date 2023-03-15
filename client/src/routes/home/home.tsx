@@ -8,6 +8,8 @@ import { modalContext } from '../../context/modalcontext';
 import DiscoverTasteModal from '../../components/discovertastemodal/discovertastemodal';
 import { useAppSelector } from '../../store/hooks';
 import { selectGlobalData } from '../../store/slices/globalData';
+import TeaColor from '../../components/teacolor/teacolor';
+import teaColorsData from './teacolorsdata';
 
 import type { ModalContext } from '../../types';
 
@@ -58,12 +60,17 @@ const Home = (): JSX.Element => {
                     </div>
                 </section>
             )}
-            <section className="Home__section all-stars">
+            <section className="Home__section Home__section--all-stars">
                 <h2>All-Stars</h2>
                 <ProductList route="/api/v1/products/allstars" />
             </section>
-            <section className="Home__section true-colors">
+            <section className="Home__section Home__section--true-colors">
                 <h2>True Colors</h2>
+                <ul>
+                    {teaColorsData.map(color => (
+                        <TeaColor key={color.label} data={color} />
+                    ))}
+                </ul>
             </section>
         </StyledHome>
     );
