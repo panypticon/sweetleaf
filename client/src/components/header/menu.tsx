@@ -34,7 +34,7 @@ const Menu = (): JSX.Element => {
                     data.tea ? (
                         <ul>
                             {data.tea.map((category: string) => (
-                                <li key={category}>
+                                <li key={category} onClick={() => setMenuBladeContent(null)}>
                                     <Link to={`/tea/${category}`}>{category}</Link>
                                 </li>
                             ))}
@@ -48,7 +48,7 @@ const Menu = (): JSX.Element => {
                     data.gear ? (
                         <ul>
                             {data.gear.map((category: string) => (
-                                <li key={category}>
+                                <li key={category} onClick={() => setMenuBladeContent(null)}>
                                     <Link to={`/gear/${category}`}>{category}</Link>
                                 </li>
                             ))}
