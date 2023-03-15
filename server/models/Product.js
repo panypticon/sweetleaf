@@ -7,7 +7,7 @@ const categories = {
 
 const attributes = {
     tea: {
-        origin: ['china', 'japan', 'korea', 'darjeeling'],
+        origin: ['china', 'japan', 'korea', 'darjeeling', 'formosa', null],
         flavored: [true, false],
         taste: ['aromatic', 'astringent', 'flowery', 'fresh', 'fragrant', 'fruity', 'light', 'jasmine']
     },
@@ -99,7 +99,7 @@ const productSchema = new Schema(
 );
 
 productSchema.virtual('image').get(function () {
-    return `/assets/${this.id}.jpeg`;
+    return `/assets/${this.id}.jpg`;
 });
 
 productSchema.virtual('new').get(function () {

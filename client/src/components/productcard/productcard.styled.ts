@@ -66,6 +66,18 @@ const StyledProductCard = styled.li`
                     &__white {
                         background-color: ${colors.contrast.light};
                     }
+
+                    &__black {
+                        background-color: ${colors.fermented.standard};
+                    }
+
+                    &__oolong {
+                        background-color: ${colors.oolong.standard};
+                    }
+
+                    &__herbal {
+                        background-color: ${colors.herbal.standard};
+                    }
                 }
             }
 

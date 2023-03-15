@@ -62,19 +62,19 @@ class ProductController extends GenericController {
                 .filter(doc => {
                     const objectified = doc.toObject();
                     return (
-                        objectified.new ||
+                        Date.now() - Date.parse(objectified.createdAt) < 28 * 24 * 60 * 60 * 1000 ||
                         (objectified.ratings?.ratings.reduce((acc, rating) => acc + rating.rating, 0) /
                             objectified.ratings?.ratings.length || 0) >= 4.25 ||
                         objectified.recentPurchases?.count > 25
                     );
                 })
-                .slice(0, 24);
-            if (results.length < 24) {
+                .slice(0, 12);
+            if (results.length < 12) {
                 const foundIDs = results.flatMap(result => result.id);
                 results.splice(
                     results.length,
                     0,
-                    ...hydrated.filter(product => !foundIDs.includes(product.id)).slice(0, 24 - results.length)
+                    ...hydrated.filter(product => !foundIDs.includes(product.id)).slice(0, 12 - results.length)
                 );
             }
             res.status(200).json(results);
@@ -88,7 +88,10 @@ class ProductController extends GenericController {
             ...pipeline,
             { $group: { _id: '$type', categories: { $addToSet: '$category' } } }
         ]);
-        const data = docs.reduce((acc, type) => ({ ...acc, [type._id]: type.categories }), {});
+        const data = docs.reduce(
+            (acc, type) => ({ ...acc, [type._id]: type.categories.sort((a, b) => a.localeCompare(b)) }),
+            {}
+        );
         res.status(200).json(data);
     };
 
