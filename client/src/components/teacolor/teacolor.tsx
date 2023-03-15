@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom';
 
 import StyledTeaColor from './teacolor.styled';
 
-interface TeaColor {
+interface TeaColorDef {
     img: string;
     label: string;
     link: string;
 }
 
-const TeaColor = ({ data: { img, label, link } }: { data: TeaColor }): JSX.Element => (
+const TeaColor = ({ data: { img, label, link } }: { data: TeaColorDef }): JSX.Element => (
     <StyledTeaColor className="TeaColor">
         <Link to={link}>
             <img src={img} alt={label} />
