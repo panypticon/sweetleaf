@@ -87,7 +87,11 @@ const Menu = (): JSX.Element => {
         <>
             <StyledMenu className="Menu" onMouseLeave={hideBladefromMenu}>
                 {menuItems.map(({ label, link, content }, i) => (
-                    <li key={i} onMouseEnter={() => setMenuBladeContent(content)}>
+                    <li
+                        key={i}
+                        onMouseEnter={() => setMenuBladeContent(content)}
+                        onClick={() => setMenuBladeContent(null)}
+                    >
                         <StyledNavLink to={link}>{label}</StyledNavLink>
                     </li>
                 ))}
