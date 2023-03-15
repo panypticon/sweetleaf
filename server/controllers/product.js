@@ -88,7 +88,10 @@ class ProductController extends GenericController {
             ...pipeline,
             { $group: { _id: '$type', categories: { $addToSet: '$category' } } }
         ]);
-        const data = docs.reduce((acc, type) => ({ ...acc, [type._id]: type.categories }), {});
+        const data = docs.reduce(
+            (acc, type) => ({ ...acc, [type._id]: type.categories.sort((a, b) => a.localeCompare(b)) }),
+            {}
+        );
         res.status(200).json(data);
     };
 
