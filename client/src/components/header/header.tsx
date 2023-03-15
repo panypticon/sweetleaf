@@ -103,7 +103,9 @@ const Header = (): JSX.Element => {
                                     <Link className="link" to={`/${type}/id/${id}`}>
                                         <span className="link__name">{name}</span>
                                         <span className="link__type">{capitalize(type)}</span>
-                                        <span className={`link__category link__category--${category}`}></span>
+                                        {type === 'tea' && (
+                                            <span className={`link__category link__category--${category}`}></span>
+                                        )}
                                     </Link>
                                 </li>
                             ))}
