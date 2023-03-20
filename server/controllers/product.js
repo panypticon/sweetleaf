@@ -3,6 +3,7 @@ import { Types } from 'mongoose';
 
 import Product from '../models/Product.js';
 import GenericController from './generic.js';
+import User from '../models/User.js';
 
 const pipeline = [
     {
@@ -45,10 +46,21 @@ class ProductController extends GenericController {
         super(Model);
     }
 
-    getAll = async (_, res, next) => {
+    getAll = async ({ params: { id }, baseUrl }, res, next) => {
         try {
-            const docs = await this.Model.aggregate(pipeline).then(docs => docs.map(doc => this.Model.hydrate(doc)));
-            res.status(200).json(docs);
+            if (id && baseUrl.includes('recommendations')) {
+                const { preferences } = await User.findById(id);
+                if (!preferences) throw new createError.Unauthorized();
+                const docs = await this.Model.aggregate(pipeline).then(docs =>
+                    docs.map(doc => this.Model.hydrate(doc))
+                );
+                res.status(200).json(docs);
+            } else {
+                const docs = await this.Model.aggregate(pipeline).then(docs =>
+                    docs.map(doc => this.Model.hydrate(doc))
+                );
+                res.status(200).json(docs);
+            }
         } catch (err) {
             next(err);
         }
